@@ -33,6 +33,29 @@ jobs:
             done
             "
 
+      - name: Compile all LaTeX files
+              uses: docker://ghcr.io/xu-cheng/texlive-full:latest
+              with:
+                args: |
+                  /bin/bash -c "
+                  find . -name '*.tex' -not -path '*/.*' | while read -r file; do
+                    dir=$(dirname \"$file\")
+                    base=$(basename \"$file\")
+                    pdf_file=\"${file%.tex}.pdf\"
+
+                    if [ -f \"$pdf_file\" ] && [ \"$pdf_file\" -nt \"$file\" ]; then
+                      echo \"Skipping $file (no changes detected)\"
+                      continue
+                    fi
+
+                    echo \"Compiling $file...\"
+                    cd \"$dir\"
+                    pdflatex -interaction=nonstopmode -shell-escape \"$base\"
+                    pdflatex -interaction=nonstopmode -shell-escape \"$base\"
+                    cd - > /dev/null
+                  done
+                  "
+
       - name: Commit and push compiled PDFs
         run: |
           git config --global user.name 'github-actions[bot]'
