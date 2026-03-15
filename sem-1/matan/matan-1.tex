@@ -1,0 +1,2867 @@
+\documentclass[a4paper,12pt]{article}
+
+%---------------------------------
+% Кодировка и язык
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+
+%---------------------------------
+% Математика и графика
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{graphicx}
+\usepackage[most]{tcolorbox}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{amsfonts}
+\usepackage{tikz} % Добавляем TikZ для красивых графиков
+\usetikzlibrary{arrows, decorations.pathreplacing}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{caption}
+\usepackage{multicol}
+
+%---------------------------------
+% Геометрия страницы
+\usepackage{geometry}
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+%---------------------------------
+% Списки и заголовки
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\usepackage[unicode, colorlinks=true, linkcolor=blue, urlcolor=blue]{hyperref}
+
+%---------------------------------
+% Колонтитулы
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+%---------------------------------
+% Команда для защиты математики в оглавлении
+\newcommand{\tsubsection}[2]{\subsection[#1]{\texorpdfstring{#2}{#1}}}
+
+%---------------------------------
+% Настройка содержания
+\renewcommand{\contentsname}{Содержание}
+\renewcommand{\cfttoctitlefont}{\hfill\Large\bfseries}
+\renewcommand{\cftaftertoctitle}{\hfill}
+\setlength{\cftbeforetoctitleskip}{0pt}
+\setlength{\cftaftertoctitleskip}{1em}
+\setlength{\cftsecindent}{0em}
+\setlength{\cftsubsecindent}{1.5em}
+\setlength{\cftbeforesecskip}{0.5em}
+\setlength{\cftbeforesubsecskip}{0.3em}
+
+%---------------------------------
+% Заголовки разделов
+\titleformat{\section}
+{\normalfont\Large\bfseries}{\thesection.}{1em}{}
+
+\titleformat{\subsection}
+{\normalfont\large\bfseries}{\thesubsection.}{1em}{}
+
+%---------------------------------
+% Стиль для доказательств, замечаний и следствий
+\newcommand{\myproof}{\textbf{Доказательство.}\ }
+\newcommand{\myremark}{\textbf{Замечание.}\ }
+\newcommand{\mycorollary}{\textbf{Следствие.}\ }
+
+%---------------------------------
+% Цветные боксы для разных типов информации
+\newtcolorbox{definitionbox}[2][]{colback=blue!5, colframe=blue!60!black, fonttitle=\bfseries, title=Определение #2, #1}
+\newtcolorbox{theorembox}[2][]{colback=red!5, colframe=red!60!black, fonttitle=\bfseries, title=Теорема #2, #1}
+\newtcolorbox{lemmabox}[2][]{colback=orange!5, colframe=orange!60!black, fonttitle=\bfseries, title=Лемма #2, #1}
+\newtcolorbox{corollarybox}[2][]{colback=green!5, colframe=green!60!black, fonttitle=\bfseries, title=Следствие #2, #1}
+\newtcolorbox{examplebox}[2][]{colback=gray!5, colframe=gray!50!black, fonttitle=\bfseries, title=Пример #2, #1}
+\newtcolorbox{remarkbox}[2][]{colback=yellow!5, colframe=yellow!60!black, fonttitle=\bfseries, title=Замечание #2, #1}
+\newtcolorbox{notebook}[2][]{colback=purple!5, colframe=purple!60!black, fonttitle=\bfseries, title=Заметочка #2, #1}
+\newtcolorbox{importantbox}[2][]{colback=red!10, colframe=red!80!black, fonttitle=\bfseries, title=Важно! #2, #1}
+
+%---------------------------------
+% Колонтитулы
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[L]{\footnotesize Конспект по матанализу}
+\fancyfoot[R]{\footnotesize \thepage\ / \pageref{LastPage}}
+
+%---------------------------------
+% Типографика
+\sloppy
+
+%-------------------------------------------------
+\begin{document}
+	
+	% Титульная страница
+	\begin{titlepage}
+		\centering
+		{\LARGE\bfseries Конспект по математическому анализу\par}
+		\vspace{0.5cm}
+		{\Large ПИ СПБГУ\par}
+		\vspace{0.3cm}
+		{\Large Семестр 1\par}
+		
+		\vspace{2cm}
+		
+		{\large Январь 2026\par}
+		
+		\vfill
+		
+		{\footnotesize составлен по учебнику Виноградова и др.\par}
+	\end{titlepage}
+	
+	\newpage
+	\tableofcontents
+	
+	
+	
+	
+	
+	
+	
+	% ==================== РАЗДЕЛ 1: ОСНОВНЫЕ СВОЙСТВА ВЕЩЕСТВЕННЫХ ЧИСЕЛ ====================
+	\newpage
+	\section{Основные свойства вещественных чисел}
+	
+	\subsection{Аксиома о существовании супремума (1 вопрос)}
+	
+	\begin{definitionbox}{1.1: Супремум}
+		Пусть $E \subset \mathbb{R}$, $E \neq \varnothing$, $E$ ограничено сверху. Из этого следует, что существует такое число $a_0 \in \mathbb{R}$, которое является верхней границей $E$ ($\forall x \in E \colon x \le a_0$), и для любого $c < a_0$ число $c$ не является верхней границей, т. е. $\exists x_0 \in E \colon x_0 > c$.
+		
+		Наименьшая из верхних границ множества $E$ называется \textit{точной верхней границей}, или \textit{верхней гранью}, или \textit{супремумом} множества $E$ и обозначается $a_0 = \sup E$.
+	\end{definitionbox}
+	
+	\begin{remarkbox}{1.2: Критерий супремума}
+		Определение супремума через неравенства:
+		\[
+		b = \sup E \iff 
+		\begin{cases}
+			\forall x \in E \;\; x \leqslant b, \\
+			\forall \varepsilon > 0 \;\; \exists x \in E \colon x > b - \varepsilon.
+		\end{cases}
+		\]
+		Ясно, что если в $E$ есть наибольший элемент, он и будет $\sup E$. В противном случае существование супремума гарантируется аксиомой полноты.
+	\end{remarkbox}
+	
+	\begin{center}
+		\begin{tikzpicture}[scale=1.2]
+			\draw[->] (-0.5,0) -- (5,0) node[right] {$\mathbb{R}$};
+			\draw[thick, blue] (1,0.1) -- (1,-0.1) node[below] {$a$};
+			\draw[thick, blue] (4,0.1) -- (4,-0.1) node[below] {$b$};
+			\draw[very thick, red] (1.2,0) -- (3.8,0);
+			\foreach \x in {1.5,2,2.5,3,3.5} {
+				\fill[red] (\x,0) circle (1.5pt);
+			}
+			\node[red] at (2.5,0.3) {$E$};
+			\draw[<->, thick, green!50!black] (1,0.3) -- (4,0.3) node[midway, above] {$\sup E = b$};
+		\end{tikzpicture}
+		\captionof{figure}{Супремум множества $E$ — наименьшая из верхних границ}
+	\end{center}
+	
+	\vspace{0.5cm}
+	\subsection{Существование инфимума (2 вопрос)}
+	
+	\begin{definitionbox}{2.1: Инфимум}
+		Пусть $E \subset \mathbb{R}$, $E \neq \varnothing$, $E$ ограничено снизу. Наибольшая из нижних границ множества $E$ называется \textit{точной нижней границей}, или \textit{инфимумом} и обозначается $\inf E$.
+	\end{definitionbox}
+	
+	\begin{theorembox}{2.2: О существовании инфимума}
+		Для любого непустого ограниченного снизу множества $A \subset \mathbb{R}$ существует инфимум.
+	\end{theorembox}
+	
+	\myproof
+	Рассмотрим множество $-B = \{ -a : a \in A \}$. 
+	\begin{enumerate}
+		\item Множество $-B$ непусто, так как $A$ непусто.
+		\item $-B$ ограничено сверху: если $m$ было нижней гранью $A$, то $-m$ стало верхней гранью $-B$. 
+		\item По аксиоме о существовании супремума существует $\sup(-B)$.
+	\end{enumerate}
+	Положим $\inf A := -\sup(-B)$. 
+	Если $l = -\sup(-B)$, то $\forall a \in A \colon -a \le \sup(-B) \Rightarrow a \ge l$. Таким образом, $l$ является нижней гранью. \qed
+	
+	\begin{remarkbox}{2.3: Критерий инфимума}
+		Определение инфимума через неравенства:
+		\[
+		a = \inf E \iff 
+		\begin{cases}
+			\forall x \in E \;\; x \geqslant a, \\
+			\forall \varepsilon > 0 \;\; \exists x \in E \colon x < a + \varepsilon.
+		\end{cases}
+		\]
+	\end{remarkbox}
+	
+	\begin{center}
+		\begin{tikzpicture}[scale=1.2]
+			\draw[->] (-0.5,0) -- (5,0) node[right] {$\mathbb{R}$};
+			\draw[thick, blue] (1,0.1) -- (1,-0.1) node[below] {$a = \inf E$};
+			\draw[thick, blue] (4,0.1) -- (4,-0.1) node[below] {$b$};
+			\draw[very thick, red] (1.2,0) -- (3.8,0);
+			\foreach \x in {1.5,2,2.5,3,3.5} {
+				\fill[red] (\x,0) circle (1.5pt);
+			}
+			\node[red] at (2.5,0.3) {$E$};
+			\draw[<->, thick, green!50!black] (1,0.5) -- (4,0.5) node[midway, above] {нижние границы};
+			\draw[thick, green!50!black, <-] (1,0.3) -- (0.5,0.3);
+		\end{tikzpicture}
+		\captionof{figure}{Инфимум множества $E$ — наибольшая из нижних границ}
+	\end{center}
+	
+	
+	
+	
+	
+	
+	% ==================== РАЗДЕЛ 2: ПРЕДЕЛЫ ПОСЛЕДОВАТЕЛЬНОСТЕЙ ====================
+	\newpage
+	\section{Пределы последовательностей}
+	\subsection{Предел последовательности; единственность предела, ограниченность (3 вопрос)}
+	
+	\begin{definitionbox}{3.1: Предел последовательности}
+		Говорят, что $a$ является \textbf{пределом последовательности} $x_n$, если:
+	\[ \forall \varepsilon > 0 \;\; \exists N \in \mathbb{N} \text{ т. ч. } \forall n > N \text{ выполняется } |x_n - a| < \varepsilon \text{.} \]
+	Обозначение: $\lim\limits_{n \to \infty} x_n = a$ или $x_n \xrightarrow[n \to \infty]{} a$.
+	\end{definitionbox}
+	
+	\begin{center}
+	\begin{tikzpicture}[scale=0.8]
+		\draw[->] (0,0) -- (10,0) node[right] {$n$};
+		\draw[->] (0,0) -- (0,4) node[above] {$x_n$};
+		\draw[thick, blue] (0,2) -- (10,2) node[right] {$a$};
+		\draw[dashed, blue] (0,2.5) -- (10,2.5);
+		\draw[dashed, blue] (0,1.5) -- (10,1.5);
+		\draw[<->, blue] (9.5,1.5) -- (9.5,2.5) node[midway, right] {$2\varepsilon$};
+		\foreach \x in {1,...,9} {
+			\pgfmathsetmacro{\y}{2 + 0.8*rand}
+			\fill[red] (\x,\y) circle (2pt);
+		}
+		\draw[thick, green!50!black, ->] (5,0.5) -- (8,1.2) node[below right] {начиная с $N$, все точки в $\varepsilon$-полосе};
+	\end{tikzpicture}
+	\captionof{figure}{Геометрический смысл предела последовательности}
+	\end{center}
+	
+	\begin{theorembox}{3.2: Единственность предела}
+	Если $x_n \to a$ и $x_n \to b$ при $n \to \infty$, то $a = b$.
+	\end{theorembox}
+	
+	\myproof
+	Пусть $a \neq b$, тогда положим $\varepsilon = \frac{|a-b|}{2} > 0$.
+	\begin{itemize}
+	\item $\exists N_1 \colon \forall n > N_1 \;\; |x_n - a| < \frac{\varepsilon}{2}$.
+	\item $\exists N_2 \colon \forall n > N_2 \;\; |x_n - b| < \frac{\varepsilon}{2}$.
+	\end{itemize}
+	Пусть $N = \max(N_1, N_2)$, тогда для $n > N$ выполняются оба неравенства:
+	\[ |a-b| \le |a - x_n| + |x_n - b| < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon \text{.} \]
+	Т. е. $|a-b| < \frac{|a-b|}{2}$, что невозможно при $a \neq b$. Следовательно, $a=b$. \qed
+	
+	\begin{center}
+	\begin{tikzpicture}
+		\draw[->] (-2,0) -- (4,0);
+		\draw[thick, blue] (0,0.1) -- (0,-0.1) node[below] {$a$};
+		\draw[thick, blue] (2,0.1) -- (2,-0.1) node[below] {$b$};
+		\draw[decorate, decoration={brace, mirror, amplitude=10pt}, red] (0,0.3) -- (2,0.3) node[midway, above, yshift=5pt] {$\varepsilon = \frac{|a-b|}{2}$};
+		\draw[red, dashed] (0,0.2) circle (0.5);
+		\draw[red, dashed] (2,0.2) circle (0.5);
+		\node[red] at (-0.5,1) {невозможно};
+	\end{tikzpicture}
+	\captionof{figure}{К доказательству единственности предела}
+	\end{center}
+	
+	\begin{definitionbox}{3.2.1: Ограниченность последовательности}
+	Последовательность $\{x_n\}$ называется \textbf{ограниченной}, если существует такое число $M > 0$, что для всех $n \in \mathbb{N}$ выполняется неравенство:
+	\[ |x_n| \le M \]
+	\end{definitionbox}
+	
+	\begin{theorembox}{3.3: Ограниченность сходящейся последовательности}
+	Если $\lim\limits_{n \to \infty} a_n = a$, то последовательность ограничена.
+	\end{theorembox}
+	
+	\myproof
+	По определению предела $\forall \varepsilon > 0 \;\; \exists N \in \mathbb{N}, \forall n > N \;\; |a_n - a| < \varepsilon$.
+	Пусть $\varepsilon = 1$, тогда $\exists N, \forall n > N \;\; |a_n - a| < 1 \Rightarrow |a_n| < |a| + 1$.
+	Рассмотрим остальные члены. Пусть $M_1 = \max(|x_1|, |x_2|, \dots, |x_N|)$. 
+	Т. к. любой $|x_n| < |a|+1$ для $n > N$, то возьмем $M = \max(M_1, |a|+1)$. Тогда для $\forall n \in \mathbb{N} \colon x_n < M$. \qed
+	
+	
+	\vspace{0.5cm}
+	\begin{importantbox}{Замечание}
+	Ограниченность является \textbf{необходимым}, но \textbf{не достаточным} условием сходимости. 
+	Например, последовательность $x_n = (-1)^n$ ограничена ($|x_n| \le 1$), но не имеет предела.
+	\end{importantbox}
+	
+	
+	
+	
+	
+	
+	
+	\vspace{1cm}
+	\subsection{Свойства пределов (4-6 вопрос)}
+	
+	\begin{theorembox}{4.1: Предел константы}
+		$\lim\limits_{n \to \infty} c = c$.
+	\end{theorembox}
+	\myproof По определению $|c - c| = 0 < \varepsilon \Rightarrow c \text{ — предел } c$. \qed
+	
+	\begin{theorembox}{4.2: Предел произведения константы на последовательность}
+		$\lim\limits_{n \to \infty} (c x_n) = ca$.
+	\end{theorembox}
+	\myproof
+	Если $c = 0$, то $0 \cdot x_n \to 0 \cdot a$.
+	Если $c \neq 0$, то по определению предела $|x_n - a| < \varepsilon \Rightarrow |c x_n - ca| < |c|\varepsilon \Rightarrow |c||x_n - a| < |c|\varepsilon$. Значит, $\lim\limits_{n \to \infty} c x_n = ca$. \qed
+	
+	\begin{theorembox}{4.3: Предел суммы последовательностей}
+		Пусть $x_n \to a$ и $y_n \to b$. Тогда $\lim (x_n + y_n) = a + b$.
+	\end{theorembox}
+	\myproof
+	$\forall \varepsilon > 0 \;\; \exists N_1, \forall n > N_1 \colon |x_n - a| < \varepsilon$ и $\exists N_2, \forall n > N_2 \colon |y_n - b| < \varepsilon$.
+	Пусть $N = \max(N_1, N_2)$, тогда для $\forall n > N$:
+	\[ |(x_n + y_n) - (a + b)| \le |x_n - a| + |y_n - b| < \varepsilon + \varepsilon = 2\varepsilon \text{.} \]
+	В силу произвольности $\varepsilon$, получаем нужное. \qed
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\draw[->] (0,0) -- (5,0) node[right] {$n$};
+			\draw[->] (0,0) -- (0,4) node[above] {$x_n, y_n$};
+			\draw[thick, blue, domain=0.5:4.5, samples=20] plot (\x, {2 + sin(\x r)}) node[right] {$x_n \to a$};
+			\draw[thick, red, domain=0.5:4.5, samples=20] plot (\x, {1 + 0.5*cos(\x r)}) node[right] {$y_n \to b$};
+			\draw[thick, green!50!black, domain=0.5:4.5, samples=20] plot (\x, {3 + sin(\x r) + 0.5*cos(\x r)}) node[right] {$x_n + y_n \to a+b$};
+		\end{tikzpicture}
+		\captionof{figure}{Предел суммы последовательностей}
+	\end{center}
+	
+	\begin{theorembox}{5: Предел произведения последовательностей}
+		$\lim\limits_{n \to \infty} (a_n \cdot b_n) = a \cdot b$.
+	\end{theorembox}
+	\myproof
+	$|a_n b_n - ab| = |a_n(b_n - b) + b(a_n - a)|$. По неравенству треугольника:
+	$|a_n b_n - ab| \le |a_n||b_n - b| + |b||a_n - a|$.
+	Т. к. $a_n$ ограничена, $\exists M \colon |a_n| \le M$. Конкретно, для всех достаточно больших $n > N_0$, $|a_n - a| < 1 \Rightarrow |a_n| \le |a| + 1$. Аналогично $|b_n| \le |b| + 1$.
+	Разобьем $\varepsilon$ на две части:
+	\[ \delta_1 = \frac{\varepsilon}{2(|a|+1)}, \quad \delta_2 = \frac{\varepsilon}{2(|b|+1)} \text{.} \]
+	Тогда при $|b_n - b| < \delta_1$ и $|a_n - a| < \delta_2$ имеем:
+	\[ |a_n b_n - ab| \le (|a|+1)\delta_1 + |b|\delta_2 \le \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon \text{.} \] \qed
+	
+	\begin{theorembox}{6: Предел частного последовательностей}
+		Пусть $x_n \to a$, $x_n \neq 0$ и $a \neq 0$. Тогда $\lim\limits_{n \to \infty} \frac{1}{x_n} = \frac{1}{a}$.
+	\end{theorembox}
+	\myproof
+	Пусть $\varepsilon_0 = \frac{1}{2}|a| > 0$.
+	$x_n \xrightarrow[n \to \infty]{} a \Rightarrow \exists N_0 \in \mathbb{N} \text{ т. ч. } \forall n > N_0 \Rightarrow |x_n - a| < \varepsilon_0$.
+	Тогда $|x_n| = |x_n - a + a| \ge |a| - \frac{1}{2}|a| = \frac{1}{2}|a|$.
+	Отсюда $\frac{1}{|x_n|} < \frac{2}{|a|}$ (*).
+	Для $\forall \varepsilon > 0 \;\; \exists N_1 \colon \forall n > N_1 \Rightarrow |x_n - a| < \varepsilon$ (**).
+	Пусть $N = \max(N_0, N_1)$, тогда при $n > N$ имеем (*) и (**):
+	\[ \left| \frac{1}{x_n} - \frac{1}{a} \right| = \left| \frac{a - x_n}{x_n a} \right| = \frac{1}{|x_n|} \cdot \frac{1}{|a|} |x_n - a| < \frac{2}{|a|} \cdot \frac{1}{|a|} \cdot \varepsilon = \frac{2\varepsilon}{|a|^2} \text{.} \]
+	Далее $\lim \frac{y_n}{x_n} = \lim y_n \cdot \lim \frac{1}{x_n}$ по ранее доказанному. \qed
+	
+	
+	
+	
+	
+	\subsection{Пределы и неравенства (7 вопрос)}
+	
+	\begin{theorembox}{7.1: Предельный переход в неравенствах}
+		Пусть $\{x_n\}$ и $\{y_n\}$ — вещественные последовательности, причём:
+		\begin{enumerate}
+			\item $x_n \le y_n$ для всех $n \in \mathbb{N}$;
+			\item существуют пределы $\lim_{n \to \infty} x_n = a$, $\lim_{n \to \infty} y_n = b$, где $a, b \in \mathbb{R}$.
+		\end{enumerate}
+		Тогда $a \le b$.
+	\end{theorembox}
+	
+	\myproof (от противного)
+	Предположим, что $a > b$. Положим $\varepsilon = \frac{a-b}{2} > 0$.
+	По определению предела существуют такие $N_1, N_2 \in \mathbb{N}$, что:
+	\[
+	\forall n > N_1 \quad |x_n - a| < \varepsilon \implies x_n > a - \varepsilon,
+	\]
+	\[
+	\forall n > N_2 \quad |y_n - b| < \varepsilon \implies y_n < b + \varepsilon.
+	\]
+	Пусть $N = \max\{N_1, N_2\}$. Тогда для всех $n > N$ имеем
+	\[
+	y_n < b + \varepsilon = \frac{a+b}{2} = a - \varepsilon < x_n,
+	\]
+	что противоречит $x_n \le y_n$. Следовательно, $a \le b$. \qed
+	
+	\begin{remarkbox}{7.2}
+		Из $x_n < y_n$ для всех $n$ не следует $\lim x_n < \lim y_n$. Возможны равные пределы.
+		
+		\textit{Пример:} $x_n = -\frac{1}{n}$, $y_n = \frac{1}{n}$, тогда $x_n < y_n$ для всех $n$, но $\lim x_n = 0 = \lim y_n$.
+	\end{remarkbox}
+	
+	\mycorollary
+	\begin{enumerate}
+		\item Если $x_n \le b$ для всех $n$ и $\lim x_n = a$, то $a \le b$.
+		\item Если $x_n \ge a$ для всех $n$ и $\lim x_n = b$, то $b \ge a$.
+		\item Если $x_n \in [a, b]$ для всех $n$ и $\lim x_n = c$, то $c \in [a, b]$.
+	\end{enumerate}
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\draw[->] (0,0) -- (5,0) node[right] {$n$};
+			\draw[->] (0,0) -- (0,4) node[above] {$x_n, y_n$};
+			\draw[thick, blue, domain=0.5:4.5, samples=20] plot (\x, {1 + 1/\x}) node[right] {$x_n = -\frac{1}{n}$};
+			\draw[thick, red, domain=0.5:4.5, samples=20] plot (\x, {3 - 1/\x}) node[right] {$y_n = \frac{1}{n}$};
+			\draw[dashed] (0,2) -- (5,2) node[right] {$0$};
+			\draw[decorate, decoration={brace, amplitude=5pt}, blue] (4,1.25) -- (4,1.75);
+			\draw[decorate, decoration={brace, amplitude=5pt}, red] (4,2.25) -- (4,2.75);
+		\end{tikzpicture}
+		\captionof{figure}{$x_n < y_n$, но пределы равны}
+	\end{center}
+	
+	\begin{theorembox}{7.4: Теорема о сжатой последовательности (принцип двух милиционеров)}
+		Пусть $\{x_n\}$, $\{y_n\}$, $\{z_n\}$ — вещественные последовательности, такие что:
+		\begin{enumerate}
+			\item $x_n \le y_n \le z_n$ для всех $n$;
+			\item $\lim x_n = \lim z_n = a \in \mathbb{R}$.
+		\end{enumerate}
+		Тогда $\lim y_n = a$.
+	\end{theorembox}
+	
+	\myproof
+	Возьмём $\varepsilon > 0$. По определению предела существуют $N_1, N_2$ такие, что для всех $n > N_1$:
+	\[
+	a - \varepsilon < x_n < a + \varepsilon,
+	\]
+	и для всех $n > N_2$:
+	\[
+	a - \varepsilon < z_n < a + \varepsilon.
+	\]
+	Пусть $N = \max\{N_1, N_2\}$. Тогда для всех $n > N$ имеем
+	\[
+	a - \varepsilon < x_n \le y_n \le z_n < a + \varepsilon \implies |y_n - a| < \varepsilon.
+	\]
+	Следовательно, $\lim y_n = a$. \qed
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\draw[->] (0,0) -- (5,0) node[right] {$n$};
+			\draw[->] (0,0) -- (0,4) node[above] {$x_n, y_n, z_n$};
+			\draw[thick, blue, domain=0.5:4.5, samples=20] plot (\x, {1 + 1/\x}) node[right] {$x_n$};
+			\draw[thick, red, domain=0.5:4.5, samples=20] plot (\x, {2 + 0.5/\x}) node[right] {$y_n$};
+			\draw[thick, green!50!black, domain=0.5:4.5, samples=20] plot (\x, {3 - 1/\x}) node[right] {$z_n$};
+			\draw[dashed] (0,2) -- (5,2) node[right] {$a$};
+			\draw[decorate, decoration={brace, amplitude=5pt, mirror}, blue] (4,1.25) -- (4,1.75);
+			\draw[decorate, decoration={brace, amplitude=5pt, mirror}, green!50!black] (4,2.25) -- (4,2.75);
+			\fill[red] (4,2) circle (2pt);
+		\end{tikzpicture}
+		\captionof{figure}{Теорема о двух милиционерах}
+	\end{center}
+	
+	\begin{notebook}{7.5: Принцип двух милиционеров}
+		Два «милиционера» $\{x_n\}$ и $\{z_n\}$ сходятся к одной точке $a$ и «ведут» между собой «нарушителя» $\{y_n\}$, заставляя его также сходиться к $a$.
+	\end{notebook}
+	
+	
+	
+	
+	
+	\newpage
+	\subsection{Предел монотонных последовательностей (8-9 вопрос)}
+	
+	\begin{theorembox}{8: Предел монотонно возрастающей последовательности (Вейерштрасс)}
+		Если последовательность $\{a_n\}$ монотонно возрастает и ограничена сверху, то она имеет предел, равный её точной верхней грани.
+	\end{theorembox}
+	
+	\myproof
+	Пусть $\{a_n\}$ — возрастающая последовательность, ограниченная сверху. По аксиоме о существовании супремума существует конечное число $L = \sup \{a_n\}$. 
+	
+	Докажем, что $\lim\limits_{n \to \infty} a_n = L$.
+	Возьмем произвольное $\varepsilon > 0$. Рассмотрим число $L - \varepsilon$.
+	Так как $L = \sup \{a_n\}$, то $L - \varepsilon$ не является верхней границей множества членов последовательности. Значит, по определению супремума, найдется такой номер $N$, что:
+	\[ L - \varepsilon < a_N \le L \]
+	
+	Так как последовательность $\{a_n\}$ монотонно возрастает, то для любого $n > N$ выполняется неравенство $a_n \ge a_N$. С учетом того, что все члены последовательности не превосходят своего супремума ($a_n \le L$), получаем цепочку неравенств для всех $n > N$:
+	\[ L - \varepsilon < a_N \le a_n \le L < L + \varepsilon \]
+	
+	Следовательно, для всех $n > N$ выполняется:
+	\[ |a_n - L| < \varepsilon \]
+	Что по определению означает: $\lim\limits_{n \to \infty} a_n = L$. \qed
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\draw[->] (0,0) -- (5,0) node[right] {$n$};
+			\draw[->] (0,0) -- (0,4) node[above] {$a_n$};
+			\draw[thick, blue, domain=0.5:4.5, samples=20] plot (\x, {1 + 2*(1 - exp(-\x))}) node[right] {$a_n$};
+			\draw[dashed, red] (0,3) -- (5,3) node[right] {$L = \sup a_n$};
+			\draw[thick, green!50!black, ->] (2,2.5) -- (4,2.9);
+		\end{tikzpicture}
+		\captionof{figure}{Монотонно возрастающая ограниченная последовательность}
+	\end{center}
+	
+	
+	
+	
+	
+	\newpage
+	\begin{theorembox}{9: Предел монотонно убывающей последовательности}
+		Если последовательность $\{b_n\}$ монотонно убывает и ограничена снизу, то она имеет предел, равный её точной нижней грани.
+	\end{theorembox}
+	
+	\vspace{0.5cm}
+	\myproof
+	Пусть $\{b_n\}$ — монотонно убывающая последовательность, ограниченная снизу. По аксиоме о существовании инфимума существует конечное число $M = \inf \{b_n\}$. 
+	
+	Докажем, что $\lim\limits_{n \to \infty} b_n = M$.
+	Возьмем произвольное $\varepsilon > 0$. По определению инфимума, для числа $M + \varepsilon$ найдется такой номер $N$, что:
+	\[ M \le b_N < M + \varepsilon \]
+	
+	Так как последовательность $\{b_n\}$ монотонно убывает, то для любого $n > N$ выполняется неравенство $b_n \le b_N$. С учетом того, что $M$ — нижняя грань ($M \le b_n$), получаем для всех $n > N$:
+	\[ M - \varepsilon < M \le b_n \le b_N < M + \varepsilon \]
+	
+	Следовательно, для всех $n > N$ выполняется $|b_n - M| < \varepsilon$. 
+	По определению это означает, что $\lim\limits_{n \to \infty} b_n = M$. \qed
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\draw[->] (0,0) -- (5,0) node[right] {$n$};
+			\draw[->] (0,0) -- (0,4) node[above] {$b_n$};
+			\draw[thick, blue, domain=0.5:4.5, samples=20] plot (\x, {3 - 2*(1 - exp(-\x))}) node[right] {$b_n$};
+			\draw[dashed, red] (0,1) -- (5,1) node[right] {$M = \inf b_n$};
+			\draw[thick, green!50!black, ->] (2,2.5) -- (4,1.5);
+		\end{tikzpicture}
+		\captionof{figure}{Монотонно убывающая ограниченная последовательность}
+	\end{center}
+	
+	\vspace{0.5cm}
+	\begin{remarkbox}{8-9.1}
+		Если возрастающая последовательность не ограничена сверху, то её предел равен $+\infty$. Если убывающая последовательность не ограничена снизу, то её предел равен $-\infty$.
+	\end{remarkbox}
+	
+	
+	
+	
+	
+	\subsection{Теорема Кантора о вложенных отрезках (10 вопрос)}
+	
+	\begin{theorembox}{10: Принцип вложенных отрезков (Кантор)}
+		Пусть задана система вложенных отрезков $[x_n, y_n]$, таких что:
+		\begin{enumerate}
+			\item $[x_{n+1}, y_{n+1}] \subset [x_n, y_n]$ для любого $n \in \mathbb{N}$ (т. е. $x_n \le x_{n+1} \le y_{n+1} \le y_n$);
+			\item $\lim\limits_{n \to \infty} (y_n - x_n) = 0$ (условие стягиваемости).
+		\end{enumerate}
+		Тогда существует единственная точка $a$, принадлежащая всем отрезкам системы: $\{a\} = \bigcap_{n=1}^{\infty} [x_n, y_n]$.
+	\end{theorembox}
+	
+	\vspace{0.5cm}	
+	\myproof
+	
+	\textbf{1. Существование.}
+	Последовательность левых концов $\{x_n\}$ монотонно не убывает и ограничена сверху (любым $y_n$). По теореме Вейерштрасса существует предел $\lim x_n = a$. Аналогично, $\{y_n\}$ монотонно не возрастает и ограничена снизу, значит существует $\lim y_n = b$.
+	
+	Так как $x_n \le y_n$ для всех $n$, то по свойствам пределов $a \le b$.
+	По условию $\lim (y_n - x_n) = 0 \implies \lim y_n - \lim x_n = 0 \implies b - a = 0 \implies a = b$.
+	Поскольку $x_n \le a$ и $y_n \ge a$ для всех $n$ (в силу монотонности и свойств предела), точка $a$ принадлежит каждому отрезку $[x_n, y_n]$.
+	
+	\vspace{0.5cm}
+	\textbf{2. Единственность (от противного).}
+	Предположим, что существуют две различные точки $c$ и $a$, принадлежащие всем отрезкам, и пусть $c < a$.
+	Тогда для любого $n$ выполняется:
+	\[ x_n \le c < a \le y_n \]
+	Отсюда следует, что длина любого отрезка системы $y_n - x_n \ge a - c$.
+	Переходя к пределу при $n \to \infty$, получаем:
+	\[ \lim_{n \to \infty} (y_n - x_n) \ge a - c > 0 \]
+	Это противоречит условию стягиваемости ($\lim (y_n - x_n) = 0$). Следовательно, точка единственна. \qed
+	
+	\begin{center}
+		\begin{tikzpicture}[scale=1.5]
+			\draw[->] (-0.5,0) -- (5,0) node[right] {$\mathbb{R}$};
+			\draw[thick, blue] (1,0.5) -- (4,0.5);
+			\draw[thick, blue] (1,0.1) -- (1,-0.1) node[below] {$x_1$};
+			\draw[thick, blue] (4,0.1) -- (4,-0.1) node[below] {$y_1$};
+			\node[blue] at (2.5,0.7) {$[x_1, y_1]$};
+			
+			\draw[thick, red] (1.5,0.3) -- (3.5,0.3);
+			\draw[thick, red] (1.5,0.1) -- (1.5,-0.1) node[below] {$x_2$};
+			\draw[thick, red] (3.5,0.1) -- (3.5,-0.1) node[below] {$y_2$};
+			\node[red] at (2.5,0.2) {$[x_2, y_2]$};
+			
+			\draw[thick, green!50!black] (2,0.1) -- (3,0.1);
+			\draw[thick, green!50!black] (2,0.1) -- (2,-0.1) node[below] {$x_3$};
+			\draw[thick, green!50!black] (3,0.1) -- (3,-0.1) node[below] {$y_3$};
+			\node[green!50!black] at (2.5,-0.2) {$[x_3, y_3]$};
+			
+			\fill[purple] (2.5,0) circle (2pt) node[above] {$a$};
+		\end{tikzpicture}
+		\captionof{figure}{Вложенные отрезки, стягивающиеся к точке $a$}
+	\end{center}
+	
+	
+	
+	
+	
+	
+	\section{Критерий Коши}
+	
+	\subsection{Критерий Коши существования конечного предела: необходимость (11 вопрос)}
+	
+	\begin{definitionbox}{11.1: Фундаментальная последовательность}
+		Последовательность $\{a_n\}$ называется \textbf{фундаментальной} (или удовлетворяющей условию Коши), если:
+		\[ \forall \varepsilon > 0 \;\; \exists N \in \mathbb{N} \colon \forall n, m > N \implies |a_n - a_m| < \varepsilon. \]
+	\end{definitionbox}
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\draw[->] (0,0) -- (5,0) node[right] {$n$};
+			\draw[->] (0,0) -- (0,4) node[above] {$a_n$};
+			\draw[dashed, red] (0,2) -- (5,2);
+			\draw[dashed, red] (0,2.5) -- (5,2.5);
+			\draw[dashed, red] (0,1.5) -- (5,1.5);
+			\node[red] at (4.5,2.75) {$\varepsilon$};
+			\node[red] at (4.5,1.25) {$\varepsilon$};
+			\draw[thick, green!50!black, decorate, decoration={brace, amplitude=5pt}] (3.5,1.5) -- (3.5,2.5) node[midway, right] {$< 2\varepsilon$};
+			\foreach \x in {3.6,3.8,4,4.2,4.4} {
+				\fill[blue] (\x,{2 + 0.2*rand}) circle (1.5pt);
+			}
+		\end{tikzpicture}
+		\captionof{figure}{Фундаментальная последовательность: члены сближаются}
+	\end{center}
+	
+	\vspace{0.5cm}
+	\begin{theorembox}{11.2: Критерий Коши (необходимость)}
+		Если последовательность $\{a_n\}$ сходится, то она фундаментальна.
+	\end{theorembox}
+	
+	\vspace{0.5cm}
+	\myproof
+	Пусть последовательность $\{a_n\}$ сходится и $\lim\limits_{n \to \infty} a_n = L$.
+	По определению предела, для любого $\varepsilon > 0$ (возьмем $\frac{\varepsilon}{2} > 0$) существует номер $N$ такой, что для всех $n > N$ выполняется $|a_n - L| < \frac{\varepsilon}{2}$.
+	Тогда для любых $n, m > N$ имеем:
+	\begin{itemize}
+		\item $|a_n - L| < \frac{\varepsilon}{2}$;
+		\item $|a_m - L| < \frac{\varepsilon}{2}$.
+	\end{itemize}
+	Оценим разность элементов последовательности через неравенство треугольника:
+	\[ |a_n - a_m| = |(a_n - L) + (L - a_m)| \le |a_n - L| + |L - a_m| < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon. \]
+	Следовательно, последовательность фундаментальна. \qed
+	
+	
+	
+	\newpage
+	\subsection{Критерий Коши существования конечного предела: достаточность (12 вопрос)}
+	
+	\begin{theorembox}{12: Критерий Коши (достаточность)}
+		Если последовательность $\{a_n\}$ фундаментальна, то она сходится.
+	\end{theorembox}
+	
+	\vspace{0.5cm}
+	\myproof
+	Пусть последовательность $\{a_n\}$ фундаментальна, т. е. $\forall \varepsilon > 0 \;\; \exists N \in \mathbb{N} \colon \forall n, m > N \implies |a_n - a_m| < \varepsilon$.
+	
+	\begin{enumerate}
+		\item \textbf{Ограниченность.} Зафиксируем $\varepsilon = 1$ и соответствующий ему номер $N$. Тогда для фиксированного $m > N$ все члены $a_n$ при $n > N$ лежат в интервале $(a_m - 1, a_m + 1)$, т. е. $a_n \in \varepsilon\text{-окрестности } a_m$. Это означает, что последовательность ограничена.
+		
+		\item \textbf{Выделение подпоследовательности.} По теореме Больцано-Вейерштрасса из любой ограниченной последовательности можно выделить сходящуюся подпоследовательность $\{a_{n_k}\}$. Пусть $\lim\limits_{k \to \infty} a_{n_k} = a$.
+		
+		\item \textbf{Сходимость всей последовательности.} Докажем, что вся последовательность стремится к $a$. Запишем два условия:
+		\begin{itemize}
+			\item Условие Коши: $\exists N_1 \colon \forall n, m > N_1 \implies |a_n - a_m| < \frac{\varepsilon}{2}$.
+			\item Определение предела подпоследовательности: $\exists N_2 \colon \forall k > N_2 \implies |a_{n_k} - a| < \frac{\varepsilon}{2}$.
+		\end{itemize}
+		Возьмем $N = \max(N_1, N_2)$. Тогда для любого $n > N$ выберем индекс $n_k$ подпоследовательности так, чтобы $n_k > N$. Тогда выполняются оба неравенства:
+		\[ |a_n - a| \le |a_n - a_{n_k}| + |a_{n_k} - a| < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon. \]
+	\end{enumerate}
+	Таким образом, $\lim\limits_{n \to \infty} a_n = a$, что и требовалось доказать. \qed
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{Бесконечные пределы и классификация последовательностей}
+	
+	\subsection{Бесконечные пределы последовательностей; бесконечно большие и бесконечно малые последовательности (13 вопрос)}
+	
+	\begin{definitionbox}{13.1: Бесконечные пределы}
+		\begin{itemize}
+			\item $\lim\limits_{n \to \infty} a_n = +\infty \iff \forall M > 0 \;\; \exists N \in \mathbb{N} \colon \forall n > N \Rightarrow a_n > M$.
+			\item $\lim\limits_{n \to \infty} a_n = -\infty \iff \forall M > 0 \;\; \exists N \in \mathbb{N} \colon \forall n > N \Rightarrow a_n < -M$.
+		\end{itemize}
+	\end{definitionbox}
+	
+	\begin{definitionbox}{13.2: Типы последовательностей}
+		\begin{itemize}
+			\item \textbf{Бесконечно малая:} если её предел равен $0$ ($\forall \varepsilon > 0 \;\; \exists N \colon |a_n| < \varepsilon$).
+			\item \textbf{Бесконечно большая:} если её модуль стремится к $+\infty$ ($|b_n| \to +\infty$).
+		\end{itemize}
+	\end{definitionbox}
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.8\textwidth,
+				height=6cm,
+				xlabel={$n$},
+				ylabel={$a_n$},
+				domain=1:10,
+				samples=100,
+				legend pos=north west
+				]
+				\addplot[blue, thick] {1/x};
+				\addlegendentry{Бесконечно малая: $1/n$};
+				\addplot[red, thick] {x};
+				\addlegendentry{Бесконечно большая: $n$};
+			\end{axis}
+		\end{tikzpicture}
+		\captionof{figure}{Бесконечно малая и бесконечно большая последовательности}
+	\end{center}
+	
+	\vspace{0.5cm}
+	\begin{notebook}{13.3: Простое сравнение}
+		\textbf{Бесконечно малая} «засыпает» в нуле, проваливаясь в любую крошечную окрестность.
+		
+		\vspace{0.5cm}
+		\textbf{Бесконечно большая} «пробивает» любой потолок $M$, какой бы высокий ты ни поставил.
+	\end{notebook}
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{Число Эйлера $e$}
+	
+	\begin{notebook}{Число $e$}
+		Мы изучаем две последовательности: $x_n = (1 + \frac{1}{n})^n$ и $y_n = (1 + \frac{1}{n})^{n+1}$. Наша задача — доказать, что они «сжимаются» к одному и тому же числу, которое и называется $e \approx 2{,}718$. Для этого мы покажем, что одна растет, другая убывает, и они всегда ограничены друг другом.
+	\end{notebook}
+	
+	\subsection{Число $e$: последовательность $\{y_n\}$ (14 вопрос)}
+	
+	Рассмотрим последовательность $y_n = \left(1 + \frac{1}{n}\right)^{n+1}$.
+	
+	\vspace{0.5cm}
+	\myproof (убывания)
+	Используем неравенство для логарифма: $\frac{u}{1+u} \le \ln(1+u) \le u$.
+	Подставим $u = \frac{1}{n}$:
+	\[ \frac{1}{n+1} \le \ln\left(1 + \frac{1}{n}\right) \le \frac{1}{n} \]
+	Умножим левое неравенство на $(n+1)$:
+	\[ 1 \le (n+1) \ln\left(1 + \frac{1}{n}\right) \implies 1 \le \ln\left(1 + \frac{1}{n}\right)^{n+1} \]
+	Экспонируя, получаем: $e \le \left(1 + \frac{1}{n}\right)^{n+1}$, то есть $e \le y_n$.
+	
+	Чтобы строго доказать убывание $y_{n-1} > y_n$, рассмотрим отношение:
+	\[ \frac{y_{n-1}}{y_n} = \frac{\left(\frac{n}{n-1}\right)^n}{\left(\frac{n+1}{n}\right)^{n+1}} = \frac{n^n}{(n-1)^n} \cdot \frac{n^{n+1}}{(n+1)^{n+1}} = \frac{n}{n+1} \left(1 + \frac{1}{n^2-1}\right)^n > \frac{n^3 + n^2 - n}{n^3 + n^2 - n - 1} > 1 \]
+	Следовательно, $y_n$ монотонно убывает и ограничена снизу числом $e$. \qed
+	
+	
+	\vspace{1cm}
+	\subsection{Число $e$: последовательность $\{x_n\}$ (15 вопрос)}
+	
+	Рассмотрим последовательность $x_n = \left(1 + \frac{1}{n}\right)^n$.
+	
+	\vspace{0.5cm}
+	\myproof (возрастания)
+	Используем правое логарифмическое неравенство $\ln(1+\frac{1}{n}) \le \frac{1}{n}$ и умножим на $n$:
+	\[ n \ln\left(1 + \frac{1}{n}\right) \le 1 \implies \ln\left(1 + \frac{1}{n}\right)^n \le 1 \]
+	Откуда $x_n \le e$.
+	
+	Рассмотрим отношение соседних членов:
+	\[ \frac{x_{n+1}}{x_n} = \frac{\left(1 + \frac{1}{n+1}\right)^{n+1}}{\left(1 + \frac{1}{n}\right)^n} = \left(1 + \frac{1}{n+1}\right) \cdot \left( \frac{1 + \frac{1}{n+1}}{1 + \frac{1}{n}} \right)^n = \left(1 + \frac{1}{n+1}\right) \left( 1 - \frac{1}{(n+1)^2} \right)^n > 1 \]
+	(Здесь используется неравенство Бернулли). Таким образом, $x_n$ монотонно возрастает и ограничена сверху числом $e$. \qed
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.8\textwidth,
+				height=6cm,
+				xlabel={$n$},
+				ylabel={значение},
+				domain=1:10,
+				samples=100,
+				legend pos=south east
+				]
+				\addplot[blue, thick] {(1+1/x)^x};
+				\addlegendentry{$x_n = (1+\frac{1}{n})^n$};
+				\addplot[red, thick] {(1+1/x)^(x+1)};
+				\addlegendentry{$y_n = (1+\frac{1}{n})^{n+1}$};
+				\addplot[dashed, green!50!black, thick] {2.71828};
+				\addlegendentry{$e \approx 2.71828$};
+			\end{axis}
+		\end{tikzpicture}
+		\captionof{figure}{Последовательности $x_n$ и $y_n$, сходящиеся к $e$}
+	\end{center}
+	
+	\begin{importantbox}{Итог}
+		Мы получили цепочку неравенств:
+		\[ x_1 \le x_2 \le \dots \le x_n \le e \le y_n \le \dots \le y_2 \le y_1 \]
+		По теореме Кантора (о вложенных отрезках) или по теореме о монотонной последовательности:
+		\[ \lim_{n \to \infty} x_n = e, \quad \lim_{n \to \infty} y_n = e \]
+	\end{importantbox}
+	
+	
+	
+	
+	
+	\newpage
+	\section{Окрестности и подпоследовательности}
+	
+	\subsection{Определение предела последовательности в терминах окрестностей; подпоследовательности (16 вопрос)}
+	
+	\begin{definitionbox}{16.1: Окрестность числа}
+		$\varepsilon$-окрестностью точки $a$ называется интервал $W_a = (a - \varepsilon, a + \varepsilon)$, где $\varepsilon > 0$. Это множество точек, находящихся от точки $a$ на расстоянии меньше $\varepsilon$.
+	\end{definitionbox}
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\draw[->] (-2,0) -- (4,0) node[right] {$\mathbb{R}$};
+			\fill[blue] (1,0) circle (2pt) node[above] {$a$};
+			\draw[thick, red, decorate, decoration={brace, amplitude=5pt}] (1,0.2) -- (2,0.2) node[midway, above] {$\varepsilon$};
+			\draw[thick, red, decorate, decoration={brace, amplitude=5pt}] (0,0.2) -- (1,0.2) node[midway, above] {$\varepsilon$};
+			\draw[thick, blue, dashed] (0,0.1) -- (0,-0.1) node[below] {$a-\varepsilon$};
+			\draw[thick, blue, dashed] (2,0.1) -- (2,-0.1) node[below] {$a+\varepsilon$};
+			\draw[thick, red, <->] (0,-0.3) -- (2,-0.3) node[midway, below] {$\varepsilon$-окрестность};
+		\end{tikzpicture}
+		\captionof{figure}{Окрестность точки $a$}
+	\end{center}
+	
+	\begin{notebook}{16.2: Образное представление}
+		Представь точку $a$ на прямой. Окрестность — это «защитный кокон» вокруг неё радиусом $\varepsilon$. Чем меньше $\varepsilon$, тем теснее этот кокон прижат к точке.
+	\end{notebook}
+	
+	\begin{definitionbox}{16.3: Предел через окрестности}
+		Последовательность $\{a_n\}$ имеет предел $a$ ($a_n \xrightarrow[n \to \infty]{} a$), если для любой окрестности $W(a)$ найдется такой номер $N$, что все члены последовательности с номерами $n > N$ попадут внутрь этой окрестности:
+		\[ \forall W(a) \;\; \exists N \in \mathbb{N} \colon \forall n > N \implies a_n \in W(a) \text{.} \]
+	\end{definitionbox}
+	
+	\begin{definitionbox}{16.4: Предел на бесконечности}
+		Аналогично, последовательность стремится к $+\infty$, если для любого числа $M$ она со временем попадает в «окрестность бесконечности» $(M, +\infty)$:
+		\[ a_n \to +\infty \iff \forall M \;\; \exists N \colon \forall n > N \implies a_n \in (M, +\infty) \text{.} \]
+	\end{definitionbox}
+	
+	\begin{definitionbox}{16.5: Подпоследовательность}
+		Подпоследовательность — это последовательность, полученная из исходной последовательности $\{a_n\}$ путём выбора некоторых её членов с сохранением их первоначального порядка. Обозначается $\{a_{n_k}\}$, где $n_1 < n_2 < n_3 < \dots$.
+	\end{definitionbox}
+	
+	\begin{examplebox}{16.6: Подпоследовательность}
+		Возьмем последовательность всех натуральных чисел: $(1, 2, 3, 4, 5, 6 \dots)$.
+		Если мы выберем только четные: $(2, 4, 6 \dots)$ — это подпоследовательность.
+		
+		Важно: мы не можем менять их местами, например, сделать $(4, 2, 6 \dots)$.
+	\end{examplebox}
+	
+	\begin{theorembox}{16.7: Ключевые свойства}
+		\begin{enumerate}
+			\item Если последовательность $\{x_n\}$ имеет предел $a$, то любая её подпоследовательность также стремится к этому же пределу $a$.
+			\item Если из последовательности можно выделить две подпоследовательности, которые стремятся к разным числам, то сама последовательность предела не имеет (расходится).
+		\end{enumerate}
+	\end{theorembox}
+	
+	\begin{examplebox}{16.8: Расходящаяся последовательность}
+		Последовательность $a_n = (-1)^n$: $(-1, 1, -1, 1 \dots)$.
+		Подпоследовательность четных шагов стремится к $1$, а нечетных — к $-1$. Так как они «тянут» в разные стороны, общего предела у всей последовательности нет.
+	\end{examplebox}
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\draw[->] (0,0) -- (5,0) node[right] {$n$};
+			\draw[->] (0,-1.5) -- (0,1.5) node[above] {$a_n$};
+			\foreach \x in {1,2,3,4} {
+				\pgfmathsetmacro{\y}{(-1)^\x}
+				\fill[blue] (\x,\y) circle (2pt);
+			}
+			\draw[dashed, red] (0,1) -- (5,1) node[right] {$1$};
+			\draw[dashed, red] (0,-1) -- (5,-1) node[right] {$-1$};
+			\node at (2.5, -2) {$a_n = (-1)^n$ не имеет предела};
+		\end{tikzpicture}
+		\captionof{figure}{Расходящаяся последовательность}
+	\end{center}
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{Принцип выбора Больцано-Вейерштрасса}
+	
+	\subsection{Теорема Больцано-Вейерштрасса (17 вопрос)}
+	
+	\begin{theorembox}{17: Больцано-Вейерштрасса}
+		Из любой ограниченной последовательности можно выделить сходящуюся подпоследовательность.
+	\end{theorembox}
+	
+	\myproof
+	Пусть $\{x_n\}$ — ограниченная последовательность. Это значит, что все её члены лежат на некотором отрезке $[a_1, b_1]$.
+	
+	\begin{enumerate}
+		\item \textbf{Метод деления пополам.} Разделим отрезок $[a_1, b_1]$ точкой $c_1 = \frac{a_1 + b_1}{2}$ на две равные части: $[a_1, c_1]$ и $[c_1, b_1]$. Хотя бы в одной из этих половин содержится бесконечно много членов последовательности $\{x_n\}$. Обозначим эту половину $[a_2, b_2]$.
+		
+		\item \textbf{Итерация.} Повторим процесс для $[a_2, b_2]$, выбрав ту половину $[a_3, b_3]$, где снова бесконечно много членов. Продолжая так до бесконечности, мы получим систему вложенных отрезков:
+		\[ [a_1, b_1] \supset [a_2, b_2] \supset \dots \supset [a_k, b_k] \supset \dots \]
+		Длина каждого следующего отрезка уменьшается вдвое: $(b_k - a_k) = \frac{b_1 - a_1}{2^{k-1}} \xrightarrow[k \to \infty]{} 0$.
+		
+		\item \textbf{Применение теоремы Кантора.} По принципу вложенных отрезков существует единственная точка $d$, принадлежащая всем отрезкам: $d \in [a_k, b_k]$ для любого $k$.
+		
+		\item \textbf{Построение подпоследовательности.} Выберем номер $n_1 = 1$ ($x_{n_1} \in [a_1, b_1]$). Затем выберем $n_2 > n_1$ так, чтобы $x_{n_2} \in [a_2, b_2]$, и так далее. Для любого $k$ выберем $n_k > n_{k-1}$ такое, что $x_{n_k} \in [a_k, b_k]$.
+		
+		\item \textbf{Доказательство сходимости.} Так как $x_{n_k}$ и $d$ лежат в одном отрезке $[a_k, b_k]$, расстояние между ними не превышает длины отрезка:
+		\[ 0 \le |x_{n_k} - d| \le b_k - a_k = \frac{b_1 - a_1}{2^{k-1}} \]
+		По теореме о «трех милиционерах» (о зажатой последовательности), так как правая часть стремится к $0$, то $|x_{n_k} - d| \to 0$, следовательно, $\lim\limits_{k \to \infty} x_{n_k} = d$.
+	\end{enumerate}
+	Сходящаяся подпоследовательность выделена. \qed
+	
+	\begin{center}
+		\begin{tikzpicture}[scale=1.2]
+			\draw[->] (-0.5,0) -- (5,0) node[right] {$\mathbb{R}$};
+			\draw[thick, blue] (1,0.5) -- (4,0.5) node[midway, above] {$[a_1, b_1]$};
+			\draw[thick, red] (1.5,0.3) -- (4,0.3) node[midway, above] {$[a_2, b_2]$};
+			\draw[thick, green!50!black] (2,0.1) -- (4,0.1) node[midway, above] {$[a_3, b_3]$};
+			\draw[thick, orange] (2.5,-0.1) -- (4,-0.1) node[midway, below] {$[a_4, b_4]$};
+			\fill[purple] (3.5,0) circle (2pt) node[above] {$d$};
+			\foreach \x in {1.2,1.8,2.3,2.7,3.2,3.8} {
+				\fill[blue] (\x,0) circle (1pt);
+			}
+		\end{tikzpicture}
+		\captionof{figure}{Метод деления пополам в теореме Больцано-Вейерштрасса}
+	\end{center}
+	
+	\begin{notebook}{17.1: Суть доказательства}
+		Мы берем облако из бесконечного числа точек в ограниченном пространстве. Начиная постоянно делить это пространство пополам и выбирая ту часть, где точек всё еще бесконечно много, мы буквально «зажимаем» эти точки в одну-единственную координату $d$. Это и будет предел нашей подпоследовательности.
+	\end{notebook}
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{Предельные точки и принцип выбора}
+	
+	\subsection{Точка сгущения; последовательности, стремящиеся к точке сгущения (18 вопрос)}
+	
+	\begin{definitionbox}{18.1: Точка сгущения}
+		Пусть $E \subset \mathbb{R}$. Точка $d \in \overline{\mathbb{R}}$ (где $\overline{\mathbb{R}} = \mathbb{R} \cup \{+\infty\} \cup \{-\infty\}$) называется \textbf{точкой сгущения} (предельной точкой) множества $E$, если в любой её окрестности $W(d)$ найдется хотя бы одна точка $x \in E$, отличная от самой $d$.
+		\[ \forall W(d) \;\; \exists x \in E \colon x \in W(d), x \neq d. \]
+	\end{definitionbox}
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\draw[->] (-0.5,0) -- (5,0) node[right] {$\mathbb{R}$};
+			\fill[purple] (2.5,0) circle (2pt) node[above] {$d$ (точка сгущения)};
+			\foreach \x in {1.8,2,2.2,2.4,2.6,2.8,3,3.2} {
+				\fill[red] (\x,0) circle (1pt);
+			}
+			\draw[dashed, blue] (1.5,0.2) -- (3.5,0.2);
+			\draw[dashed, blue] (1.5,-0.2) -- (3.5,-0.2);
+			\node[blue] at (2.5,0.5) {любая окрестность содержит точки $E$};
+		\end{tikzpicture}
+		\captionof{figure}{Точка сгущения множества}
+	\end{center}
+	
+	\begin{theorembox}{18.2: Последовательность к точке сгущения}
+		Если $d$ — точка сгущения множества $E$, то существует последовательность $\{x_n\}$ такая, что $x_n \in E$, $x_n \neq d$ для всех $n$, и $x_n \xrightarrow[n \to \infty]{} d$.
+	\end{theorembox}
+	
+	\myproof
+	Построим систему вложенных окрестностей $W_n(d)$:
+	\begin{itemize}
+		\item Если $d \in \mathbb{R}$, возьмем $W_n = (d - \frac{1}{n}, d + \frac{1}{n})$.
+		\item Если $d = +\infty$, возьмем $W_n = (n, +\infty)$.
+		\item Если $d = -\infty$, возьмем $W_n = (-\infty, -n)$.
+	\end{itemize}
+	По определению точки сгущения, для каждого $n \in \mathbb{N}$ существует $x_n \in W_n$, причем $x_n \neq d$. Так как радиус окрестностей $\frac{1}{n} \to 0$ (или границы уходят в бесконечность), то $|x_n - d| < \frac{1}{n} \implies x_n \to d$. \qed
+	
+	\vspace{0.5cm}
+	\begin{notebook}{18.3: Образное представление}
+		Точка сгущения — это место, где точки множества «толпятся». Даже если само $d$ не принадлежит множеству, мы можем подобраться к нему бесконечно близко, перепрыгивая по точкам из $E$.
+	\end{notebook}
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{Предел функции}
+	
+	\subsection{Предел функции в терминах окрестностей; предел функции в терминах $\varepsilon$, $\delta$ (19 вопрос)}
+	
+	Пусть $E \subset \mathbb{R}$ — подмножество вещественных чисел, $d$ — точка сгущения множества $E$, и задана функция $f \colon E \to \mathbb{R}$.
+	
+	\begin{definitionbox}{19.1: Предел через окрестности}
+		Число $a \in \mathbb{R}$ называется \textbf{пределом функции} $f(x)$ при $x \to d$, если для любой окрестности $\Omega(a)$ точки $a$ существует такая проколотая окрестность $\dot{\omega}(d)$ точки $d$, что для всех $x$, принадлежащих пересечению этой окрестности с областью определения $E$, значения функции попадают в $\Omega(a)$:
+		\[
+		\forall \Omega(a) \;\; \exists \dot{\omega}(d) \colon \forall x \in (E \cap \dot{\omega}(d)) \implies f(x) \in \Omega(a)
+		\]
+	\end{definitionbox}
+	
+	\begin{notebook}{19.2: Геометрический смысл}
+		Это означает, что как бы узко мы ни ограничили значения функции вокруг точки $a$, мы всегда сможем найти такой маленький интервал вокруг $d$, что все «соседние» точки из него (кроме, возможно, самой $d$) будут отправлены функцией внутрь заданного нами ограничения.
+	\end{notebook}
+	
+	\begin{definitionbox}{19.3: Предел функции по Коши ($\varepsilon$–$\delta$)}
+		Пусть функция $f(x)$ определена на множестве $E \subset \mathbb{R}$ и точка $a$ является точкой сгущения этого множества. Число $A$ называется \textbf{пределом функции} $f(x)$ при $x \to a$, если для любого (сколь угодно малого) положительного числа $\varepsilon > 0$ найдётся такое положительное число $\delta > 0$, что для всех $x \in E$, удовлетворяющих условию $0 < |x - a| < \delta$, выполняется неравенство $|f(x) - A| < \varepsilon$:
+		\[
+		\forall \varepsilon > 0 \; \exists \delta > 0 \; \forall x \in E: \; \big( 0 < |x - a| < \delta \big) \Rightarrow \big( |f(x) - A| < \varepsilon \big).
+		\]
+	\end{definitionbox}
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.8\textwidth,
+				height=6cm,
+				xlabel={$x$},
+				ylabel={$f(x)$},
+				domain=0:4,
+				samples=100,
+				legend pos=north west
+				]
+				\addplot[blue, thick] {x^2/4 + 1};
+				\addlegendentry{$f(x)$};
+				\addplot[dashed, red] coordinates {(2,2) (2,0)} node[pos=0.5, left] {$a$};
+				\addplot[dashed, red] coordinates {(0,2) (2,2)} node[pos=0.5, below] {$A$};
+				\addplot[green!50!black, dashed] coordinates {(1.5,1.5) (1.5,2.5)};
+				\addplot[green!50!black, dashed] coordinates {(2.5,1.5) (2.5,2.5)};
+				\addplot[green!50!black, dashed] coordinates {(1.5,2.5) (2.5,2.5)};
+				\addplot[green!50!black, dashed] coordinates {(1.5,1.5) (2.5,1.5)};
+				\node[green!50!black] at (2,3) {$\delta$-окрестность по $x$};
+				\node[green!50!black] at (4,2.2) {$\varepsilon$-окрестность по $y$};
+			\end{axis}
+		\end{tikzpicture}
+		\captionof{figure}{$\varepsilon$-$\delta$ определение предела функции}
+	\end{center}
+	
+	\begin{remarkbox}{19.4: Пояснение}
+		\begin{itemize}
+			\item Условие $0 < |x - a| < \delta$ означает, что мы рассматриваем все $x$ из $\delta$-окрестности точки $a$, \textbf{кроме самой точки $a$}.
+			\item Тогда значение функции попадает в $\varepsilon$-окрестность точки $A$.
+		\end{itemize}
+	\end{remarkbox}
+	
+	\begin{notebook}{19.5: Связь определений}
+		Определение через окрестности более общее (оно подходит и для бесконечных пределов), а определение через $\varepsilon$, $\delta$ — это его конкретная реализация для конечных чисел с использованием модуля как меры расстояния.
+	\end{notebook}
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{Связь пределов функций и последовательностей}
+	
+	\subsection{Теорема о пределе функции и пределах последовательностей (Теорема Гейне) (20 вопрос)}
+	
+	\begin{theorembox}{20: Эквивалентность определений Коши и Гейне}
+		Пусть имеется множество $E \subset \mathbb{R}$, $d$ --- точка сгущения в $E$, и $a \in \mathbb{R}$. Для того чтобы $f(x) \xrightarrow[x \to d]{} a$, необходимо и достаточно, чтобы для любой последовательности $\{x_n\}_{n=1}^{\infty}$ такой, что:
+		\begin{enumerate}
+			\item $x_n \in E, \;\; x_n \neq a$ для всех $n$;
+			\item $\{x_n\} \xrightarrow[n \to \infty]{} d$;
+		\end{enumerate}
+		выполнялось $f(x_n) \xrightarrow[n \to \infty]{} a$.
+	\end{theorembox}
+	
+	\vspace{0.5cm}
+	\myproof[Необходимость (Коши $\implies$ Гейне)]
+	
+	Пусть $\lim\limits_{x \to d} f(x) = a$. По определению предела по Коши:
+	\[ \forall \varepsilon > 0 \;\; \exists \delta > 0 \colon \forall x, \;\; 0 < |x - d| < \delta \implies |f(x) - a| < \varepsilon \]
+	
+	Рассмотрим произвольную последовательность $\{x_n\}$, стремящуюся к $d$ ($x_n \to d$), где $x_n \neq d$. По определению предела последовательности для указанного выше $\delta$:
+	\[ \exists N \in \mathbb{N} \colon \forall n > N \implies |x_n - d| < \delta \]
+	
+	Так как $x_n \neq d$, то выполняется условие $0 < |x_n - d| < \delta$. Тогда по определению Коши для всех таких $n > N$ справедливо:
+	\[ |f(x_n) - a| < \varepsilon \]
+	
+	Получили: $\forall \varepsilon > 0 \;\; \exists N \colon \forall n > N \implies |f(x_n) - a| < \varepsilon$.
+	Это и означает, что $f(x_n) \xrightarrow[n \to \infty]{} a$. \qed
+	
+	\vspace{0.5cm}
+	\myproof[Достаточность (Гейне $\implies$ Коши)] (от противного)
+	Предположим, что предел по Коши не равен $a$. Тогда:
+	\[ \exists \varepsilon_0 > 0 \colon \forall \delta > 0 \;\; \exists x_\delta \in E, \;\; 0 < |x_\delta - d| < \delta, \text{ но } |f(x_\delta) - a| \ge \varepsilon_0 \]
+	Возьмем последовательность $\delta_n = \frac{1}{n}$. Тогда для каждого $n$ найдется $x_n$ с $0 < |x_n - d| < \frac{1}{n}$ и $|f(x_n) - a| \ge \varepsilon_0$.
+	Ясно, что $x_n \to d$, но $f(x_n)$ не стремится к $a$ (так как всегда отстоит от $a$ не менее чем на $\varepsilon_0$). Противоречие с условием Гейне. \qed
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.8\textwidth,
+				height=6cm,
+				xlabel={$x$},
+				ylabel={$f(x)$},
+				domain=0:4,
+				samples=100,
+				legend pos=north west
+				]
+				\addplot[blue, thick] {x^2/4 + 1};
+				\addlegendentry{$f(x)$};
+				\addplot[red, only marks, mark=*] coordinates {(1,1.25) (1.5,1.56) (2,2) (2.5,2.56) (3,3.25)};
+				\addlegendentry{$f(x_n)$};
+				\addplot[green!50!black, only marks, mark=*] coordinates {(1,1.25) (2.5,2.56)};
+				\addlegendentry{разные последовательности};
+				\addplot[dashed, red] coordinates {(0,2) (4,2)};
+				\node at (axis cs:3,2.2) {$A$};
+			\end{axis}
+		\end{tikzpicture}
+		\captionof{figure}{Теорема Гейне: все последовательности $x_n \to d$ дают $f(x_n) \to A$}
+	\end{center}
+	
+	\vspace{0.5cm}
+	\begin{notebook}{20.1: Зачем это нужно?}
+		Это свойство превращает предел функции в «массовый» предел последовательностей. Если мы хотим доказать, что предела \textbf{не существует}, нам достаточно найти две последовательности, которые бегут к одной точке $d$, но значения функции на них разбегаются в разные стороны.
+	\end{notebook}
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{Свойства пределов функций}
+	
+	\subsection{Единственность предела функции (21 вопрос)}
+	
+	\begin{theorembox}{21.1: Единственность предела функции}
+		Если функция $f(x)$ имеет предел при $x \to d$, то этот предел единственный.
+	\end{theorembox}
+	\vspace{0.5cm}
+	\myproof
+	Воспользуемся определением предела по Гейне и методом от противного.
+	\begin{enumerate}
+		\item Предположим, что функция имеет два различных предела: $a'$ и $a''$, где $a' \neq a''$.
+		\item По теореме Гейне, для любой последовательности $x_n \to d$ ($x_n \in E, x_n \neq d$) последовательность значений функции должна стремиться к пределу функции.
+		\item Пусть $x_n$ — произвольная последовательность, стремящаяся к $d$. Тогда по условию $f(x_n) \to a'$ и $f(x_n) \to a''$ одновременно.
+		\item По теореме о единственности предела последовательности, $a' = a''$.
+	\end{enumerate}
+	Следовательно, наше предположение ложно и предел единствен. \qed
+	
+	
+	
+	
+	\vspace{1cm}
+	\subsection{Предел произведения и частного функций (22 вопрос)}
+	
+	Пусть функции $f(x)$ и $g(x)$ определены в проколотой окрестности точки $d$, и существуют конечные пределы:
+	\[ \lim_{x \to d} f(x) = A, \quad \lim_{x \to d} g(x) = B \]
+	
+	\begin{theorembox}{22.1: Предел произведения}
+		$\lim_{x \to d} (f(x) \cdot g(x)) = A \cdot B$.
+	\end{theorembox}
+	
+	\vspace{0.5cm}
+	\myproof
+	Рассмотрим разность и применим «трюк» с добавлением и вычитанием одного и того же слагаемого:
+	\[ |f(x)g(x) - AB| = |f(x)g(x) - f(x)B + f(x)B - AB| \le |f(x)|\,|g(x) - B| + |B|\,|f(x) - A| \]
+	\begin{enumerate}
+		\item Так как $\lim f(x) = A$, функция $f(x)$ ограничена в некоторой окрестности точки $d$: $\exists M > 0 \colon |f(x)| \le M$.
+		\item Для любого $\varepsilon > 0$ выберем $\delta_1, \delta_2$ так, чтобы:
+		\begin{itemize}
+			\item $|g(x) - B| < \frac{\varepsilon}{2M}$ при $0 < |x - d| < \delta_1$
+			\item $|f(x) - A| < \frac{\varepsilon}{2(|B|+1)}$ при $0 < |x - d| < \delta_2$
+		\end{itemize}
+		\item Тогда при $0 < |x - d| < \min(\delta_1, \delta_2)$ получаем:
+		\[ |f(x)g(x) - AB| < M \cdot \frac{\varepsilon}{2M} + |B| \cdot \frac{\varepsilon}{2(|B|+1)} < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon. \]
+	\end{enumerate} \qed
+	
+	\begin{theorembox}{22.2: Предел обратной функции}
+		Если $A \neq 0$, то $\lim_{x \to d} \frac{1}{f(x)} = \frac{1}{A}$.
+	\end{theorembox}
+	
+	\myproof
+	Для любого $\varepsilon > 0$ нужно показать, что $\left| \frac{1}{f(x)} - \frac{1}{A} \right| < \varepsilon$.
+	\[ \left| \frac{1}{f(x)} - \frac{1}{A} \right| = \frac{|A - f(x)|}{|f(x)| \cdot |A|} \]
+	Так как $A \neq 0$, существует окрестность, где $|f(x)| > \frac{|A|}{2}$. Тогда:
+	\[ \frac{|f(x) - A|}{|f(x)| \cdot |A|} < \frac{|f(x) - A|}{\frac{|A|}{2} \cdot |A|} = \frac{2}{|A|^2} |f(x) - A| \]
+	Выбирая $\delta$ так, чтобы $|f(x) - A| < \frac{|A|^2 \varepsilon}{2}$, получаем искомое неравенство. \qed
+	
+	\vspace{0.5cm}
+	\begin{theorembox}{22.3: Предел частного}
+		Если $A \neq 0$, то $\lim_{x \to d} \frac{g(x)}{f(x)} = \frac{B}{A}$.
+	\end{theorembox}
+	
+	\vspace{0.5cm}
+	\myproof
+	Используем результат для произведения и обратной функции:
+	\[ \lim_{x \to d} \frac{g(x)}{f(x)} = \lim_{x \to d} \left( g(x) \cdot \frac{1}{f(x)} \right) = \lim_{x \to d} g(x) \cdot \lim_{x \to d} \frac{1}{f(x)} = B \cdot \frac{1}{A} = \frac{B}{A}. \] \qed
+	
+	\vspace{0.5cm}
+	\begin{importantbox}{Важное условие}
+		Помни, что для предела частного \textbf{обязательно} условие $A \neq 0$. Если знаменатель стремится к нулю, то предел может быть бесконечным или вообще не существовать (неопределенность).
+	\end{importantbox}
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{Предельный переход в неравенствах}
+	
+	\subsection{Свойства пределов, связанные с неравенствами (23 вопрос)}
+	
+	Пусть функции $f(x), g(x), h(x)$ определены в некоторой проколотой окрестности точки $d$ (точки сгущения множества $E$).
+	
+	\begin{theorembox}{23.1: Переход к пределу в неравенствах}
+		Если в некоторой проколотой окрестности точки $d$ выполняется неравенство $f(x) \le g(x)$ и существуют конечные пределы $\lim\limits_{x \to d} f(x) = A$ и $\lim\limits_{x \to d} g(x) = B$, то $A \le B$.
+	\end{theorembox}
+	
+	\vspace{0.5cm}
+	\myproof
+	Воспользуемся определением по Гейне. Возьмем произвольную последовательность $x_n \to d$ ($x_n \neq d$). Тогда для всех $n$ выполняется $f(x_n) \le g(x_n)$. Переходя к пределу в неравенствах для последовательностей (свойство, доказанное ранее), получаем $\lim f(x_n) \le \lim g(x_n)$, то есть $A \le B$. \qed
+	
+	
+	\vspace{0.5cm}
+	\begin{remarkbox}{23.2}
+		Даже если исходное неравенство было \textbf{строгим} ($f(x) < g(x)$), в пределе всё равно может получиться \textbf{равенство}.
+		
+		\textit{Пример:} $f(x) = 0$, $g(x) = x^2$. При всех $x \neq 0$ верно $f(x) < g(x)$, но их пределы в нуле равны $0$.
+	\end{remarkbox}
+	
+	\vspace{0.5cm}
+	\begin{theorembox}{23.3: Теорема о зажатой функции («О двух милиционерах»)}
+		Пусть в некоторой проколотой окрестности точки $d$ выполняется двойное неравенство:
+		\[ f(x) \le g(x) \le h(x) \]
+		Если крайние функции стремятся к одному и тому же пределу $A$:
+		\[ \lim_{x \to d} f(x) = \lim_{x \to d} h(x) = A, \]
+		то средняя функция $g(x)$ также имеет предел в этой точке, равный $A$.
+	\end{theorembox}
+	
+	\vspace{0.5cm}
+	\myproof
+	Для любого $\varepsilon > 0$:
+	\begin{enumerate}
+		\item Так как $f(x) \to A$, то $\exists \delta_1 > 0 \colon A - \varepsilon < f(x) < A + \varepsilon$ при $0 < |x-d| < \delta_1$.
+		\item Так как $h(x) \to A$, то $\exists \delta_2 > 0 \colon A - \varepsilon < h(x) < A + \varepsilon$ при $0 < |x-d| < \delta_2$.
+		\item Пусть $\delta = \min(\delta_1, \delta_2)$. Тогда при $0 < |x-d| < \delta$, объединяя условия и исходное неравенство, получаем:
+		\[ A - \varepsilon < f(x) \le g(x) \le h(x) < A + \varepsilon \]
+		Следовательно, $|g(x) - A| < \varepsilon$, что и означает $\lim\limits_{x \to d} g(x) = A$. \qed
+	\end{enumerate}
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.8\textwidth,
+				height=6cm,
+				xlabel={$x$},
+				ylabel={$f(x), g(x), h(x)$},
+				domain=0:4,
+				samples=100,
+				legend pos=north west
+				]
+				\addplot[blue, thick] {1 + 0.5*sin(deg(x))};
+				\addlegendentry{$f(x)$};
+				\addplot[red, thick] {2 + 0.3*sin(deg(x))};
+				\addlegendentry{$g(x)$};
+				\addplot[green!50!black, thick] {3 - 0.5*sin(deg(x))};
+				\addlegendentry{$h(x)$};
+				\addplot[dashed, black] {2};
+				\node at (axis cs:3,2.2) {$A$};
+			\end{axis}
+		\end{tikzpicture}
+		\captionof{figure}{Теорема о зажатой функции}
+	\end{center}
+	
+	\begin{notebook}{23.4: Почему «милиционеры»?}
+		Представь, что $f(x)$ и $h(x)$ — это два милиционера, которые ведут задержанного $g(x)$. Если оба милиционера идут в отделение (к пределу $A$), то задержанному, находящемуся между ними, ничего не остается, кроме как тоже прийти в отделение.
+	\end{notebook}
+	
+	
+	
+	
+	
+	\newpage
+	\section{Монотонные функции}
+	
+	\subsection{Предел монотонной функции (24 вопрос)}
+	
+	\begin{definitionbox}{24.1: Монотонные функции}
+		\begin{itemize}
+			\item Функция $f(x)$ называется \textbf{монотонно возрастающей} на множестве $E$, если для любых $x_1, x_2 \in E$ из условия $x_1 < x_2$ следует $f(x_1) \le f(x_2)$.
+			\item Функция $f(x)$ называется \textbf{монотонно убывающей} на множестве $E$, если для любых $x_1, x_2 \in E$ из условия $x_1 < x_2$ следует $f(x_1) \ge f(x_2)$.
+			\item Функция называется \textbf{монотонной}, если она либо только возрастает, либо только убывает.
+		\end{itemize}
+	\end{definitionbox}
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.8\textwidth,
+				height=6cm,
+				xlabel={$x$},
+				ylabel={$f(x)$},
+				domain=0:4,
+				samples=100,
+				legend pos=north west
+				]
+				\addplot[blue, thick] {x^2/4 + 1};
+				\addlegendentry{Возрастающая};
+				\addplot[red, thick] {4 - x^2/4};
+				\addlegendentry{Убывающая};
+			\end{axis}
+		\end{tikzpicture}
+		\captionof{figure}{Монотонные функции}
+	\end{center}
+	
+	\begin{theorembox}{24.2: Предел монотонной функции}
+		Для того чтобы монотонно возрастающая (убывающая) функция имела конечный предел при $x \to d$, необходимо и достаточно, чтобы она была ограничена сверху (снизу) в окрестности этой точки.
+	\end{theorembox}
+	
+	\vspace{0.5cm}
+	\myproof
+	Рассмотрим случай монотонно возрастающей функции $f(x)$ на множестве $E$, ограниченной сверху числом $M$ ($f(x) \le M$ для всех $x \in E$).
+	
+	\begin{enumerate}
+		\item Пусть $d$ — точка сгущения множества $E$. Выберем произвольную последовательность $\{x_n\} \to d$ такую, что $x_n$ возрастает ($x_n < x_{n+1}$).
+		\item В силу монотонности функции, последовательность значений $\{f(x_n)\}$ также будет монотонной: $f(x_n) \le f(x_{n+1})$.
+		\item Так как функция ограничена числом $M$, то и последовательность $\{f(x_n)\}$ ограничена сверху: $f(x_n) \le M$ для всех $n$.
+		\item По теореме о пределе монотонной ограниченной последовательности (теорема Вейерштрасса), последовательность $\{f(x_n)\}$ имеет конечный предел.
+		\item В силу произвольности выбора последовательности $\{x_n\}$ (согласно определению Гейне), этот предел будет являться пределом функции $f(x)$ при $x \to d$.
+	\end{enumerate}
+	
+	Для монотонно убывающей функции доказательство аналогично. \qed
+	
+	\begin{notebook}{24.3: Важный вывод}
+		Монотонная функция «хороша» тем, что она не может совершать колебания (как $\sin(1/x)$). Она либо уходит в бесконечность, либо, если ей мешает «потолок» (ограниченность), обязательно прижимается к этому потолку, который и становится её пределом.
+	\end{notebook}
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{Критерий Коши для функций}
+	
+	\subsection{Критерий Коши существования конечного предела функции: необходимость (25 вопрос)}
+	
+	\begin{theorembox}{25: Критерий Коши (необходимость)}
+		Для того чтобы функция $f(x)$ имела конечный предел в точке $d$, необходимо, чтобы для любого $\varepsilon > 0$ существовала такая проколотая окрестность $\dot{\omega}(d)$, что для любых точек $x_1, x_2 \in E \cap \dot{\omega}(d)$ выполнялось неравенство:
+		\[ |f(x_1) - f(x_2)| < \varepsilon \]
+	\end{theorembox}
+	
+	\vspace{0.5cm}
+	\myproof
+	Пусть существует конечный предел $\lim\limits_{x \to d} f(x) = a$.
+	\begin{enumerate}
+		\item По определению предела по Коши, для любого $\varepsilon > 0$ найдется проколотая окрестность $\dot{\omega}(d)$ такая, что для всех $x \in E \cap \dot{\omega}(d)$ выполняется:
+		\[ |f(x) - a| < \frac{\varepsilon}{2} \]
+		\item Возьмем любые две точки $x_1, x_2$ из этой окрестности. Тогда:
+		\[ |f(x_1) - a| < \frac{\varepsilon}{2} \quad \text{и} \quad |f(x_2) - a| < \frac{\varepsilon}{2} \]
+		\item Используя неравенство треугольника, оценим разность значений функции:
+		\[ |f(x_1) - f(x_2)| = |(f(x_1) - a) - (f(x_2) - a)| \le |f(x_1) - a| + |f(x_2) - a| \]
+		\item Подставляя оценки, получаем:
+		\[ |f(x_1) - f(x_2)| < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon \]
+	\end{enumerate} \qed
+	
+	
+	
+	\newpage
+	\subsection{Критерий Коши: достаточность (26 вопрос)}
+	
+	\begin{theorembox}{26: Критерий Коши (достаточность)}
+		Если для любого $\varepsilon > 0$ существует проколотая окрестность $\dot{\omega}(d)$ такая, что для любых $x_1, x_2 \in E \cap \dot{\omega}(d)$ выполняется $|f(x_1) - f(x_2)| < \varepsilon$, то функция $f(x)$ имеет конечный предел в точке $d$.
+	\end{theorembox}
+	
+	\myproof
+	Пусть условие Коши выполнено. Докажем, что предел существует, используя определение Гейне.
+	
+	\begin{enumerate}
+		\item Возьмем произвольную последовательность $\{x_n\} \to d$, где $x_n \neq d$.
+		\item Так как $x_n \to d$, то для любой окрестности $\dot{\omega}(d)$ все члены последовательности, начиная с некоторого номера $N$, попадут в эту окрестность: $\forall n, m > N \implies x_n, x_m \in \dot{\omega}(d)$.
+		\item Тогда по условию теоремы выполняется $|f(x_n) - f(x_m)| < \varepsilon$. Это означает, что числовая последовательность $\{f(x_n)\}$ является \textbf{фундаментальной}.
+		\item По критерию Коши для числовых последовательностей, $\{f(x_n)\}$ имеет конечный предел $a$.
+		\item \textbf{Независимость от выбора последовательности:} Возьмем другую последовательность $y_n \to d$. Аналогично, $f(y_n) \to a'$. Рассмотрим смешанную последовательность $z_n = \{x_1, y_1, x_2, y_2, \dots\}$. Она также стремится к $d$, а значит $f(z_n)$ должна иметь предел. Это возможно только если $a = a'$.
+	\end{enumerate}
+	Следовательно, по определению Гейне, предел функции существует. \qed
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.8\textwidth,
+				height=6cm,
+				xlabel={$x$},
+				ylabel={$f(x)$},
+				domain=0:4,
+				samples=100,
+				legend pos=north west
+				]
+				\addplot[blue, thick] {1 + 0.5*sin(deg(x))};
+				\addlegendentry{$f(x)$};
+				\addplot[red, only marks, mark=*] coordinates {(1,1.42) (1.2,1.46) (1.4,1.49) (1.6,1.51) (1.8,1.53) (2,1.54)};
+				\addlegendentry{$x_n$};
+				\addplot[green!50!black, only marks, mark=*] coordinates {(2.2,1.53) (2.4,1.51) (2.6,1.49) (2.8,1.46) (3,1.42)};
+				\addlegendentry{$y_n$};
+			\end{axis}
+		\end{tikzpicture}
+		\captionof{figure}{Критерий Коши: значения функции сближаются}
+	\end{center}
+	
+	\begin{notebook}{26.1: Ценность критерия}
+		Критерий Коши позволяет нам работать внутри «мира функции». Нам не нужно угадывать число $a$, чтобы проверить, является ли оно пределом. Достаточно убедиться, что значения функции вблизи точки $d$ становятся \textbf{бесконечно близкими} друг к другу.
+	\end{notebook}
+	
+	
+	
+	
+	
+	\newpage
+	\section{Сравнение бесконечно малых}
+	
+	\subsection{Шкала бесконечно малых (27 вопрос)}
+	
+	Пусть функции $f(x)$ и $g(x)$ определены на множестве $E$, $d$ — точка сгущения множества $E$, и обе функции являются бесконечно малыми при $x \to d$:
+	\[ f(x) \xrightarrow[x \to d]{} 0, \quad g(x) \xrightarrow[x \to d]{} 0 \]
+	
+	Для сравнения скорости их стремления к нулю рассматривается предел их отношения.
+	
+	\begin{definitionbox}{27.1: Классификация сравнения}
+		Отношение функций $\frac{f(x)}{g(x)}$ при $x \to d$ может вести себя следующим образом:
+		
+		\begin{enumerate}
+			\item \textbf{Более высокий порядок малости:}
+			Если $\lim\limits_{x \to d} \frac{f(x)}{g(x)} = 0$, то говорят, что функция $f(x)$ является \textit{бесконечно малой более высокого порядка}, чем $g(x)$ (обозначается $f = o(g)$).
+			
+			\item \textbf{Более низкий порядок малости:}
+			Если $\lim\limits_{x \to d} \frac{f(x)}{g(x)} = \infty$, то говорят, что функция $f(x)$ имеет \textit{меньший порядок малости}, чем $g(x)$.
+			
+			\item \textbf{Один и тот же порядок малости:}
+			Если $\lim\limits_{x \to d} \frac{f(x)}{g(x)} = c$, где $c \neq 0$ (конечное число), то функции называются бесконечно малыми \textit{одного порядка}.
+			
+			\item \textbf{Эквивалентные бесконечно малые:}
+			Если $c = 1$, то функции называются \textit{эквивалентными} (обозначается $f \sim g$).
+		\end{enumerate}
+	\end{definitionbox}
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.8\textwidth,
+				height=6cm,
+				xlabel={$x$},
+				ylabel={$f(x), g(x)$},
+				domain=0:1,
+				samples=100,
+				legend pos=north west
+				]
+				\addplot[blue, thick] {x};
+				\addlegendentry{$g(x) = x$};
+				\addplot[red, thick] {x^2};
+				\addlegendentry{$f(x) = x^2$ (более высокий порядок)};
+				\addplot[green!50!black, thick] {sqrt(x)};
+				\addlegendentry{$h(x) = \sqrt{x}$ (более низкий порядок)};
+			\end{axis}
+		\end{tikzpicture}
+		\captionof{figure}{Сравнение бесконечно малых}
+	\end{center}
+	
+	\myremark
+	Сравнение возможно только в том случае, если $g(x) \neq 0$ в некоторой проколотой окрестности точки $d$.
+	
+	
+	
+	
+	\newpage
+	\section{Основные аналитические неравенства}
+	
+	\tsubsection{Неравенства для логарифма (28 вопрос)}{Существенные неравенства для $\ln(1+x)$ (28 вопрос)}
+	
+	\begin{theorembox}{28: Неравенства для логарифма}
+		Для всех $x > -1$ справедливо неравенство:
+		\[ \frac{x}{1+x} \le \ln(1+x) \le x \]
+	\end{theorembox}
+	
+	\vspace{0.5cm}
+	\myproof
+	Вывод основывается на свойствах числа $e$ как предела последовательностей:
+	\begin{enumerate}
+		\item Из определения числа $e$ известно, что $\left(1 + \frac{1}{n}\right)^n < e < \left(1 + \frac{1}{n}\right)^{n+1}$.
+		\item Прологарифмировав неравенство, получаем: $n \ln(1 + \frac{1}{n}) < 1 < (n+1) \ln(1 + \frac{1}{n})$.
+		\item Разделив на $n$ и $n+1$ соответственно: $\frac{1}{n+1} < \ln(1 + \frac{1}{n}) < \frac{1}{n}$.
+		\item Полагая $x = \frac{1}{n}$, при $n \to \infty$ и обобщая на непрерывный случай, получаем искомое неравенство.
+	\end{enumerate} \qed
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.8\textwidth,
+				height=6cm,
+				xlabel={$x$},
+				ylabel={$y$},
+				domain=-0.5:2,
+				samples=100,
+				legend pos=north west
+				]
+				\addplot[blue, thick] {ln(1+x)};
+				\addlegendentry{$\ln(1+x)$};
+				\addplot[red, thick] {x};
+				\addlegendentry{$x$ (верхняя граница)};
+				\addplot[green!50!black, thick] {x/(1+x)};
+				\addlegendentry{$\frac{x}{1+x}$ (нижняя граница)};
+			\end{axis}
+		\end{tikzpicture}
+		\captionof{figure}{Неравенства для логарифма}
+	\end{center}
+	
+	
+	\newpage
+	\tsubsection{Неравенства для экспоненты (29 вопрос)}{Существенные неравенства для $e^x$ (29 вопрос)}
+	
+	\begin{theorembox}{29: Неравенство для экспоненты}
+		Для любого $x \in \mathbb{R}$ справедливо неравенство:
+		\[ e^x \ge 1 + x \]
+		Причем равенство достигается только при $x = 0$.
+	\end{theorembox}
+	
+	\vspace{0.5cm}
+	\myproof
+	Данное неравенство является следствием из 28-го вопроса:
+	\begin{enumerate}
+		\item Возьмем правую часть неравенства из вопроса 28: $\ln(1+t) \le t$.
+		\item Пусть $1+t = e^x$. Тогда $t = e^x - 1$.
+		\item Подставляя в неравенство, имеем: $\ln(e^x) \le e^x - 1 \implies x \le e^x - 1$.
+		\item Перенося единицу: $1 + x \le e^x$.
+	\end{enumerate} \qed
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.8\textwidth,
+				height=6cm,
+				xlabel={$x$},
+				ylabel={$y$},
+				domain=-2:2,
+				samples=100,
+				legend pos=north west
+				]
+				\addplot[blue, thick] {exp(x)};
+				\addlegendentry{$e^x$};
+				\addplot[red, thick] {1+x};
+				\addlegendentry{$1+x$};
+				\addplot[green!50!black, only marks, mark=*] coordinates {(0,1)};
+				\addlegendentry{равенство при $x=0$};
+			\end{axis}
+		\end{tikzpicture}
+		\captionof{figure}{Неравенство для экспоненты}
+	\end{center}
+	
+	
+	\newpage
+	\tsubsection{Неравенство Бернулли (30 вопрос)}{Существенные неравенства для степенной функции $(1+x)^\alpha$ (30 вопрос)}
+	
+	\begin{theorembox}{30: Неравенство Бернулли}
+		Для $x > -1$ и $\alpha \ge 1$ (или $\alpha \le 0$) справедливо:
+		\[ (1+x)^\alpha \ge 1 + \alpha x \]
+		Если $0 < \alpha < 1$, знак неравенства меняется на противоположный: $(1+x)^\alpha \le 1 + \alpha x$.
+	\end{theorembox}
+	
+	\vspace{0.5cm}
+	\myproof
+	Доказательство опирается на использование экспоненты и логарифма:
+	\begin{enumerate}
+		\item Представим функцию в виде $(1+x)^\alpha = e^{\alpha \ln(1+x)}$.
+		\item Используя неравенство $\ln(1+x) \le x$, при $\alpha > 0$ получаем верхнюю оценку.
+		\item Для строгой нижней оценки часто используется разложение в ряд или индукция (для целых $\alpha$).
+	\end{enumerate} \qed
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.8\textwidth,
+				height=6cm,
+				xlabel={$x$},
+				ylabel={$y$},
+				domain=-0.5:2,
+				samples=100,
+				legend pos=north west
+				]
+				\addplot[blue, thick] {(1+x)^2};
+				\addlegendentry{$(1+x)^2$};
+				\addplot[red, thick] {1+2*x};
+				\addlegendentry{$1+2x$};
+				\addplot[green!50!black, thick] {(1+x)^0.5};
+				\addlegendentry{$(1+x)^{0.5}$};
+				\addplot[orange, thick] {1+0.5*x};
+				\addlegendentry{$1+0.5x$};
+			\end{axis}
+		\end{tikzpicture}
+		\captionof{figure}{Неравенство Бернулли для разных $\alpha$}
+	\end{center}
+	
+	\vspace{0.5cm}
+	\begin{notebook}{30.1: Почему это важно?}
+		Эти неравенства — «фундамент» для вычисления замечательных пределов. Например, из них напрямую следует, что:
+		\[ \lim_{x \to 0} \frac{\ln(1+x)}{x} = 1 \quad \text{и} \quad \lim_{x \to 0} \frac{e^x - 1}{x} = 1 \]
+	\end{notebook}
+	
+	
+	
+	
+	
+	
+	
+	
+	% ==================== РАЗДЕЛ: ЗАМЕЧАТЕЛЬНЫЕ ПРЕДЕЛЫ ====================
+	\newpage
+	\section{Основные пределы и следствия}
+	
+	\tsubsection{Предел логарифма (31 вопрос)}{Предел логарифма: $\lim_{x \rightarrow 0} \frac{\ln (1+x)}{x}$ (31 вопрос)}
+	
+	\begin{theorembox}{31: Предел логарифма}
+		\[ \lim_{x \rightarrow 0} \frac{\ln (1+x)}{x} = 1 \]
+	\end{theorembox}
+	
+	\myproof
+	Используя свойства логарифма $\ln a^b = b \ln a$ и непрерывность функции:
+	\[ \lim_{x \rightarrow 0} \ln(1+x)^{1/x} = \ln \left( \lim_{x \rightarrow 0} (1+x)^{1/x} \right) = \ln e = 1 \] \qed
+	
+	
+	\vspace{1cm}
+	\tsubsection{Предел экспоненты (32 вопрос)}{Предел экспоненты: $\lim_{x \rightarrow 0} \frac{e^x - 1}{x}$ (32 вопрос)}
+	
+	\begin{theorembox}{32: Предел экспоненты}
+		\[ \lim_{x \rightarrow 0} \frac{e^x - 1}{x} = 1 \]
+	\end{theorembox}
+	
+	\myproof
+	Пусть $e^x - 1 = t$, тогда $e^x = 1 + t \Rightarrow x = \ln(1+t)$.
+	При $x \rightarrow 0$ переменная $t \rightarrow 0$.
+	\[ \lim_{t \rightarrow 0} \frac{t}{\ln(1+t)} = \frac{1}{\lim_{t \rightarrow 0} \frac{\ln(1+t)}{t}} = \frac{1}{1} = 1 \] \qed
+	
+	
+	
+	\vspace{1cm}
+	\tsubsection{Второй замечательный предел (33 вопрос)}{Второй замечательный предел: $\lim_{x \rightarrow 0} (1+x)^{1/x}$ (33 вопрос)}
+	
+	\begin{theorembox}{33: Второй замечательный предел}
+		\[ \lim_{x \rightarrow 0} (1+x)^{1/x} = e \]
+	\end{theorembox}
+	
+	\begin{remarkbox}{33.1}
+		Этот предел часто используется для раскрытия неопределенностей вида $1^\infty$.
+	\end{remarkbox}
+	
+	
+	
+	\vspace{1cm}
+	\tsubsection{Степенной предел (34 вопрос)}{Степенной предел: $\lim_{x \rightarrow 0} \frac{(1+x)^r - 1}{x}$ (34 вопрос)}
+	
+	\begin{theorembox}{34: Степенной предел}
+		\[ \lim_{x \rightarrow 0} \frac{(1+x)^r - 1}{x} = r \]
+	\end{theorembox}
+	
+	\myproof (Подсказка)
+	Через замену $(1+x)^r = e^{r \ln(1+x)}$ и использование предыдущих пределов для экспоненты и логарифма. \qed
+	
+	
+	
+	
+	\vspace{1cm}
+	\tsubsection{Первый замечательный предел (35 вопрос)}{Первый замечательный предел: $\lim_{x \rightarrow 0} \frac{\sin x}{x}$ (35 вопрос)}
+	
+	\begin{theorembox}{35: Первый замечательный предел}
+		\[ \lim_{x \rightarrow 0} \frac{\sin x}{x} = 1 \]
+	\end{theorembox}
+	
+	\myproof (Геометрический смысл)
+	Для малых $x > 0$ выполняется неравенство $\sin x < x < \text{tg } x$.
+	Разделив на $\sin x$, получаем:
+	\[ 1 < \frac{x}{\sin x} < \frac{1}{\cos x} \implies \cos x < \frac{\sin x}{x} < 1 \]
+	По теореме о «сжатой переменной» (о двух милиционерах), так как $\lim_{x \rightarrow 0} \cos x = 1$, предел функции посередине также равен 1. \qed
+		
+
+
+
+
+
+
+
+	% ==================== РАЗДЕЛ: НЕПРЕРЫВНОСТЬ ФУНКЦИИ ====================
+	\newpage
+	\section{Непрерывность функции и классификация разрывов}
+	
+	\subsection{Непрерывность в точке и операции (36 вопрос)}
+	
+	\begin{definitionbox}{36.1: Непрерывность в точке}
+		Функция $f(x)$ называется \textbf{непрерывной в точке} $x_0$, если:
+		\begin{enumerate}
+			\item Функция определена в точке $x_0$;
+			\item Существует конечный предел $\lim_{x \to x_0} f(x)$;
+			\item Этот предел равен значению функции в точке: $\lim_{x \to x_0} f(x) = f(x_0)$.
+		\end{enumerate}
+	\end{definitionbox}
+	
+	\begin{theorembox}{36.2: Арифметические операции с непрерывными функциями}
+		Если функции $f(x)$ и $g(x)$ непрерывны в точке $x_0$, то в этой точке также непрерывны:
+		\begin{itemize}
+			\item Сумма и разность: $f(x) \pm g(x)$;
+			\item Произведение: $f(x) \cdot g(x)$;
+			\item Частное: $\frac{f(x)}{g(x)}$ (при условии $g(x_0) \neq 0$).
+		\end{itemize}
+	\end{theorembox}
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.8\textwidth,
+				height=6cm,
+				xlabel={$x$},
+				ylabel={$f(x)$},
+				domain=0:4,
+				samples=100,
+				legend pos=north west
+				]
+				\addplot[blue, thick] {x^2/4 + 1};
+				\addlegendentry{Непрерывная функция};
+				\addplot[red, only marks, mark=*] coordinates {(2,2)};
+				\addlegendentry{$f(x_0)$};
+				\addplot[green!50!black, dashed] coordinates {(2,0) (2,2) (0,2)};
+				\node at (axis cs:2,2.5) {$x_0$};
+			\end{axis}
+		\end{tikzpicture}
+		\captionof{figure}{Непрерывная функция в точке $x_0$}
+	\end{center}
+	
+	
+	
+	\newpage
+	\subsection{Односторонняя непрерывность и классификация разрывов (37 вопрос)}
+	
+	\begin{definitionbox}{37.1: Односторонняя непрерывность}
+		\begin{itemize}
+			\item \textbf{Непрерывность слева:} $f(x_0 - 0) = f(x_0)$.
+			\item \textbf{Непрерывность справа:} $f(x_0 + 0) = f(x_0)$.
+		\end{itemize}
+	\end{definitionbox}
+	
+	\begin{definitionbox}{37.2: Классификация точек разрыва}
+		\begin{enumerate}
+			\item \textbf{Разрыв I рода:} Существуют конечные односторонние пределы $f(x_0-0)$ и $f(x_0+0)$.
+			\begin{itemize}
+				\item \textit{Устранимый разрыв}: $f(x_0-0) = f(x_0+0)$, но они не равны $f(x_0)$.
+				\item \textit{Скачок}: $f(x_0-0) \neq f(x_0+0)$.
+			\end{itemize}
+			\item \textbf{Разрыв II рода:} Хотя бы один из односторонних пределов равен $\infty$ или не существует.
+		\end{enumerate}
+	\end{definitionbox}
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.8\textwidth,
+				height=6cm,
+				xlabel={$x$},
+				ylabel={$f(x)$},
+				domain=0:4,
+				samples=100,
+				legend pos=north west
+				]
+				\addplot[blue, thick, domain=0:2] {x};
+				\addplot[blue, thick, domain=2:4] {x-1};
+				\addplot[red, only marks, mark=*] coordinates {(2,2)};
+				\addlegendentry{скачок};
+				\node at (axis cs:2,2.5) {$x_0$};
+			\end{axis}
+		\end{tikzpicture}
+		\captionof{figure}{Разрыв первого рода (скачок)}
+	\end{center}
+	
+	
+	
+	\vspace{1cm}
+	\subsection{Непрерывность монотонной функции (38 вопрос)}
+	
+	\begin{theorembox}{38: Непрерывность монотонной функции}
+		Если монотонная функция определена на промежутке, то её точками разрыва могут быть только \textbf{разрывы первого рода (скачки)}.
+	\end{theorembox}
+	
+	\begin{remarkbox}{38.1}
+		Монотонная функция не может иметь разрывов второго рода или осциллирующих разрывов. Если область значений монотонной функции является промежутком, то такая функция обязательно непрерывна.
+	\end{remarkbox}
+	
+	
+	
+	
+	\newpage
+	\subsection{Непрерывность суперпозиции (39 вопрос)}
+	
+	\begin{theorembox}{39: Непрерывность суперпозиции}
+		Если функция $u = \varphi(x)$ непрерывна в точке $x_0$, а функция $y = f(u)$ непрерывна в соответствующей точке $u_0 = \varphi(x_0)$, то \textbf{сложная функция} $y = f(\varphi(x))$ также непрерывна в точке $x_0$.
+	\end{theorembox}
+	
+	\myproof
+	Используется определение непрерывности через пределы:
+	\[ \lim_{x \to x_0} f(\varphi(x)) = f(\lim_{x \to x_0} \varphi(x)) = f(\varphi(x_0)) \]
+	Это свойство позволяет «вносить» предел под знак непрерывной функции. \qed
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\node[draw, circle, blue] (x0) at (0,0) {$x_0$};
+			\node[draw, circle, red] (u0) at (3,1) {$u_0$};
+			\node[draw, circle, green!50!black] (y0) at (6,0) {$y_0$};
+			\draw[->, blue] (x0) -- node[above] {$\varphi$} (u0);
+			\draw[->, red] (u0) -- node[above] {$f$} (y0);
+			\draw[->, green!50!black, thick] (x0) -- node[below] {$f \circ \varphi$} (y0);
+		\end{tikzpicture}
+		\captionof{figure}{Суперпозиция непрерывных функций непрерывна}
+	\end{center}
+	
+	
+	
+	
+	
+	
+	
+	% ==================== РАЗДЕЛ: НЕПРЕРЫВНОСТЬ ЭЛЕМЕНТАРНЫХ ФУНКЦИЙ ====================
+	\newpage
+	\section{Непрерывность основных элементарных функций}
+	
+	\tsubsection{Непрерывность логарифма (40 вопрос)}{Непрерывность $\ln x$ (40 вопрос)}
+	
+	Функция $y = \ln x$ определена при $x > 0$.
+	
+	\vspace{0.5cm}
+	\myproof
+	Для доказательства непрерывности в точке $x$ рассмотрим приращение:
+	\[ \Delta y = \ln(x + \Delta x) - \ln x = \ln \left( \frac{x + \Delta x}{x} \right) = \ln \left( 1 + \frac{\Delta x}{x} \right) \]
+	При $\Delta x \to 0$ выражение $\frac{\Delta x}{x} \to 0$. Используя следствие из второго замечательного предела ($\ln(1 + \alpha) \sim \alpha$):
+	\[ \lim_{\Delta x \to 0} \Delta y = \lim_{\Delta x \to 0} \frac{\Delta x}{x} = 0 \]
+	Следовательно, функция \textbf{непрерывна} в любой точке своей области определения. \qed
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.8\textwidth,
+				height=6cm,
+				xlabel={$x$},
+				ylabel={$\ln x$},
+				domain=0.1:4,
+				samples=100,
+				legend pos=north west
+				]
+				\addplot[blue, thick] {ln(x)};
+				\addlegendentry{$\ln x$};
+			\end{axis}
+		\end{tikzpicture}
+		\captionof{figure}{Непрерывность логарифмической функции}
+	\end{center}
+	
+	
+	
+	\newpage
+	\tsubsection{Непрерывность экспоненты (41 вопрос)}{Непрерывность $e^x$ (41 вопрос)}
+	
+	\myproof
+	Рассмотрим $\Delta y = e^{x + \Delta x} - e^x = e^x (e^{\Delta x} - 1)$.
+	Так как $\lim_{\Delta x \to 0} \frac{e^{\Delta x} - 1}{\Delta x} = 1$ (замечательный предел), то $e^{\Delta x} - 1 \sim \Delta x$ при $\Delta x \to 0$.
+	\[ \lim_{\Delta x \to 0} \Delta y = \lim_{\Delta x \to 0} e^x \cdot \Delta x = e^x \cdot 0 = 0 \]
+	Функция $e^x$ непрерывна на всей числовой прямой $\mathbb{R}$. \qed
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.8\textwidth,
+				height=6cm,
+				xlabel={$x$},
+				ylabel={$e^x$},
+				domain=-2:2,
+				samples=100,
+				legend pos=north west
+				]
+				\addplot[blue, thick] {exp(x)};
+				\addlegendentry{$e^x$};
+			\end{axis}
+		\end{tikzpicture}
+		\captionof{figure}{Непрерывность экспоненты}
+	\end{center}
+	
+	
+	
+	
+	\vspace{1cm}
+	\tsubsection{Непрерывность степенной функции (42 вопрос)}{Непрерывность $x^r$ (42 вопрос)}
+	
+	\myproof
+	Степенную функцию $y = x^r$ (при $x > 0$) можно представить как суперпозицию экспоненты и логарифма:
+	\[ x^r = e^{r \ln x} \]
+	Поскольку $\ln x$ непрерывна (вопр. 40), а $e^x$ непрерывна (вопр. 41), то по теореме о \textbf{непрерывности суперпозиции} (вопр. 39) функция $x^r$ также является непрерывной. \qed
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.8\textwidth,
+				height=6cm,
+				xlabel={$x$},
+				ylabel={$x^r$},
+				domain=0.1:2,
+				samples=100,
+				legend pos=north west
+				]
+				\addplot[blue, thick] {x^2};
+				\addlegendentry{$x^2$};
+				\addplot[red, thick] {x^0.5};
+				\addlegendentry{$x^{0.5}$};
+				\addplot[green!50!black, thick] {x};
+				\addlegendentry{$x$};
+			\end{axis}
+		\end{tikzpicture}
+		\captionof{figure}{Непрерывность степенных функций}
+	\end{center}
+	
+	
+	\tsubsection{Непрерывность синуса (43 вопрос)}{Непрерывность $\sin x$ (43 вопрос)}
+	
+	\myproof
+	Оценим приращение:
+	\[ |\Delta \sin x| = |\sin(x + \Delta x) - \sin x| = |2 \sin \frac{\Delta x}{2} \cos(x + \frac{\Delta x}{2})| \]
+	Используя неравенства $|\sin \alpha| \le |\alpha|$ и $|\cos \beta| \le 1$:
+	\[ |\Delta y| \le 2 \cdot \frac{|\Delta x|}{2} \cdot 1 = |\Delta x| \]
+	Поскольку $|\Delta y| \le |\Delta x|$, то при $\Delta x \to 0$ приращение $\Delta y \to 0$. Функция \textbf{непрерывна} на $\mathbb{R}$. \qed
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.8\textwidth,
+				height=6cm,
+				xlabel={$x$},
+				ylabel={$\sin x$},
+				domain=-2*pi:2*pi,
+				samples=100,
+				legend pos=north west
+				]
+				\addplot[blue, thick] {sin(deg(x))};
+				\addlegendentry{$\sin x$};
+			\end{axis}
+		\end{tikzpicture}
+		\captionof{figure}{Непрерывность синуса}
+	\end{center}
+	
+	
+	
+	
+	\vspace{1cm}
+	\tsubsection{Непрерывность тригонометрических функций (44 вопрос)}{Непрерывность $\cos x$, $\text{tg } x$, $\text{ctg } x$ (44 вопрос)}
+	
+	\myproof
+	\begin{itemize}
+		\item \textbf{$\cos x$}: Аналогично синусу через формулу разности косинусов. Также $\cos x = \sin(\frac{\pi}{2} - x)$ (суперпозиция непрерывных).
+		\item \textbf{$\text{tg } x$ и $\text{ctg } x$}: Представляются как частное $\frac{\sin x}{\cos x}$ и $\frac{\cos x}{\sin x}$. По теореме о непрерывности частного, они непрерывны во всех точках, где \textbf{знаменатель не равен нулю}.
+	\end{itemize} \qed
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.8\textwidth,
+				height=6cm,
+				xlabel={$x$},
+				ylabel={$\cos x$, $\tan x$},
+				domain=-pi:pi,
+				samples=100,
+				legend pos=north west,
+				restrict y to domain=-3:3
+				]
+				\addplot[blue, thick] {cos(deg(x))};
+				\addlegendentry{$\cos x$};
+				\addplot[red, thick] {tan(deg(x))};
+				\addlegendentry{$\tan x$};
+			\end{axis}
+		\end{tikzpicture}
+		\captionof{figure}{Непрерывность косинуса и тангенса}
+	\end{center}
+	
+	
+	
+	
+	
+	
+	% ==================== РАЗДЕЛ: СВОЙСТВА НЕПРЕРЫВНЫХ ФУНКЦИЙ ====================
+	\newpage
+	\section{Свойства функций, непрерывных на отрезке}
+	
+	\subsection{Теорема об отображении отрезка (45 вопрос)}
+	
+	\begin{theorembox}{45.1: Вейерштрасса о достижении точных граней}
+		Если функция $f(x)$ непрерывна на отрезке $[a, b]$, то она:
+		\begin{enumerate}
+			\item \textbf{Ограничена} на этом отрезке.
+			\item Достигает на нем своих \textbf{максимального} и \textbf{минимального} значений.
+		\end{enumerate}
+		То есть существуют такие точки $x_1, x_2 \in [a, b]$, что $f(x_1) = \inf f(x)$ и $f(x_2) = \sup f(x)$.
+	\end{theorembox}
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.8\textwidth,
+				height=6cm,
+				xlabel={$x$},
+				ylabel={$f(x)$},
+				domain=0:4,
+				samples=100,
+				legend pos=north west
+				]
+				\addplot[blue, thick] {2 + sin(deg(x)) + 0.5*sin(2*deg(x))};
+				\addlegendentry{$f(x)$};
+				\addplot[red, only marks, mark=*] coordinates {(0.8,1.2) (3.2,3.2)};
+				\addlegendentry{min и max};
+				\addplot[dashed, red] coordinates {(0,1.2) (4,1.2)};
+				\addplot[dashed, red] coordinates {(0,3.2) (4,3.2)};
+			\end{axis}
+		\end{tikzpicture}
+		\captionof{figure}{Теорема Вейерштрасса: достижение минимума и максимума}
+	\end{center}
+	
+	\begin{theorembox}{45.2: Больцано-Коши о промежуточном значении}
+		Если функция $f(x)$ непрерывна на $[a, b]$ и на концах отрезка принимает значения разных знаков ($f(a) \cdot f(b) < 0$), то существует хотя бы одна точка $c \in (a, b)$, в которой $\mathbf{f(c) = 0}$.
+	\end{theorembox}
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.8\textwidth,
+				height=6cm,
+				xlabel={$x$},
+				ylabel={$f(x)$},
+				domain=0:4,
+				samples=100,
+				legend pos=north west
+				]
+				\addplot[blue, thick] {x-2};
+				\addlegendentry{$f(x)$};
+				\addplot[red, only marks, mark=*] coordinates {(0,-2) (4,2) (2,0)};
+				\addlegendentry{$f(a)<0$, $f(b)>0$};
+				\addplot[dashed, red] coordinates {(2,0) (2,0)};
+				\node at (axis cs:2,0.5) {$c$};
+			\end{axis}
+		\end{tikzpicture}
+		\captionof{figure}{Теорема Больцано-Коши: существование корня}
+	\end{center}
+	
+	\begin{notebook}{45.3: Геометрическая суть}
+		Непрерывная функция отображает отрезок $[a, b]$ в отрезок $[m, M]$, где $m$ и $M$ — её минимум и максимум на этом промежутке. Образно говоря, «график непрерывной функции можно нарисовать, не отрывая карандаша от бумаги», поэтому он обязан пройти через все промежуточные значения и не может уйти в бесконечность.
+	\end{notebook}
+	
+	\myproof (Схема для ответа)
+	При ответе на этот билет обычно полезно упомянуть принцип \textbf{вложенных отрезков} или метод деления отрезка пополам:
+	\begin{itemize}
+		\item Для ограниченности: предположим противное (функция не ограничена), тогда построим последовательность точек, стремящуюся к бесконечности, и выделим сходящуюся подпоследовательность по лемме Больцано-Вейерштрасса.
+		\item Для корня: если на концах разные знаки, делим отрезок пополам. Либо в середине корень, либо выбираем ту половину, где знаки на концах снова разные. Стягиваем отрезки в точку по принципу Кантора.
+	\end{itemize}
+	
+	\begin{importantbox}{Важное условие}
+		Все эти свойства \textbf{перестают работать}, если промежуток не замкнут (например, интервал $(0, 1)$) или если функция имеет хотя бы одну точку разрыва.
+		
+		\textit{Пример:} $f(x) = 1/x$ на $(0, 1]$ непрерывна, но не ограничена сверху.
+	\end{importantbox}
+	
+	
+	
+	
+	\vspace{1cm}
+	\subsection{Теорема об обращении непрерывной функции в ноль (46 вопрос)}
+	
+	\begin{theorembox}{46.1: Теорема Больцано-Коши (первая)}
+		Пусть функция $f(x)$ определена и непрерывна на отрезке $[a, b]$, т.е. $f \in C([a, b])$. 
+		Если на концах этого отрезка функция принимает значения разных знаков ($f(a) \cdot f(b) < 0$), то существует хотя бы одна точка $c \in (a, b)$ такая, что $f(c) = 0$.
+	\end{theorembox}
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.8\textwidth,
+				height=6cm,
+				axis lines=middle,
+				xlabel={$x$},
+				ylabel={$y$},
+				xmin=-0.5, xmax=4.5,
+				ymin=-2.5, ymax=2.5,
+				xtick={1, 2.5, 4},
+				xticklabels={$a$, $c$, $b$},
+				ytick={0},
+				samples=100
+				]
+				\addplot[blue, thick, domain=1:4] {0.5*(x-2.5)^3 - 0.5*(x-2.5) };
+				\addplot[red, only marks, mark=*] coordinates {(1,-1.2) (4,1.875) (2.5,0)};
+				\node[below left] at (axis cs:1,-1.2) {$f(a)<0$};
+				\node[above right] at (axis cs:4,1.875) {$f(b)>0$};
+				\node[above right] at (axis cs:2.5,0) {$f(c)=0$};
+				\draw[dashed] (axis cs:1,0) -- (axis cs:1,-1.2);
+				\draw[dashed] (axis cs:4,0) -- (axis cs:4,1.875);
+			\end{axis}
+		\end{tikzpicture}
+		\captionof{figure}{Геометрическая иллюстрация метода деления отрезка пополам}
+	\end{center}
+	
+	\myproof
+	Воспользуемся методом деления отрезка пополам (дихотомии).
+	
+	1. Обозначим исходный отрезок $[a_1, b_1] = [a, b]$. По условию $f(a_1) \cdot f(b_1) < 0$.
+	Пусть $c_1 = \frac{a_1 + b_1}{2}$ — середина отрезка.
+	\begin{itemize}
+		\item Если $f(c_1) = 0$, то искомая точка $c = c_1$, и теорема доказана.
+		\item Если $f(c_1) \neq 0$, то выбираем ту из половин $[a_1, c_1]$ или $[c_1, b_1]$, на концах которой функция имеет разные знаки. Обозначим её $[a_2, b_2]$. Тогда $f(a_2) \cdot f(b_2) < 0$.
+	\end{itemize}
+	
+	2. Продолжая этот процесс итерационно, на $n$-м шаге мы либо найдем корень в середине отрезка ($f(c_n) = 0$), либо получим последовательность вложенных отрезков $[a_n, b_n]$ такую, что:
+	\begin{itemize}
+		\item $f(a_n) \cdot f(b_n) < 0$ для любого $n$;
+		\item Длина отрезка $b_n - a_n = \frac{b-a}{2^{n-1}} \xrightarrow{n \to \infty} 0$.
+	\end{itemize}
+	
+	3. По \textbf{принципу Кантора} (о вложенных отрезках), существует единственная точка $c$, принадлежащая всем отрезкам:
+	$$ \exists! \, c \in [a_n, b_n] \, \forall n \implies \lim_{n \to \infty} a_n = \lim_{n \to \infty} b_n = c $$
+	
+	4. Так как $f(x)$ непрерывна в точке $c$, то по определению непрерывности (через последовательности):
+	$$ \lim_{n \to \infty} f(a_n) = f(c) \quad \text{и} \quad \lim_{n \to \infty} f(b_n) = f(c) $$
+	Следовательно, по свойствам пределов:
+	$$ \lim_{n \to \infty} (f(a_n) \cdot f(b_n)) = f(c) \cdot f(c) = f^2(c) $$
+	С другой стороны, так как $f(a_n) \cdot f(b_n) < 0$, то по свойству предельных переходов в неравенствах:
+	$$ f^2(c) \leq 0 $$
+	Так как квадрат любого вещественного числа не может быть отрицательным, единственно возможный вариант:
+	$$ f^2(c) = 0 \implies f(c) = 0 $$
+
+	
+	\begin{notebook}{46.2: Связь с другими теоремами}
+		Данная теорема является частным случаем \textit{теоремы о промежуточном значении}. Она утверждает, что если непрерывная кривая переходит из нижней полуплоскости в верхнюю, она обязана хотя бы раз пересечь ось $OX$.
+	\end{notebook}
+	
+	\begin{importantbox}{Замечание}
+		Условие непрерывности на \textbf{замкнутом} промежутке существенно. 
+		Например, для функции $f(x) = \frac{1}{x} - \frac{3}{2}$ на отрезке $[1, 2]$ корень существует, но если рассмотреть разрывную функцию, она может «перепрыгнуть» через ноль.
+	\end{importantbox}
+	
+	
+	
+	
+
+	\subsection{Теорема о промежуточном значении (47 вопрос)}
+	
+	\begin{theorembox}{47.1: Вторая теорема Больцано-Коши}
+		Пусть функция $f(x)$ непрерывна на отрезке $[a, b]$ и на его концах принимает неравные значения $f(a) \neq f(b)$. 
+		Тогда для любого числа $p$, лежащего между $f(a)$ и $f(b)$, найдется хотя бы одна точка $c \in (a, b)$ такая, что $f(c) = p$.
+	\end{theorembox}
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.8\textwidth,
+				height=6cm,
+				axis lines=middle,
+				xlabel={$x$},
+				ylabel={$y$},
+				xmin=0, xmax=5,
+				ymin=0, ymax=4,
+				xtick={1, 2.8, 4},
+				xticklabels={$a$, $c$, $b$},
+				ytick={1.2, 2.2, 3.2},
+				yticklabels={$f(a)$, $p$, $f(b)$},
+				samples=100
+				]
+				\addplot[blue, thick, domain=1:4] {1.2 + 0.5*(x-1) + 0.2*(x-1)^2};
+				\addplot[dashed, gray] coordinates {(0,2.2) (2.8,2.2)};
+				\addplot[dashed, gray] coordinates {(2.8,0) (2.8,2.2)};
+				\addplot[red, only marks, mark=*] coordinates {(1,1.2) (4,3.2) (2.8,2.2)};
+				\node[right] at (axis cs:0,2.3) {$p$};
+			\end{axis}
+		\end{tikzpicture}
+		\captionof{figure}{Прохождение функции через любое промежуточное значение $p$}
+	\end{center}
+	
+	\myproof
+	Предположим для определенности, что $f(a) < p < f(b)$. 
+	Рассмотрим вспомогательную функцию $g(x) = f(x) - p$.
+	
+	1. Так как $f(x)$ непрерывна на $[a, b]$, а $p$ — константа, то функция $g(x)$ также непрерывна на $[a, b]$ (как разность непрерывной функции и константы).
+	
+	2. Вычислим значения $g(x)$ на концах отрезка:
+	\begin{itemize}
+		\item $g(a) = f(a) - p < 0$ (так как $f(a) < p$);
+		\item $g(b) = f(b) - p > 0$ (так как $f(b) > p$).
+	\end{itemize}
+	Следовательно, на концах отрезка функция $g(x)$ принимает значения разных знаков: $g(a) \cdot g(b) < 0$.
+	
+	3. По первой теореме Больцано-Коши (о нуле непрерывной функции) существует точка $c \in (a, b)$ такая, что $g(c) = 0$.
+	
+	4. Возвращаясь к исходной функции:
+	$$ g(c) = 0 \iff f(c) - p = 0 \iff f(c) = p $$
+	Что и требовалось доказать.
+	
+	\begin{notebook}{47.2: Следствие (свойство Дарбу)}
+		Функции, обладающие этим свойством (принимать все промежуточные значения), называются функциями Дарбу. Непрерывные функции всегда являются функциями Дарбу, однако обратное не всегда верно (существуют разрывные функции со свойством Дарбу).
+	\end{notebook}
+	
+	\begin{importantbox}{Практическое значение}
+		Эта теорема гарантирует, что если мы непрерывно меняем параметр системы, то система пройдет через все промежуточные состояния. В анализе это основной инструмент для доказательства существования решений уравнений вида $f(x) = p$.
+	\end{importantbox}
+	
+	
+	
+	
+	
+
+	\vspace{1cm}
+	\subsection{Существование обратной непрерывной функции (48 вопрос)}
+	
+	\begin{theorembox}{48.1: Теорема о существовании и непрерывности обратной функции}
+		Пусть $f(x)$ определена, непрерывна ($f \in C[a, b]$) и строго монотонна на отрезке $[a, b]$. Пусть $f(a) = p$, $f(b) = q$.
+		Тогда на отрезке с концами $p$ и $q$ существует обратная функция $g(y) = f^{-1}(y)$, которая:
+		\begin{enumerate}
+			\item Определена на $[\min(p, q), \max(p, q)]$.
+			\item Непрерывна и строго монотонна (в том же смысле, что и $f$).
+			\item Удовлетворяет условиям: $f(g(y)) = y$ и $g(f(x)) = x$.
+		\end{enumerate}
+	\end{theorembox}
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.7\textwidth,
+				height=6cm,
+				axis lines=middle,
+				xlabel={$x, y$},
+				ylabel={$y, x$},
+				xmin=0, xmax=4,
+				ymin=0, ymax=4,
+				xtick={1, 3},
+				xticklabels={$a$, $b$},
+				ytick={1, 3},
+				yticklabels={$p$, $q$},
+				legend pos=north west
+				]
+				\addplot[blue, thick, domain=1:3] {x^1.5 - 1 + 1}; 
+				\addlegendentry{$f(x)$};
+				\addplot[red, thick, dashed, domain=1:3.2] {(x+0)^0.66 + 0.3}; 
+				\addlegendentry{$f^{-1}(y)$};
+				\addplot[gray, thin, domain=0:3.5] {x};
+				\node[below right] at (axis cs:3,3) {$y=x$};
+			\end{axis}
+		\end{tikzpicture}
+		\captionof{figure}{Симметрия графиков прямой и обратной функций относительно $y=x$}
+	\end{center}
+	
+	\vspace{0.5cm}
+	\myproof
+	Рассмотрим случай, когда $f(x)$ строго возрастает: $\forall x_1 < x_2 \implies f(x_1) < f(x_2)$. Тогда $p = f(a) < f(b) = q$.
+	
+	\vspace{0.5cm}
+	\textbf{1. Существование и однозначность:}
+	Возьмем произвольное $y \in (p, q)$. Так как $f(x)$ непрерывна, то по теореме о промежуточном значении (вопрос 47) существует точка $x \in (a, b)$ такая, что $f(x) = y$. 
+	Предположим, что существует другая точка $x_1 \neq x$:
+	\begin{itemize}
+		\item Если $x_1 < x$, то в силу строгой монотонности $f(x_1) < f(x) = y$.
+		\item Если $x_1 > x$, то $f(x_1) > f(x) = y$.
+	\end{itemize}
+	Следовательно, для каждого $y$ точка $x$ \textbf{единственна}. Это позволяет корректно задать функцию $g(y) = x$.
+	
+	\vspace{0.5cm}
+	\textbf{2. Строгая монотонность $g(y)$:}
+	Пусть $y_1 < y_2$ и $g(y_1) = x_1$, $g(y_2) = x_2$. Нужно доказать, что $x_1 < x_2$.
+	Предположим противное: $x_1 \geq x_2$.
+	\begin{itemize}
+		\item Если $x_1 = x_2$, то $f(x_1) = f(x_2) \implies y_1 = y_2$, что противоречит условию.
+		\item Если $x_1 > x_2$, то в силу возрастания $f$ имеем $f(x_1) > f(x_2) \implies y_1 > y_2$, что также противоречит условию.
+	\end{itemize}
+	Значит, $x_1 < x_2$, и $g(y)$ строго возрастает.
+	
+	\vspace{0.5cm}
+	\textbf{3. Непрерывность:} (Схема)
+	Для любого интервала $(\alpha, \beta) \subset [a, b]$ его образом при отображении $f$ будет интервал $(f(\alpha), f(\beta))$. Так как интервалы переходят в интервалы, у функции $g(y)$ нет точек разрыва второго рода (прыжков), а в силу монотонности нет и устранимых разрывов. Следовательно, $g(y)$ непрерывна.
+	
+	\vspace{0.5cm}
+	\begin{importantbox}{Геометрический смысл}
+		График обратной функции получается зеркальным отражением графика $f(x)$ относительно прямой $y = x$. Условие строгой монотонности критично: без него функция не была бы инъективной (одному $y$ могло бы соответствовать несколько $x$).
+	\end{importantbox}
+	
+	
+	
+	
+	\vspace{1cm}
+	\subsection{Непрерывность $\arcsin x, \arccos x, \arctg x, \arcctg x$ (49 вопрос)}
+	
+	\begin{theorembox}{{49.1: Непрерывность на отрезке ($\arcsin, \arccos$)}}
+		На основании теоремы о существовании и непрерывности обратной функции (вопрос 48):
+		\begin{itemize}
+			\item $y = \arcsin x$ — обратная для $f(x) = \sin x$ на $[-\frac{\pi}{2}; \frac{\pi}{2}]$. Так как $\sin x$ непрерывна и строго возрастает на этом отрезке, то $\arcsin x \in C([-1; 1])$.
+			\item $y = \arccos x$ — обратная для $f(x) = \cos x$ на $[0; \pi]$. Так как $\cos x$ непрерывна и строго убывает на этом отрезке, то $\arccos x \in C([-1; 1])$.
+		\end{itemize}
+	\end{theorembox}
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.8\textwidth,
+				height=5cm,
+				axis lines=middle,
+				xmin=-1.5, xmax=1.5,
+				ymin=-2, ymax=4,
+				xtick={-1, 1},
+				ytick={-1.57, 1.57, 3.14},
+				yticklabels={$-\frac{\pi}{2}$, $\frac{\pi}{2}$, $\pi$},
+				legend pos=outer north east
+				]
+				\addplot[blue, thick, domain=-1:1, samples=100] {asin(x)*pi/180};
+				\addlegendentry{$\arcsin x$}
+				\addplot[red, thick, domain=-1:1, samples=100] {acos(x)*pi/180};
+				\addlegendentry{$\arccos x$}
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	
+	\begin{theorembox}{49.2: Непрерывность на всей прямой ($\arctg x$)}
+		Для доказательства непрерывности $y = \arctg x$ на $\mathbb{R}$ воспользуемся методом расширяющихся отрезков. Рассмотрим последовательность отрезков:
+		$$ a_n = -\frac{\pi}{2} + \frac{\pi}{4n}, \quad b_n = \frac{\pi}{2} - \frac{\pi}{4n}, \quad n \geq 1 $$
+		Тогда $x \in [a_n, b_n]$. Функция $y = \text{tg}\,x$ непрерывна и строго возрастает на каждом таком $[a_n, b_n]$.
+	\end{theorembox}
+	
+	\vspace{0.5cm}
+	\myproof
+	1. Обозначим $p_n = \text{tg}\,a_n$ и $q_n = \text{tg}\,b_n$. По теореме об обратной функции, $g(y) = \arctg y$ определена и непрерывна на каждом отрезке $[p_n, q_n]$ для любого $n \in \mathbb{N}$.
+	
+	2. Заметим, что:
+	$$ \arctg y \in C\left( \bigcup_{n=1}^{\infty} [p_n, q_n] \right) $$
+	3. Поскольку при $n \to \infty$:
+	$$ a_n \to -\frac{\pi}{2} \implies p_n \to -\infty, \quad b_n \to \frac{\pi}{2} \implies q_n \to +\infty $$
+	Объединение всех таких отрезков дает всю числовую прямую: $\bigcup_{n=1}^{\infty} [p_n, q_n] = \mathbb{R}$.
+	
+	4. Таким образом, $\arctg x$ непрерывен в любой точке $y \in \mathbb{R}$. Аналогично доказывается непрерывность $\arcctg x$ на $\mathbb{R}$.
+	\textbf{Ч.Т.Д.}
+	
+	\vspace{0.5cm}
+	\begin{importantbox}{Вывод}
+		Все основные элементарные функции (степенные, показательные, логарифмические, тригонометрические и их обратные) непрерывны во всей своей области определения.
+	\end{importantbox}
+	
+	
+	
+	\newpage
+	\subsection{Равномерная непрерывность функции; теорема Кантора (50 вопрос)}
+	
+	\begin{definitionbox}{50.1: Равномерная непрерывность}
+		Функция $f(x)$, заданная на множестве $E \subset \mathbb{R}$, называется \textbf{равномерно непрерывной} на этом множестве, если:
+		$$ \forall \varepsilon > 0 \quad \exists \delta > 0 \quad \text{т.ч.} \quad \forall x_1, x_2 \in E: \quad |x_1 - x_2| < \delta \implies |f(x_1) - f(x_2)| < \varepsilon $$
+	\end{definitionbox}
+	
+	\begin{theorembox}{50.2: Теорема Кантора}
+		Если функция $f(x)$ непрерывна на отрезке $[a, b]$, то она равномерно непрерывна на этом отрезке.
+	\end{theorembox}
+	
+	\vspace{0.5cm}
+	\myproof
+	Докажем от противного. Предположим, что функция $f \in C[a, b]$, но она \textbf{не является} равномерно непрерывной.
+	
+	1. Запишем отрицание определения:
+	$$ \exists \varepsilon_0 > 0 \quad \text{т.ч.} \quad \forall \delta > 0 \quad \exists x', x'' \in [a, b]: \quad |x' - x''| < \delta, \text{ но } |f(x') - f(x'')| \geq \varepsilon_0 $$
+	
+	2. Положим $\delta_n = 1/n$. Тогда для каждого $n \in \mathbb{N}$ существуют точки $x'_n$ и $x''_n$ такие, что:
+	$$ |x'_n - x''_n| < \frac{1}{n} \xrightarrow{n \to \infty} 0, \quad \text{но } |f(x'_n) - f(x''_n)| \geq \varepsilon_0 \quad (\dagger) $$
+	
+	3. Последовательность $\{x'_n\}$ ограничена (так как $x'_n \in [a, b]$). По лемме \textbf{Больцано-Вейерштрасса} из неё можно выделить сходящуюся подпоследовательность:
+	$$ x'_{n_k} \xrightarrow{k \to \infty} c, \quad \text{где } c \in [a, b] $$
+	Так как $|x'_{n_k} - x''_{n_k}| \to 0$, то подпоследовательность $\{x''_{n_k}\}$ стремится к тому же пределу $c$.
+	
+	4. Функция $f(x)$ непрерывна в точке $c \in [a, b]$. Значит, по определению Гейне:
+	$$ f(x'_{n_k}) \xrightarrow{k \to \infty} f(c) \quad \text{и} \quad f(x''_{n_k}) \xrightarrow{k \to \infty} f(c) $$
+	
+	5. Положим $\varepsilon_1 = \varepsilon_0/4$. Тогда $\exists K$ такое, что для всех $k > K$:
+	$$ |f(x'_{n_k}) - f(c)| < \varepsilon_1 \quad \text{и} \quad |f(x''_{n_k}) - f(c)| < \varepsilon_1 $$
+	6. Оценим разность по неравенству треугольника:
+	$$ |f(x'_{n_k}) - f(x''_{n_k})| \leq |f(x'_{n_k}) - f(c)| + |f(c) - f(x''_{n_k})| < \varepsilon_1 + \varepsilon_1 = \frac{\varepsilon_0}{2} $$
+	Полученное неравенство $|f(x'_{n_k}) - f(x''_{n_k})| < \frac{\varepsilon_0}{2}$ \textbf{противоречит} условию $(\dagger)$, согласно которому эта разность должна быть $\geq \varepsilon_0$.
+	
+	Следовательно, наше предположение ложно, и теорема доказана. \textbf{Ч.Т.Д.}
+	
+	
+	\begin{notebook}{50.3: В чем отличие?}
+		Обычная непрерывность — это \textbf{локальное} свойство (зависит от точки), где выбор $\delta$ зависит и от $\varepsilon$, и от конкретной точки $x$. Равномерная непрерывность — это \textbf{глобальное} свойство: здесь одно и то же $\delta$ работает «с одинаковой силой» по всему множеству.
+	\end{notebook}
+	
+	
+	\vspace{0.5cm}
+	\begin{importantbox}{Важно!}
+		Теорема Кантора работает \textbf{только на компакте} (отрезке). На интервале $(a, b)$ она может не выполняться. 
+		\textit{Пример:} $f(x) = 1/x$ на $(0, 1]$ непрерывна, но \textbf{не} равномерно непрерывна.
+	\end{importantbox}
+	
+	
+	
+	
+	
+	
+	
+	% ==================== РАЗДЕЛ: дифференциального исчисления ====================
+		
+	\newpage
+	\section{Дифференциального исчисления}	
+	\subsection{Определение производной и односторонней производной (51 вопрос)}
+
+	
+	\begin{definitionbox}{51.1: Производная функции в точке}
+		Пусть функция $f(x)$ определена на отрезке $[a, b]$. Производной функции в точке $x_0 \in (a, b)$ называется предел отношения приращения функции к приращению аргумента при стремлении последнего к нулю:
+		$$ f'(x_0) = \lim_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0} = \lim_{h \to 0} \frac{f(x_0 + h) - f(x_0)}{h} $$
+		Если этот предел существует и конечен, функция называется \textbf{дифференцируемой} в точке $x_0$.
+	\end{definitionbox}
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.7\textwidth,
+				height=5cm,
+				axis lines=middle,
+				xmin=-0.5, xmax=4,
+				ymin=-0.5, ymax=3,
+				xtick={1, 2.5},
+				xticklabels={$x_0$, $x_0+h$},
+				ytick={0.5, 2.2},
+				yticklabels={$f(x_0)$, $f(x_0+h)$},
+				]
+				\addplot[blue, thick, domain=0.5:3] {0.3*x^2 + 0.2};
+				\addplot[red, thick] coordinates {(1,0.5) (2.5,2.075)}; % Секущая
+				\node[above left] at (axis cs:1,0.5) {$M_0$};
+				\node[above left] at (axis cs:2.5,2.075) {$M$};
+				\draw[dashed, gray] (axis cs:1,0) -- (axis cs:1,0.5);
+				\draw[dashed, gray] (axis cs:2.5,0) -- (axis cs:2.5,2.075);
+			\end{axis}
+		\end{tikzpicture}
+		\captionof{figure}{Геометрический смысл: предел наклона секущей}
+	\end{center}
+	
+	\begin{definitionbox}{51.2: Односторонние производные}
+		Для точек на границах области определения или в точках «излома» вводятся понятия односторонних производных:
+		\begin{itemize}
+			\item \textbf{Левая производная} (в точке $b$ или $x_0$): 
+			$f'_{-}(x_0) = \lim_{x \to x_0 - 0} \frac{f(x) - f(x_0)}{x - x_0}$
+			\item \textbf{Правая производная} (в точке $a$ или $x_0$): 
+			$f'_{+}(x_0) = \lim_{x \to x_0 + 0} \frac{f(x) - f(x_0)}{x - x_0}$
+		\end{itemize}
+	\end{definitionbox}
+	
+	
+	\vspace{1cm}
+	\begin{theorembox}{51.3: Связь дифференцируемости и непрерывности}
+		Если функция $f(x)$ имеет конечную производную в точке $x_0$, то она непрерывна в этой точке.
+	\end{theorembox}
+	
+	\vspace{0.5cm}
+	\myproof
+	Нужно показать, что $\lim_{x \to x_0} f(x) = f(x_0)$, или, что то же самое, $\lim_{x \to x_0} |f(x) - f(x_0)| = 0$.
+	
+	1. По определению производной: $\forall \varepsilon > 0 \, \exists \delta > 0$, что при $0 < |x - x_0| < \delta$ выполняется:
+	$$ \left| \frac{f(x) - f(x_0)}{x - x_0} - f'(x_0) \right| < \varepsilon $$
+	2. Отсюда следует:
+	$$ |f(x) - f(x_0) - f'(x_0)(x - x_0)| < \varepsilon \cdot |x - x_0| $$
+	3. Используя неравенство треугольника $|a| - |b| \leq |a - b|$:
+	$$ |f(x) - f(x_0)| - |f'(x_0)(x - x_0)| \leq |f(x) - f(x_0) - f'(x_0)(x - x_0)| < \varepsilon \cdot |x - x_0| $$
+	4. Перенося слагаемое:
+	$$ |f(x) - f(x_0)| < \varepsilon |x - x_0| + |f'(x_0)| \cdot |x - x_0| = |x - x_0| \cdot (\varepsilon + |f'(x_0)|) $$
+	5. При $x \to x_0$ правая часть стремится к нулю. По теореме о двух милиционерах (о зажатой функции):
+	$$ \lim_{x \to x_0} |f(x) - f(x_0)| = 0 \implies \lim_{x \to x_0} f(x) = f(x_0) $$
+	\textbf{Ч.Т.Д.}
+	
+	
+	
+	
+	
+	
+	\vspace{1cm}
+	\subsection{Дифференцируемость функции; связь дифференцируемости и существования производной (52 вопрос)}
+	
+	\begin{definitionbox}{52.1: Дифференцируемость функции в точке}
+		Функция $f(x)$ называется \textbf{дифференцируемой} в точке $x_0$, если её приращение $\Delta f = f(x) - f(x_0)$ представимо в виде:
+		$$ f(x) - f(x_0) = A(x - x_0) + R(x) $$
+		где $A$ — некоторое число ($A \in \mathbb{R}$), а остаточный член $R(x)$ является бесконечно малой более высокого порядка по сравнению с приращением аргумента:
+		$$ \frac{R(x)}{x - x_0} \xrightarrow{x \to x_0} 0 \quad (\text{т.е. } R(x) = o(x - x_0)) $$
+	\end{definitionbox}
+	
+	\begin{theorembox}{52.2: О связи дифференцируемости и производной}
+		Для того чтобы функция $f(x)$ была дифференцируема в точке $x_0$, необходимо и достаточно, чтобы она имела в этой точке конечную производную. При этом коэффициент $A = f'(x_0)$.
+	\end{theorembox}
+	
+	\vspace{0.5cm}
+	\myproof
+	\textbf{1. Необходимость.} Пусть функция дифференцируема в $x_0$. Тогда:
+	$$ f(x) - f(x_0) = A(x - x_0) + R(x) $$
+	Разделим обе части на $(x - x_0)$ при $x \neq x_0$:
+	$$ \frac{f(x) - f(x_0)}{x - x_0} = A + \frac{R(x)}{x - x_0} $$
+	Перейдем к пределу при $x \to x_0$. По условию дифференцируемости $\frac{R(x)}{x - x_0} \to 0$, следовательно:
+	$$ \lim_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0} = A $$
+	По определению этот предел есть производная, значит $f'(x_0)$ существует и $f'(x_0) = A$.
+	
+	\textbf{2. Достаточность.} Пусть существует конечная производная $f'(x_0)$. По определению:
+	$$ \lim_{x \to x_0} \left( \frac{f(x) - f(x_0)}{x - x_0} - f'(x_0) \right) = 0 $$
+	Обозначим выражение в скобках как $r(x)$. Тогда $r(x) \to 0$ при $x \to x_0$. Выразим приращение функции:
+	$$ f(x) - f(x_0) = f'(x_0)(x - x_0) + r(x)(x - x_0) $$
+	Пусть $A = f'(x_0)$ и $R(x) = r(x)(x - x_0)$. Проверим условие на остаток:
+	$$ \frac{R(x)}{x - x_0} = \frac{r(x)(x - x_0)}{x - x_0} = r(x) \xrightarrow{x \to x_0} 0 $$
+	Это в точности соответствует определению дифференцируемости. \textbf{Ч.Т.Д.}
+	
+	\vspace{0.5cm}
+	\begin{notebook}{52.3: Дифференциал}
+		Главная линейная часть приращения дифференцируемой функции $A(x-x_0)$ называется \textbf{дифференциалом} и обозначается $df$. Из теоремы следует, что $df = f'(x_0)dx$.
+	\end{notebook}
+	
+	
+	
+	
+	\vspace{1cm}
+	\subsection{Линейность производной и производная произведения (53 вопрос)}
+	
+	\begin{theorembox}{53.1: Основные правила}
+		Пусть функции $f(x)$ и $g(x)$ дифференцируемы в точке $x$, а $c \in \mathbb{R}$ — константа. Тогда:
+		\begin{enumerate}
+			\item $(cf)' = c \cdot f'$
+			\item $(f \pm g)' = f' \pm g'$
+			\item $(f \cdot g)' = f'g + fg'$
+		\end{enumerate}
+	\end{theorembox}
+	
+	\myproof (Для произведения)
+	Рассмотрим приращение произведения $\Delta(fg) = f(x+h)g(x+h) - f(x)g(x)$. 
+	Добавим и вычтем слагаемое $f(x)g(x+h)$:
+	$$ \frac{f(x+h)g(x+h) - f(x)g(x+h) + f(x)g(x+h) - f(x)g(x)}{h} = \frac{\Delta f}{h}g(x+h) + f(x)\frac{\Delta g}{h} $$
+	При $h \to 0$: $\frac{\Delta f}{h} \to f'$, $\frac{\Delta g}{h} \to g'$, а $g(x+h) \to g(x)$ (в силу непрерывности дифференцируемой функции). Получаем $f'g + fg'$.
+	
+	
+	
+	
+	\subsection{Производная частного (54 вопрос)}
+	
+	\begin{theorembox}{54.1: Дифференцирование дроби}
+		Если $f(x)$ и $g(x)$ дифференцируемы в точке $x$ и $f(x) \neq 0$, то:
+		\begin{enumerate}
+			\item $\left( \frac{1}{f} \right)' = -\frac{f'}{f^2}$
+			\item $\left( \frac{g}{f} \right)' = \frac{g'f - gf'}{f^2}$
+		\end{enumerate}
+	\end{theorembox}
+	
+	
+	
+	
+	
+	\vspace{1cm}
+	\subsection{Производная сложной и обратной функции (55 вопрос)}
+	
+	\begin{theorembox}{55.1: Производная сложной функции (Chain Rule)}
+		Пусть $y = f(x)$ дифференцируема в $x_0$, а $z = g(y)$ дифференцируема в $y_0 = f(x_0)$. Тогда сложная функция $h(x) = g(f(x))$ дифференцируема в $x_0$ и:
+		$$ h'(x_0) = g'(y_0) \cdot f'(x_0) $$
+	\end{theorembox}
+	
+	\myproof (По твоим записям)
+	Используем определение дифференцируемости через бесконечно малые:
+	1. $f(x_0+h) - f(x_0) = f'(x_0)h + r(h) \cdot h = H$, где $r(h) \to 0$.
+	2. $g(y_0+H) - g(y_0) = g'(y_0)H + \sigma(H) \cdot H$, где $\sigma(H) \to 0$.
+	3. Подставим $H$ во второе выражение:
+	$$ \Delta h = g'(y_0)[f'(x_0)h + r(h)h] + \sigma(H)H $$
+	Разделив на $h$ и перейдя к пределу при $h \to 0$ (при этом $H \to 0$, значит $\sigma(H) \to 0$):
+	$$ \frac{\Delta h}{h} = g'(y_0)f'(x_0) + g'(y_0)r(h) + \sigma(H)\frac{H}{h} \xrightarrow{h \to 0} g'(y_0)f'(x_0) $$
+	
+	\begin{theorembox}{55.2: Производная обратной функции}
+		Если $f(x)$ строго монотонна и непрерывна в окрестности $x_0$, и существует $f'(x_0) \neq 0$, то для обратной функции $x = g(y)$ существует производная в точке $y_0 = f(x_0)$:
+		$$ g'(y_0) = \frac{1}{f'(x_0)} $$
+	\end{theorembox}
+	
+	\vspace{0.5cm}
+	\myproof
+	Пусть $y_n \to y_0$ ($y_n \neq y_0$). В силу непрерывности и строгой монотонности $g(y)$, имеем $x_n = g(y_n) \to g(y_0) = x_0$ ($x_n \neq x_0$).
+	Тогда:
+	$$ \frac{g(y_n) - g(y_0)}{y_n - y_0} = \frac{x_n - x_0}{f(x_n) - f(x_0)} = \frac{1}{\frac{f(x_n) - f(x_0)}{x_n - x_0}} \xrightarrow[n \to \infty]{x_n \to x_0} \frac{1}{f'(x_0)} $$
+	
+	
+
+	
+	\subsection{Первая теорема Вейерштрасса (56 вопрос)}
+	
+	\begin{theorembox}{56.1: Первая теорема Вейерштрасса (об ограниченности)}
+		Если функция $f(x)$ непрерывна на отрезке $[a, b]$, то она ограничена на этом отрезке.
+		$$ f \in C[a, b] \implies \exists M > 0 : \forall x \in [a, b] \quad |f(x)| \leq M $$
+	\end{theorembox}
+	
+	\vspace{0.5cm}
+	\myproof
+	Докажем от противного. Предположим, что функция $f(x)$ непрерывна на $[a, b]$, но не ограничена на нем.
+	
+	1. Тогда для любого $n \in \mathbb{N}$ найдется такая точка $x_n \in [a, b]$, что $|f(x_n)| > n$.
+	
+	2. Мы получили последовательность точек $\{x_n\} \subset [a, b]$. Так как отрезок $[a, b]$ ограничен, то по \textbf{принципу выбора Больцано-Вейерштрасса} из этой последовательности можно выделить подпоследовательность $\{x_{n_k}\}$, которая сходится к некоторому числу $x_*$:
+	$$ x_{n_k} \xrightarrow{k \to \infty} x_* $$
+	Поскольку $a \leq x_{n_k} \leq b$, то и предельная точка $x_* \in [a, b]$.
+	
+	3. В силу непрерывности функции $f(x)$ в точке $x_*$:
+	$$ \lim_{k \to \infty} f(x_{n_k}) = f(x_*) $$
+	Любая сходящаяся последовательность ограничена, значит, существует такое число $C$, что $|f(x_{n_k})| \leq C$ для всех $k$.
+	
+	4. С другой стороны, по нашему предположению для точек подпоследовательности должно выполняться условие:
+	$$ |f(x_{n_k})| > n_k \geq k $$
+	5. При достаточно больших $k$ мы получаем противоречие: число $|f(x_{n_k})|$ должно быть одновременно меньше константы $C$ и больше сколь угодно большого числа $k$ ($k < 1 + |f(x_*)|$).
+	
+	Следовательно, наше предположение было ложным, и функция $f(x)$ ограничена на $[a, b]$. \textbf{Ч.Т.Д.}
+	
+	
+	
+	
+	
+	\newpage
+	\subsection{Вторая теорема Вейерштрасса (57 вопрос)}
+	
+	\begin{theorembox}{57.1: Вторая теорема Вейерштрасса (о достижении точных граней)}
+		Если функция $f(x)$ непрерывна на отрезке $[a, b]$, то она достигает на этом отрезке своих своих точных верхней и нижней граней.
+		$$ f \in C[a, b] \implies \exists x_*, x^* \in [a, b] \text{ такие, что } f(x_*) = \inf_{x \in [a, b]} f(x), \quad f(x^*) = \sup_{x \in [a, b]} f(x) $$
+		Иными словами, функция достигает своих максимума и минимума на отрезке.
+	\end{theorembox}
+	
+	\myproof
+	Докажем для верхней грани (для нижней доказывается аналогично).
+	
+	1. По первой теореме Вейерштрасса функция $f(x)$ ограничена на $[a, b]$. Следовательно, множество её значений $E = \{f(x) \mid x \in [a, b]\}$ ограничено сверху и имеет точную верхнюю грань. Обозначим её $A = \sup E$.
+	
+	2. Предположим от противного, что функция \textbf{не достигает} этой грани, то есть $f(x) < A$ для всех $x \in [a, b]$.
+	
+	3. Рассмотрим вспомогательную функцию:
+	$$ \varphi(x) = \frac{1}{A - f(x)} $$
+	Так как $f(x)$ непрерывна и $f(x) \neq A$, то знаменатель никогда не обращается в нуль и непрерывен. Значит, $\varphi(x)$ также непрерывна на $[a, b]$.
+	
+	4. По первой теореме Вейерштрасса $\varphi(x)$ должна быть ограничена сверху некоторым числом $L > 0$:
+	$$ \frac{1}{A - f(x)} \leq L \implies A - f(x) \geq \frac{1}{L} \implies f(x) \leq A - \frac{1}{L} $$
+	
+	5. Мы получили, что число $A - \frac{1}{L}$ является верхней гранью множества значений функции. Но $A - \frac{1}{L} < A$, что \textbf{противоречит} тому, что $A$ — \textit{наименьшая} из верхних граней ($\sup E$).
+	
+	Следовательно, наше предположение ложно, и существует точка $x^* \in [a, b]$ такая, что $f(x^*) = A$. \textbf{Ч.Т.Д.}
+	
+	
+	
+	
+	\newpage
+	\subsection{Теорема Ферма (58 вопрос)}
+	
+	\begin{theorembox}{58.1: Теорема Ферма}
+		Пусть функция $f(x)$ определена на $[a, b]$, и в некоторой внутренней точке $x_0 \in (a, b)$ она имеет локальный экстремум. Если в этой точке существует производная $f'(x_0)$, то она равна нулю.
+		$$ f'(x_0) = 0 $$
+	\end{theorembox}
+	
+	\myproof
+	Пусть для определенности $x_0$ --- точка локального максимума. 
+	1. Тогда существует окрестность $(x_0 - \delta, x_0 + \delta)$, в которой $f(x) \leq f(x_0)$. Следовательно, разность $f(x) - f(x_0) \leq 0$.
+	
+	2. Рассмотри односторонние пределы приращения:
+	\begin{itemize}
+		\item Если $x \in (x_0, x_0 + \delta)$, то $x - x_0 > 0$. Тогда $\frac{f(x) - f(x_0)}{x - x_0} \leq 0$. Переходя к пределу при $x \to x_0+$, получаем $f'(x_0) \leq 0$.
+		\item Если $x \in (x_0 - \delta, x_0)$, то $x - x_0 < 0$. Тогда $\frac{f(x) - f(x_0)}{x - x_0} \geq 0$. Переходя к пределу при $x \to x_0-$, получаем $f'(x_0) \geq 0$.
+	\end{itemize}
+	
+	3. Так как производная в точке $x_0$ существует, левый и правый пределы должны совпадать. Единственное число, удовлетворяющее условиям $f'(x_0) \leq 0$ и $f'(x_0) \geq 0$ --- это $0$. Значит, $f'(x_0) = 0$. \textbf{Ч.Т.Д.}
+	
+	
+	
+	
+	
+	\vspace{1cm}
+	\subsection{Теорема Ролля (59 вопрос)}
+	
+	\begin{theorembox}{59.1: Теорема Ролля}
+		Пусть функция $f(x)$:
+		\begin{enumerate}
+			\item непрерывна на отрезке $[a, b]$;
+			\item дифференцируема на интервале $(a, b)$;
+			\item принимает равные значения на концах отрезка: $f(a) = f(b)$.
+		\end{enumerate}
+		Тогда существует хотя бы одна точка $c \in (a, b)$ такая, что $f'(c) = 0$.
+	\end{theorembox}
+	
+	\myproof
+	1. Если $f(x) = \text{const}$ на $[a, b]$, то её производная равна $0$ в любой точке интервала.
+	
+	2. Если функция не постоянна, то по 2-й теореме Вейерштрасса она достигает на $[a, b]$ своих точных граней $M$ (максимума) и $m$ (минимума).
+	
+	3. Так как $f(a) = f(b)$ и функция не постоянна, то хотя бы одно из значений ($M$ или $m$) достигается во внутренней точке $c \in (a, b)$.
+	
+	4. По теореме Ферма, так как в точке $c$ локальный экстремум и функция в ней дифференцируема, то $f'(c) = 0$. \textbf{Ч.Т.Д.}
+	
+	
+	
+	
+	
+	\subsection{Теорема Лагранжа (60 вопрос)}
+	
+	\begin{theorembox}{60.1: Теорема Лагранжа (о конечном приращении)}
+		Пусть $f \in C[a, b]$ и $f$ дифференцируема на $(a, b)$. Тогда $\exists c \in (a, b)$ такая, что:
+		$$ \frac{f(b) - f(a)}{b - a} = f'(c) \quad \text{или} \quad f(b) - f(a) = f'(c)(b - a) $$
+	\end{theorembox}
+	
+	\myproof
+	Рассмотрим вспомогательную функцию:
+	$$ \varphi(x) = (f(x) - f(a))(b - a) - (f(b) - f(a))(x - a) $$
+	1. $\varphi(x)$ непрерывна на $[a, b]$ и дифференцируема на $(a, b)$.
+	2. Проверим значения на концах: $\varphi(a) = 0$ и $\varphi(b) = 0$ (тривиально).
+	3. По теореме Ролля существует точка $c \in (a, b)$ такая, что $\varphi'(c) = 0$.
+	4. Найдем производную: $\varphi'(x) = f'(x)(b - a) - (f(b) - f(a))$.
+	5. Подставляя $c$: $f'(c)(b - a) - (f(b) - f(a)) = 0$, откуда и следует формула Лагранжа. \textbf{Ч.Т.Д.}
+	
+	
+	
+	
+	
+	\vspace{1cm}
+	\subsection{Теорема Коши (61 вопрос)}
+	
+	\begin{theorembox}{61.1: Теорема Коши (об отношении приращений)}
+		Пусть $f, g \in C[a, b]$, дифференцируемы на $(a, b)$, и $g'(x) \neq 0$ на $(a, b)$. Тогда $\exists c \in (a, b)$:
+		$$ \frac{f(b) - f(a)}{g(b) - g(a)} = \frac{f'(c)}{g'(c)} $$
+	\end{theorembox}
+	
+	\myproof
+	Заметим, что $g(b) \neq g(a)$ (иначе по Роллю нашлась бы точка, где $g'=0$). Введем функцию:
+	$$ \Phi(x) = [g(x) - g(a)][f(b) - f(a)] - [g(b) - g(a)][f(x) - f(a)] $$
+	1. $\Phi(a) = \Phi(b) = 0$.
+	2. По теореме Ролля существует точка $c \in (a, b)$, где $\Phi'(c) = 0$.
+	3. $\Phi'(x) = g'(x)[f(b) - f(a)] - f'(x)[g(b) - g(a)]$.
+	4. Из $\Phi'(c) = 0$ получаем: $g'(c)[f(b) - f(a)] = f'(c)[g(b) - g(a)]$.
+	5. Разделив обе части на $g'(c)[g(b) - g(a)]$, получаем искомое отношение. \textbf{Ч.Т.Д.}
+	
+	
+	
+	
+	
+	
+	
+	
+	% ==================== РАЗДЕЛ: ТАБЛИЦА ПРОИЗВОДНЫХ И ВЫСШИЕ ПОРЯДКИ ====================
+	\newpage
+	\section{Производные элементарных функций и высшие порядки}
+	
+	\subsection{Производные степенных и логарифмических функций (63--65 вопросы)}
+	
+	\begin{theorembox}{Таблица производных I}
+		Для любых $n \in \mathbb{N}, r \in \mathbb{R}$:
+		\begin{multicols}{2}
+			\begin{itemize}
+				\item $(c)' = 0$
+				\item $(x)' = 1$
+				\item $(x^n)' = n x^{n-1}$
+				\item $(\frac{1}{x^n})' = -n x^{-(n+1)}$
+				\item $(e^x)' = e^x$
+				\item $(\ln x)' = \frac{1}{x}$
+				\item $(x^r)' = r x^{r-1}$
+			\end{itemize}
+		\end{multicols}
+	\end{theorembox}
+	
+	
+	
+	
+	
+	\subsection{Тригонометрические и обратные функции (66--68 вопросы)}
+	
+	\begin{theorembox}{{Таблица производных II ($\sin, \cos, \dots$)}}
+		\begin{multicols}{2}
+			\begin{itemize}
+				\item $(\sin x)' = \cos x$
+				\item $(\cos x)' = -\sin x$
+				\item $(\tg x)' = \frac{1}{\cos^2 x}$
+				\item $(\ctg x)' = -\frac{1}{\sin^2 x}$
+				\item $(\arcsin x)' = \frac{1}{\sqrt{1-x^2}}$
+				\item $(\arccos x)' = -\frac{1}{\sqrt{1-x^2}}$
+			\end{itemize}
+		\end{multicols}
+	\end{theorembox}
+	
+	
+	
+	
+	
+	
+	\subsection{Производные высших порядков: Определение и свойства (69--71 вопросы)}
+	
+	\begin{definitionbox}{69.1: Определение $n$-й производной}
+		Производная $n$-го порядка функции $f(x)$ определяется индуктивно:
+		$$ f^{(n)}(x) = (f^{(n-1)}(x))', \quad f^{(0)}(x) = f(x) $$
+	\end{definitionbox}
+	
+	\begin{theorembox}{70.1: Свойства линейности}
+		Если $f$ и $g$ дифференцируемы $n$ раз в точке $x$:
+		\begin{enumerate}
+			\item $(cf)^{(n)}(x) = c \cdot f^{(n)}(x)$
+			\item $(f \pm g)^{(n)}(x) = f^{(n)}(x) \pm g^{(n)}(x)$
+		\end{enumerate}
+	\end{theorembox}
+	
+	\begin{theorembox}{71.1: Производная функции вида $f(ax+b)$}
+		По правилу дифференцирования сложной функции:
+		$$ (f(ax+b))^{(n)} = a^n f^{(n)}(ax+b) $$
+	\end{theorembox}
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Общие формулы для $n$-х производных (72--76 вопросы)}
+	
+	\begin{theorembox}{{72-76: Таблица $n$-х производных}}
+		\begin{itemize}
+			\item \textbf{Степенная ($k \in \mathbb{N}$):} $(x^k)^{(n)} = \begin{cases} \frac{k!}{(k-n)!}x^{k-n}, & n \le k \\ 0, & n > k \end{cases}$
+			\item \textbf{Экспонента:} $(a^x)^{(n)} = a^x (\ln a)^n \implies (e^x)^{(n)} = e^x$
+			\item \textbf{Логарифм:} $(\ln x)^{(n)} = \frac{(-1)^{n-1}(n-1)!}{x^n}$
+			\item \textbf{Логарифм (сдвиг):} $(\ln(1+x))^{(n)} = \frac{(-1)^{n-1}(n-1)!}{(1+x)^n}$
+			\item \textbf{Синус/Косинус:} 
+			\begin{itemize}
+				\item $(\sin x)^{(n)} = \sin(x + \frac{\pi n}{2})$
+				\item $(\cos x)^{(n)} = \cos(x + \frac{\pi n}{2})$
+			\end{itemize}
+			\item \textbf{Биномиальный вид:} $((1+x)^r)^{(n)} = r(r-1)\dots(r-n+1)(1+x)^{r-n}$
+		\end{itemize}
+	\end{theorembox}
+	
+	\begin{notebook}{Важное замечание}
+		Формула со сдвигом фазы на $\frac{\pi n}{2}$ универсальна для гармонических функций. Каждый шаг дифференцирования поворачивает вектор функции на комплексной плоскости на $90^\circ$.
+	\end{notebook}
+	
+	
+	
+	
+	
+	
+	
+	
+	% ==================== РАЗДЕЛ: ФОРМУЛА ТЕЙЛОРА ====================
+	\newpage
+	\section{Формула Тейлора и разложения стандартных функций}
+	
+	\subsection{Формула Тейлора для полинома и остаточные члены (77--79 вопросы)}
+	
+	\begin{theorembox}{77.1: Формула Тейлора для многочлена}
+		Для любого многочлена $P(x)$ степени $n$ справедливо точное равенство:
+		$$ P(x) = \sum_{k=0}^{n} \frac{P^{(k)}(a)}{k!} (x-a)^k $$
+		Здесь остаточный член равен нулю, так как $(n+1)$-я производная многочлена степени $n$ тождественно равна нулю.
+	\end{theorembox}
+	
+	\begin{theorembox}{78.1: Остаточный член в форме Пеано (локальный)}
+		Если $f(x)$ дифференцируема $n$ раз в точке $a$, то при $x \to a$:
+		$$ f(x) = \sum_{k=0}^{n} \frac{f^{(k)}(a)}{k!} (x-a)^k + o((x-a)^n) $$
+	\end{theorembox}
+	
+	\begin{theorembox}{79.1: Остаточный член в форме Лагранжа (глобальный)}
+		Если $f(x)$ дифференцируема $(n+1)$ раз в окрестности точки $a$, то для любого $x$ из этой окрестности найдется точка $\xi$ между $a$ и $x$ такая, что:
+		$$ R_n(x) = \frac{f^{(n+1)}(\xi)}{(n+1)!} (x-a)^{n+1} $$
+	\end{theorembox}
+	
+	
+	\newpage
+	\subsection{Разложения стандартных функций по формуле Маклорена ($a=0$)}
+	
+	\begin{theorembox}{80-83: Таблица разложений}
+		\begin{enumerate}
+			\item \textbf{Экспонента:} $e^x = 1 + x + \frac{x^2}{2!} + \dots + \frac{x^n}{n!} + o(x^n)$
+			\item \textbf{Синус:} $\sin x = x - \frac{x^3}{3!} + \dots + \frac{(-1)^n x^{2n+1}}{(2n+1)!} + o(x^{2n+2})$
+			\item \textbf{Косинус:} $\cos x = 1 - \frac{x^2}{2!} + \dots + \frac{(-1)^n x^{2n}}{(2n)!} + o(x^{2n+1})$
+			\item \textbf{Логарифм:} $\ln(1+x) = x - \frac{x^2}{2} + \frac{x^3}{3} - \dots + \frac{(-1)^{n-1} x^n}{n} + o(x^n)$
+			\item \textbf{Степенная функция:} $(1+x)^r = 1 + rx + \frac{r(r-1)}{2!}x^2 + \dots + C_r^n x^n + o(x^n)$
+		\end{enumerate}
+	\end{theorembox}
+	
+	\begin{notebook}{83.1: Замечание о четности}
+		Заметь, что разложение $\sin x$ содержит только нечетные степени (так как функция нечетная), а $\cos x$ — только четные. Это отличный способ самопроверки на экзамене.
+	\end{notebook}
+	
+\end{document}
+

@@ -1,0 +1,40 @@
+name: Build PDFs from LaTeX sources
+
+on:
+  push:
+    branches: [ "main", "feature/compile-with-github-actions" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+    - name: Set up Git repository
+      uses: actions/checkout@v4 
+
+    - name: Compile all LaTeX files
+      uses: dante-ev/latex-action@latest
+      with:
+        root_file: ""
+        compiler: pdflatex
+        args: -interaction=nonstopmode -shell-escape
+        extra_system_packages: "findutils"
+        custom_target: |
+          find . -name "*.tex" -exec pdflatex -interaction=nonstopmode -shell-escape {} +
+
+    - name: Commit and push compiled PDFs
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git add -f **/*.pdf
+        if git diff --staged --quiet; then
+          echo "No changes in PDFs to commit"
+          exit 0
+        fi
+        
+        git commit -m 'Update compiled PDFs [skip ci]'
+        git push
