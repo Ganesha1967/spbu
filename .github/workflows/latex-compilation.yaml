@@ -16,31 +16,28 @@ jobs:
       - name: Set up Git repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 0 
 
-      - name: Compile all LaTeX files
+      - name: Compile only new or changed LaTeX files
         uses: docker://ghcr.io/xu-cheng/texlive-full:latest
         with:
           args: |
             /bin/bash -c "
             find . -name '*.tex' -not -path '*/.*' | while read -r file; do
-              dir=$(dirname \"$file\")
-              base=$(basename \"$file\")
               pdf_file=\"${file%.tex}.pdf\"
 
-              # Проверяем, нужно ли компилировать
               if [ -f \"$pdf_file\" ] && [ \"$pdf_file\" -nt \"$file\" ]; then
                 echo \"Skipping $file (up to date)\"
                 continue
               fi
 
               echo \"Compiling $file...\"
+              dir=$(dirname \"$file\")
+              base=$(basename \"$file\")
+              
               cd \"$dir\"
               pdflatex -interaction=nonstopmode -shell-escape \"$base\"
               pdflatex -interaction=nonstopmode -shell-escape \"$base\"
-              
-              # Удаляем временный мусор
-              rm -f *.aux *.log *.toc *.out *.nav *.snm *.fls *.fdb_latexmk
               cd - > /dev/null
             done
             "
@@ -57,5 +54,6 @@ jobs:
             exit 0
           fi
           
-          git commit -m 'chore(ci): update PDFs and cleanup [skip ci]'
+          git commit -m 'chore(ci): update PDFs [skip ci]'
           git push
+          
