@@ -25,29 +25,33 @@ jobs:
             /bin/bash -c "
             set -e
 
+            if git rev-parse HEAD^ >/dev/null 2>&1; then
+              DIFF_RANGE='HEAD^ HEAD'
+            else
+              DIFF_RANGE='HEAD'
+            fi
+
             find . -name '*.tex' -not -path '*/.*' | while read -r file; do
-              pdf_file=\${file%.tex}.pdf
+              pdf_file=${file%.tex}.pdf
 
               changed=false
-              if git diff --name-only HEAD^ HEAD | grep -q \"\$file\"; then
+              if git diff --name-only $DIFF_RANGE | grep -q \"$file\"; then
                 changed=true
               fi
 
-              if [ \"\$changed\" = false ] && [ -f \"\$pdf_file\" ] && [ \"\$pdf_file\" -nt \"\$file\" ]; then
-                echo 'Skipping' \$file '(up to date)'
+              if [ \"$changed\" = false ] && [ -f \"$pdf_file\" ] && [ \"$pdf_file\" -nt \"$file\" ]; then
+                echo \"Skipping $file (up to date)\"
                 continue
               fi
 
-              echo 'Compiling' \$file
+              echo \"Compiling $file\"
 
-              dir=\$(dirname \"\$file\")
-              base=\$(basename \"\$file\")
+              dir=$(dirname \"$file\")
+              base=$(basename \"$file\")
 
-              cd \"\$dir\"
-
-              pdflatex -interaction=nonstopmode -shell-escape \"\$base\"
-              pdflatex -interaction=nonstopmode -shell-escape \"\$base\"
-
+              cd \"$dir\"
+              pdflatex -interaction=nonstopmode -shell-escape \"$base\"
+              pdflatex -interaction=nonstopmode -shell-escape \"$base\"
               cd - > /dev/null
             done
             "
@@ -64,6 +68,5 @@ jobs:
             exit 0
           fi
           
-          git commit -m 'chore(ci): update PDFs [skip ci]'
+          git commit -m 'chore(ci): update PDFs and optimized build [skip ci]'
           git push
-          
