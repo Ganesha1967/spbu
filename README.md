@@ -25,9 +25,9 @@
 
 | Дисциплина | PDF |
 |------------|-----|
-| **Математический анализ** | [Открыть PDF](./docs/sem-1/matan/matan-1.pdf) |
-| **Дискретная математика** | [Открыть PDF](./docs/sem-1/diskra/diskra-1.pdf) |
-| **Алгебра** | [Открыть PDF](./docs/sem-1/algebra/algebra-1.pdf) |
+| **Математический анализ** | [Открыть PDF](sem-1/matan/matan-1.pdf) |
+| **Дискретная математика** | [Открыть PDF](sem-1/diskra/diskra-1.pdf) |
+| **Алгебра** | [Открыть PDF](sem-1/algebra/algebra-1.pdf) |
 
 ---
 
