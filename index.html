@@ -43,15 +43,10 @@
             <span class="row-text">Математический анализ</span>
           </div>
           <div class="folder-content">
-            <a href="docs/matan/lecture_1.pdf" class="notion-row">
+            <a href="docs/sem-1/matan/matan-1.pdf" target="_blank" class="notion-row">
               <span class="row-icon">📄</span>
-              <span class="row-text">Конспект лекции №1</span>
+              <span class="row-text">Конспект matan-1</span>
               <span class="row-tag blue">PDF</span>
-            </a>
-            <a href="docs/matan/book.pdf" class="notion-row">
-              <span class="row-icon">📖</span>
-              <span class="row-text">Учебник Фихтенгольца</span>
-              <span class="row-tag orange">Книга</span>
             </a>
           </div>
         </div>
@@ -63,10 +58,25 @@
             <span class="row-text">Дискретная математика</span>
           </div>
           <div class="folder-content">
-            <a href="#" class="notion-row">
-              <span class="row-icon">📝</span>
-              <span class="row-text">Заметки по графам</span>
-              <span class="row-tag purple">Заметка</span>
+            <a href="docs/sem-1/diskra/diskra-1.pdf" target="_blank" class="notion-row">
+              <span class="row-icon">📄</span>
+              <span class="row-text">Конспект diskra-1</span>
+              <span class="row-tag blue">PDF</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="notion-folder">
+          <div class="notion-folder-header" onclick="toggleFolder(this)">
+            <span class="folder-arrow">▶</span>
+            <span class="row-icon">📂</span>
+            <span class="row-text">Алгебра</span>
+          </div>
+          <div class="folder-content">
+            <a href="docs/sem-1/algebra/algebra-1.pdf" target="_blank" class="notion-row">
+              <span class="row-icon">📄</span>
+              <span class="row-text">Конспект algebra-1</span>
+              <span class="row-tag blue">PDF</span>
             </a>
           </div>
         </div>
@@ -75,11 +85,49 @@
 
     <div id="sem-2" class="semester-page">
       <div class="notion-list">
-        <div class="notion-row disabled">
-          <span class="row-icon">⏳</span>
-          <span class="row-text">Конспекты появятся позже...</span>
+        <div class="notion-folder">
+          <div class="notion-folder-header" onclick="toggleFolder(this)">
+            <span class="folder-arrow">▶</span>
+            <span class="row-icon">📂</span>
+            <span class="row-text">Алгоритмы и СД</span>
+          </div>
+          <div class="folder-content">
+            <div class="notion-row disabled">
+              <span class="row-icon">⏳</span>
+              <span class="row-text">В процессе наполнения...</span>
+            </div>
+          </div>
         </div>
-      </div>
+
+        <div class="notion-folder">
+          <div class="notion-folder-header" onclick="toggleFolder(this)">
+            <span class="folder-arrow">▶</span>
+            <span class="row-icon">📂</span>
+            <span class="row-text">Архитектура ЭВМ</span>
+          </div>
+          <div class="folder-content">
+            <div class="notion-row disabled">
+              <span class="row-icon">⏳</span>
+              <span class="row-text">Скоро будет</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="notion-folder">
+          <div class="notion-folder-header" onclick="toggleFolder(this)">
+            <span class="folder-arrow">▶</span>
+            <span class="row-icon">📂</span>
+            <span class="row-text">Программирование</span>
+          </div>
+          <div class="folder-content">
+            <div class="notion-row disabled">
+              <span class="row-icon">⏳</span>
+              <span class="row-text">Ждем лекций</span>
+            </div>
+          </div>
+        </div>
+        
+        </div>
     </div>
   </main>
 
@@ -102,7 +150,7 @@
       event.currentTarget.classList.add('active');
 
       const breadcrumb = document.getElementById('current-breadcrumb');
-      breadcrumb.innerText = semId === 'sem-1' ? '1 Семестр' : '2 Семестр';
+      breadcrumb.innerText = (semId === 'sem-1') ? '1 Семестр' : '2 Семестр';
     }
   </script>
 </body>
