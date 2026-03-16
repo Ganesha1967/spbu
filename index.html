@@ -139,7 +139,7 @@
 
   <script>
     function toggleFolder(header) {
-      header.parentElement.classList.toggle('folder-open');
+      header.closest('.notion-folder').classList.toggle('folder-open');
     }
 
     function showSemester(event, semId) {
