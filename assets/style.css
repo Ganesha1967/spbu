@@ -71,7 +71,7 @@ nav a:hover {
   background: #f1f1f1;
 }
 
-/* Семестры */
+
 .semester {
   padding: 4rem 0;
 }
@@ -128,7 +128,6 @@ nav a:hover {
   display: inline-block;
 }
 
-/* Футер */
 footer {
   background: #222;
   color: #fff;
@@ -144,7 +143,6 @@ footer a:hover {
   text-decoration: underline;
 }
 
-/* Адаптив */
 @media (max-width: 768px) {
   .cards {
     flex-direction: column;

@@ -1,28 +1,87 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>📚 Склад конспектов СПбГУ</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify/lib/themes/vue.css">
   <link rel="stylesheet" href="assets/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div id="app">Загрузка...</div>
-
-  <script>
-    window.$docsify = {
-      name: '📚 Склад конспектов СПбГУ',
-      repo: '',
-      loadSidebar: true,
-      subMaxLevel: 2,
-      search: 'auto',
-      coverpage: false,
-      auto2top: true
-    };
-  </script>
-
-  <script src="https://cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <header>
+    <div class="container nav-container">
+      <h1>📚 СПбГУ ПИ</h1>
+      <nav>
+        <a href="#sem-1">1 Семестр</a>
+        <a href="#sem-2">2 Семестр</a>
+        <a href="https://ganesha1967.github.io/spbu/" target="_blank">GitHub Pages</a>
+      </nav>
+    </div>
+  </header>
+  <section class="hero">
+    <div class="container hero-content">
+      <h2>Склад конспектов ПИ 2025</h2>
+      <p>Все материалы и PDF-конспекты по дисциплинам первого и второго семестра.</p>
+      <a href="#sem-1" class="btn-primary">Перейти к конспектам</a>
+    </div>
+  </section>
+  <section id="sem-1" class="semester">
+    <div class="container">
+      <h2>🎓 1 Семестр</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Математический анализ</h3>
+          <div class="card-buttons">
+            <a href="docs/sem-1/matan/matan-1.pdf" target="_blank" class="btn-secondary">PDF</a>
+            <a href="docs/sem-1/matan" target="_blank" class="btn-secondary">Исходники</a>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Дискретная математика</h3>
+          <div class="card-buttons">
+            <a href="docs/sem-1/diskra/diskra-1.pdf" target="_blank" class="btn-secondary">PDF</a>
+            <a href="docs/sem-1/diskra" target="_blank" class="btn-secondary">Исходники</a>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Алгебра</h3>
+          <div class="card-buttons">
+            <a href="docs/sem-1/algebra/algebra-1.pdf" target="_blank" class="btn-secondary">PDF</a>
+            <a href="docs/sem-1/algebra" target="_blank" class="btn-secondary">Исходники</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="sem-2" class="semester">
+    <div class="container">
+      <h2>🎓 2 Семестр</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Математический анализ</h3>
+          <div class="card-buttons">
+            <span class="btn-disabled">В процессе</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Алгоритмы и СД</h3>
+          <div class="card-buttons">
+            <span class="btn-disabled">В процессе</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Архитектура систем</h3>
+          <div class="card-buttons">
+            <span class="btn-disabled">В процессе</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div class="container footer-content">
+      <p>© 2025 СПбГУ | <a href="https://github.com/ganesha1967/spbu" target="_blank">GitHub репозиторий</a></p>
+    </div>
+  </footer>
 </body>
 </html>
