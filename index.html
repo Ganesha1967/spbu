@@ -3,84 +3,98 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>📚 Склад конспектов СПбГУ</title>
+  <title>📚 Конспекты СПбГУ ПИ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)">
 </head>
 <body>
   <header>
     <div class="container nav-container">
-      <h1>📚 СПбГУ ПИ</h1>
+      <div class="logo">📚 СПбГУ ПИ</div>
       <nav>
         <a href="#sem-1">1 Семестр</a>
         <a href="#sem-2">2 Семестр</a>
-        <a href="https://ganesha1967.github.io/spbu/" target="_blank">GitHub Pages</a>
       </nav>
     </div>
   </header>
+
   <section class="hero">
-    <div class="container hero-content">
-      <h2>Склад конспектов ПИ 2025</h2>
-      <p>Все материалы и PDF-конспекты по дисциплинам первого и второго семестра.</p>
-      <a href="#sem-1" class="btn-primary">Перейти к конспектам</a>
+    <div class="container">
+      <h1>Склад конспектов</h1>
+      <p>Программная инженерия • 2025</p>
     </div>
   </section>
-  <section id="sem-1" class="semester">
-    <div class="container">
-      <h2>🎓 1 Семестр</h2>
-      <div class="cards">
-        <div class="card">
-          <h3>Математический анализ</h3>
-          <div class="card-buttons">
-            <a href="docs/sem-1/matan/matan-1.pdf" target="_blank" class="btn-secondary">PDF</a>
-            <a href="docs/sem-1/matan" target="_blank" class="btn-secondary">Исходники</a>
+
+  <main class="container">
+    <section id="sem-1" class="semester-section">
+      <h2 class="section-title">🎓 1 Семестр</h2>
+      <div class="subject-grid">
+        <a href="docs/sem-1/matan/matan-1.pdf" target="_blank" class="subject-card">
+          <div class="subject-icon">∑</div>
+          <div class="subject-info">
+            <h3>Математический анализ</h3>
+            <span class="view-link">Открыть PDF</span>
+          </div>
+        </a>
+
+        <a href="docs/sem-1/diskra/diskra-1.pdf" target="_blank" class="subject-card">
+          <div class="subject-icon">⊥</div>
+          <div class="subject-info">
+            <h3>Дискретная математика</h3>
+            <span class="view-link">Открыть PDF</span>
+          </div>
+        </a>
+
+        <a href="docs/sem-1/algebra/algebra-1.pdf" target="_blank" class="subject-card">
+          <div class="subject-icon">det</div>
+          <div class="subject-info">
+            <h3>Алгебра</h3>
+            <span class="view-link">Открыть PDF</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <section id="sem-2" class="semester-section">
+      <h2 class="section-title">🎓 2 Семестр</h2>
+      <div class="subject-grid">
+        <div class="subject-card disabled">
+          <div class="subject-icon">∫</div>
+          <div class="subject-info">
+            <h3>Математический анализ</h3>
+            <span class="status">В процессе</span>
           </div>
         </div>
-        <div class="card">
-          <h3>Дискретная математика</h3>
-          <div class="card-buttons">
-            <a href="docs/sem-1/diskra/diskra-1.pdf" target="_blank" class="btn-secondary">PDF</a>
-            <a href="docs/sem-1/diskra" target="_blank" class="btn-secondary">Исходники</a>
+
+        <div class="subject-card disabled">
+          <div class="subject-icon">{}</div>
+          <div class="subject-info">
+            <h3>Алгоритмы и СД</h3>
+            <span class="status">В процессе</span>
           </div>
         </div>
-        <div class="card">
-          <h3>Алгебра</h3>
-          <div class="card-buttons">
-            <a href="docs/sem-1/algebra/algebra-1.pdf" target="_blank" class="btn-secondary">PDF</a>
-            <a href="docs/sem-1/algebra" target="_blank" class="btn-secondary">Исходники</a>
+
+        <div class="subject-card disabled">
+          <div class="subject-icon">01</div>
+          <div class="subject-info">
+            <h3>Архитектура систем</h3>
+            <span class="status">В процессе</span>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-  <section id="sem-2" class="semester">
-    <div class="container">
-      <h2>🎓 2 Семестр</h2>
-      <div class="cards">
-        <div class="card">
-          <h3>Математический анализ</h3>
-          <div class="card-buttons">
-            <span class="btn-disabled">В процессе</span>
-          </div>
-        </div>
-        <div class="card">
-          <h3>Алгоритмы и СД</h3>
-          <div class="card-buttons">
-            <span class="btn-disabled">В процессе</span>
-          </div>
-        </div>
-        <div class="card">
-          <h3>Архитектура систем</h3>
-          <div class="card-buttons">
-            <span class="btn-disabled">В процессе</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
+  </main>
+
   <footer>
-    <div class="container footer-content">
-      <p>© 2025 СПбГУ | <a href="https://github.com/ganesha1967/spbu" target="_blank">GitHub репозиторий</a></p>
+    <div class="container">
+      <p>© 2025 СПбГУ ПИ | <a href="https://github.com/ganesha1967/spbu" target="_blank">Репозиторий</a></p>
     </div>
   </footer>
 </body>
