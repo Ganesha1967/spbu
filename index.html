@@ -14,16 +14,13 @@
   <main class="container">
     <header class="page-header">
       <div class="page-icon">📚</div>
-      
       <div class="header-content">
         <nav class="breadcrumbs">
           <span class="breadcrumb-item">Конспекты ПИ</span>
           <span class="breadcrumb-separator">/</span>
           <span id="current-breadcrumb" class="breadcrumb-item">1 Семестр</span>
         </nav>
-        
         <h1 class="page-title">Конспекты СПбГУ ПИ</h1>
-        
         <div class="page-meta">
           <span class="badge">Программная инженерия</span>
           <span class="badge">2025</span>
@@ -38,39 +35,51 @@
     </nav>
 
     <div id="sem-1" class="semester-page active">
-      <section class="notion-section">
-        <h2 class="notion-h2">🎓 1 Семестр</h2>
-        <div class="notion-list">
-          <a href="docs/sem-1/matan/matan-1.pdf" target="_blank" class="notion-row">
+      <div class="notion-list">
+        <div class="notion-folder">
+          <div class="notion-folder-header" onclick="toggleFolder(this)">
+            <span class="folder-arrow">▶</span>
             <span class="row-icon">📂</span>
             <span class="row-text">Математический анализ</span>
-            <span class="row-tag blue">PDF</span>
-          </a>
-          <a href="docs/sem-1/diskra/diskra-1.pdf" target="_blank" class="notion-row">
+          </div>
+          <div class="folder-content">
+            <a href="docs/matan/lecture_1.pdf" class="notion-row">
+              <span class="row-icon">📄</span>
+              <span class="row-text">Конспект лекции №1</span>
+              <span class="row-tag blue">PDF</span>
+            </a>
+            <a href="docs/matan/book.pdf" class="notion-row">
+              <span class="row-icon">📖</span>
+              <span class="row-text">Учебник Фихтенгольца</span>
+              <span class="row-tag orange">Книга</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="notion-folder">
+          <div class="notion-folder-header" onclick="toggleFolder(this)">
+            <span class="folder-arrow">▶</span>
             <span class="row-icon">📂</span>
             <span class="row-text">Дискретная математика</span>
-            <span class="row-tag orange">PDF</span>
-          </a>
-          <a href="docs/sem-1/algebra/algebra-1.pdf" target="_blank" class="notion-row">
-            <span class="row-icon">📂</span>
-            <span class="row-text">Алгебра</span>
-            <span class="row-tag purple">PDF</span>
-          </a>
+          </div>
+          <div class="folder-content">
+            <a href="#" class="notion-row">
+              <span class="row-icon">📝</span>
+              <span class="row-text">Заметки по графам</span>
+              <span class="row-tag purple">Заметка</span>
+            </a>
+          </div>
         </div>
-      </section>
+      </div>
     </div>
 
     <div id="sem-2" class="semester-page">
-      <section class="notion-section">
-        <h2 class="notion-h2">🎓 2 Семестр</h2>
-        <div class="notion-list">
-          <div class="notion-row disabled">
-            <span class="row-icon">⏳</span>
-            <span class="row-text">Алгоритмы и СД</span>
-            <span class="row-tag gray">В процессе</span>
-          </div>
+      <div class="notion-list">
+        <div class="notion-row disabled">
+          <span class="row-icon">⏳</span>
+          <span class="row-text">Конспекты появятся позже...</span>
         </div>
-      </section>
+      </div>
     </div>
   </main>
 
@@ -81,6 +90,10 @@
   </footer>
 
   <script>
+    function toggleFolder(header) {
+      header.parentElement.classList.toggle('folder-open');
+    }
+
     function showSemester(event, semId) {
       document.querySelectorAll('.semester-page').forEach(p => p.classList.remove('active'));
       document.getElementById(semId).classList.add('active');
