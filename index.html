@@ -4,97 +4,75 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>📚 Конспекты СПбГУ ПИ</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/style.css">
-  
-  <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#191919" media="(prefers-color-scheme: dark)">
 </head>
 <body>
-  <header>
-    <div class="container nav-container">
-      <div class="logo">📚 СПбГУ ПИ</div>
-      <nav>
-        <a href="#sem-1">1 Семестр</a>
-        <a href="#sem-2">2 Семестр</a>
-      </nav>
-    </div>
-  </header>
-
-  <section class="hero">
-    <div class="container">
-      <h1>Склад конспектов</h1>
-      <p>Программная инженерия • 2025</p>
-    </div>
-  </section>
+  <div class="page-cover"></div>
 
   <main class="container">
-    <section id="sem-1" class="semester-section">
-      <h2 class="section-title">🎓 1 Семестр</h2>
-      <div class="subject-grid">
-        <a href="docs/sem-1/matan/matan-1.pdf" target="_blank" class="subject-card">
-          <div class="subject-icon">∑</div>
-          <div class="subject-info">
-            <h3>Математический анализ</h3>
-            <span class="view-link">Открыть PDF</span>
-          </div>
-        </a>
+    <header class="page-header">
+      <div class="page-icon">📚</div>
+      <h1 class="page-title">Конспекты СПбГУ ПИ</h1>
+      <div class="page-meta">
+        <span class="badge">Программная инженерия</span>
+        <span class="badge">2025</span>
+      </div>
+    </header>
 
-        <a href="docs/sem-1/diskra/diskra-1.pdf" target="_blank" class="subject-card">
-          <div class="subject-icon">⊥</div>
-          <div class="subject-info">
-            <h3>Дискретная математика</h3>
-            <span class="view-link">Открыть PDF</span>
-          </div>
-        </a>
+    <nav class="notion-nav">
+      <a href="#sem-1" class="nav-item">1 Семестр</a>
+      <a href="#sem-2" class="nav-item">2 Семестр</a>
+      <a href="https://github.com/ganesha1967/spbu" target="_blank" class="nav-item">GitHub</a>
+    </nav>
 
-        <a href="docs/sem-1/algebra/algebra-1.pdf" target="_blank" class="subject-card">
-          <div class="subject-icon">det</div>
-          <div class="subject-info">
-            <h3>Алгебра</h3>
-            <span class="view-link">Открыть PDF</span>
-          </div>
+    <section id="sem-1" class="notion-section">
+      <h2 class="notion-h2">🎓 1 Семестр</h2>
+      <div class="notion-list">
+        <a href="docs/sem-1/matan/matan-1.pdf" target="_blank" class="notion-row">
+          <span class="row-icon">📂</span>
+          <span class="row-text">Математический анализ</span>
+          <span class="row-tag blue">PDF</span>
+        </a>
+        <a href="docs/sem-1/diskra/diskra-1.pdf" target="_blank" class="notion-row">
+          <span class="row-icon">📂</span>
+          <span class="row-text">Дискретная математика</span>
+          <span class="row-tag orange">PDF</span>
+        </a>
+        <a href="docs/sem-1/algebra/algebra-1.pdf" target="_blank" class="notion-row">
+          <span class="row-icon">📂</span>
+          <span class="row-text">Алгебра</span>
+          <span class="row-tag purple">PDF</span>
         </a>
       </div>
     </section>
 
-    <hr class="divider">
-
-    <section id="sem-2" class="semester-section">
-      <h2 class="section-title">🎓 2 Семестр</h2>
-      <div class="subject-grid">
-        <div class="subject-card disabled">
-          <div class="subject-icon">∫</div>
-          <div class="subject-info">
-            <h3>Математический анализ</h3>
-            <span class="status">В процессе</span>
-          </div>
+    <section id="sem-2" class="notion-section">
+      <h2 class="notion-h2">🎓 2 Семестр</h2>
+      <div class="notion-list">
+        <div class="notion-row disabled">
+          <span class="row-icon">⏳</span>
+          <span class="row-text">Математический анализ</span>
+          <span class="row-tag gray">В процессе</span>
         </div>
-
-        <div class="subject-card disabled">
-          <div class="subject-icon">{}</div>
-          <div class="subject-info">
-            <h3>Алгоритмы и СД</h3>
-            <span class="status">В процессе</span>
-          </div>
+        <div class="notion-row disabled">
+          <span class="row-icon">⏳</span>
+          <span class="row-text">Алгоритмы и СД</span>
+          <span class="row-tag gray">В процессе</span>
         </div>
-
-        <div class="subject-card disabled">
-          <div class="subject-icon">01</div>
-          <div class="subject-info">
-            <h3>Архитектура систем</h3>
-            <span class="status">В процессе</span>
-          </div>
+        <div class="notion-row disabled">
+          <span class="row-icon">⏳</span>
+          <span class="row-text">Архитектура систем</span>
+          <span class="row-tag gray">В процессе</span>
         </div>
       </div>
     </section>
   </main>
 
-  <footer>
+  <footer class="notion-footer">
     <div class="container">
-      <p>© 2025 СПбГУ ПИ | <a href="https://github.com/ganesha1967/spbu" target="_blank">Репозиторий</a></p>
+      <p>© 2025 СПбГУ • ganesha1967</p>
     </div>
   </footer>
 </body>
