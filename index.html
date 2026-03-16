@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>📚 Конспекты СПбГУ ПИ</title>
   <link rel="stylesheet" href="assets/style.css">
+  
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#191919" media="(prefers-color-scheme: dark)">
 </head>
 <body>
   <div class="page-cover"></div>
@@ -17,13 +20,19 @@
     </nav>
 
     <header class="page-header">
-      <div class="page-icon">📚</div>
-      <h1 class="page-title">Конспекты СПбГУ ПИ</h1>
+      <div class="title-group">
+        <div class="page-icon">📚</div>
+        <h1 class="page-title">Конспекты СПбГУ ПИ</h1>
+      </div>
+      <div class="page-meta">
+        <span class="badge">Программная инженерия</span>
+        <span class="badge">2025</span>
+      </div>
     </header>
 
     <nav class="notion-nav">
       <button onclick="showSemester('sem-1')" id="btn-sem-1" class="nav-item active">1 Семестр</button>
-      <button onclick="showSemester('sem-2')" id="id-sem-2" class="nav-item">2 Семестр</button>
+      <button onclick="showSemester('sem-2')" id="btn-sem-2" class="nav-item">2 Семестр</button>
       <a href="https://github.com/ganesha1967/spbu" target="_blank" class="nav-item">GitHub</a>
     </nav>
 
@@ -64,12 +73,20 @@
     </div>
   </main>
 
+  <footer>
+    <div class="container notion-footer">
+      <p>© 2025 СПбГУ ПИ | ganesha1967</p>
+    </div>
+  </footer>
+
   <script>
     function showSemester(semId) {
       document.querySelectorAll('.semester-page').forEach(p => p.classList.remove('active'));
       document.getElementById(semId).classList.add('active');
+
       document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
-      event?.target?.classList?.add('active');
+      event.target.classList.add('active');
+
       const breadcrumb = document.getElementById('current-breadcrumb');
       breadcrumb.innerText = semId === 'sem-1' ? '1 Семестр' : '2 Семестр';
     }
