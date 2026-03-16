@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>📚 Конспекты СПбГУ ПИ</title>
   <link rel="stylesheet" href="assets/style.css">
-  
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#191919" media="(prefers-color-scheme: dark)">
 </head>
@@ -13,34 +12,28 @@
   <div class="page-cover"></div>
 
   <main class="container">
-    <nav class="breadcrumbs">
-      <span class="breadcrumb-item">Конспекты ПИ</span>
-      <span class="breadcrumb-separator">/</span>
-      <span id="current-breadcrumb" class="breadcrumb-item">1 Семестр</span>
-    </nav>
-
     <header class="page-header">
-    <div class="page-icon">📚</div>
-    
-    <div class="header-content">
+      <div class="page-icon">📚</div>
+      
+      <div class="header-content">
         <nav class="breadcrumbs">
-        <span class="breadcrumb-item">Конспекты ПИ</span>
-        <span class="breadcrumb-separator">/</span>
-        <span id="current-breadcrumb" class="breadcrumb-item">1 Семестр</span>
+          <span class="breadcrumb-item">Конспекты ПИ</span>
+          <span class="breadcrumb-separator">/</span>
+          <span id="current-breadcrumb" class="breadcrumb-item">1 Семестр</span>
         </nav>
         
         <h1 class="page-title">Конспекты СПбГУ ПИ</h1>
         
         <div class="page-meta">
-        <span class="badge">Программная инженерия</span>
-        <span class="badge">2025</span>
+          <span class="badge">Программная инженерия</span>
+          <span class="badge">2025</span>
         </div>
-    </div>
+      </div>
     </header>
 
     <nav class="notion-nav">
-      <button onclick="showSemester('sem-1')" id="btn-sem-1" class="nav-item active">1 Семестр</button>
-      <button onclick="showSemester('sem-2')" id="btn-sem-2" class="nav-item">2 Семестр</button>
+      <button onclick="showSemester(event, 'sem-1')" id="btn-sem-1" class="nav-item active">1 Семестр</button>
+      <button onclick="showSemester(event, 'sem-2')" id="btn-sem-2" class="nav-item">2 Семестр</button>
       <a href="https://github.com/ganesha1967/spbu" target="_blank" class="nav-item">GitHub</a>
     </nav>
 
@@ -76,7 +69,7 @@
             <span class="row-text">Алгоритмы и СД</span>
             <span class="row-tag gray">В процессе</span>
           </div>
-          </div>
+        </div>
       </section>
     </div>
   </main>
@@ -88,12 +81,12 @@
   </footer>
 
   <script>
-    function showSemester(semId) {
+    function showSemester(event, semId) {
       document.querySelectorAll('.semester-page').forEach(p => p.classList.remove('active'));
       document.getElementById(semId).classList.add('active');
 
       document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
+      event.currentTarget.classList.add('active');
 
       const breadcrumb = document.getElementById('current-breadcrumb');
       breadcrumb.innerText = semId === 'sem-1' ? '1 Семестр' : '2 Семестр';
