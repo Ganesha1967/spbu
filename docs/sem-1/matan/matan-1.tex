@@ -13,12 +13,13 @@
 \usepackage[most]{tcolorbox}
 \usepackage[dvipsnames]{xcolor}
 \usepackage{amsfonts}
-\usepackage{tikz} % Добавляем TikZ для красивых графиков
+\usepackage{tikz} 
 \usetikzlibrary{arrows, decorations.pathreplacing}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
 \usepackage{caption}
 \usepackage{multicol}
+\usetikzlibrary{patterns}
 
 %---------------------------------
 % Геометрия страницы
@@ -109,7 +110,10 @@
 		\vfill
 		
 		{\footnotesize составлен по конспекту @vlm326, учебнику Виноградова и т.д\par}
-		{\footnotesize \textcopyright\ Текст распространяется по лицензии \textbf{CC BY-NC-SA 4.0} \par}
+		
+		\vspace{0.3cm}
+		
+		{\footnotesize \textcopyright\ текст распространяется по лицензии \textbf{CC BY-NC-SA 4.0} \par}
 	\end{titlepage}
 	
 	\newpage
@@ -128,7 +132,7 @@
 	\subsection{Аксиома о существовании супремума (1 вопрос)}
 	
 	\begin{definitionbox}{1.1: Супремум}
-		Пусть $E \subset \mathbb{R}$, $E \neq \varnothing$, $E$ ограничено сверху. Из этого следует, что существует такое число $a_0 \in \mathbb{R}$, которое является верхней границей $E$ ($\forall x \in E \colon x \le a_0$), и для любого $c < a_0$ число $c$ не является верхней границей, т. е. $\exists x_0 \in E \colon x_0 > c$.
+		Пусть $E \subset \mathbb{R}$, $E \neq \varnothing$, $E$ ограничено сверху. Из этого следует, что существует такое число $a_0 \in \mathbb{R}$, которое является верхней границей $E$ ($\forall x \in E \colon x \le a_0$), и для любого $c < a_0$ число $c$ не является верхней границей, т. е. $\exists x_0 \in E \colon x_0 > c$.\\
 		
 		Наименьшая из верхних границ множества $E$ называется \textit{точной верхней границей}, или \textit{верхней гранью}, или \textit{супремумом} множества $E$ и обозначается $a_0 = \sup E$.
 	\end{definitionbox}
@@ -149,18 +153,31 @@
 		\begin{tikzpicture}[scale=1.2]
 			\draw[->] (-0.5,0) -- (5,0) node[right] {$\mathbb{R}$};
 			\draw[thick, blue] (1,0.1) -- (1,-0.1) node[below] {$a$};
-			\draw[thick, blue] (4,0.1) -- (4,-0.1) node[below] {$b$};
-			\draw[very thick, red] (1.2,0) -- (3.8,0);
+			\draw[thick, blue] (4,0.1) -- (4,-0.1); 
+			\draw[very thick, red] (1.05,0) -- (4,0); 
+			
 			\foreach \x in {1.5,2,2.5,3,3.5} {
-				\fill[red] (\x,0) circle (1.5pt);
+				\fill[red!80!black] (\x,0) circle (1.5pt);
 			}
-			\node[red] at (2.5,0.3) {$E$};
-			\draw[<->, thick, green!50!black] (1,0.3) -- (4,0.3) node[midway, above] {$\sup E = b$};
+			
+			\fill[red] (4,0) circle (2pt);
+			
+			\node[red] at (2.5,0.3) {$E = (a, b]$};
+			
+			\draw[<-, thick, green!50!black] (4,0.15) -- (4,0.7) node[above, fill=white, inner sep=1pt] {$\sup E = b$};
+			\draw[->, blue, dashed] (4,-0.4) -- (4.8,-0.4) node[right, font=\tiny] {Верхние границы};
+			\draw[thick, blue] (4,-0.3) -- (4,-0.5);
 		\end{tikzpicture}
-		\captionof{figure}{Супремум множества $E$ — наименьшая из верхних границ}
+		\captionof{figure}{Супремум множества $E=(a, b]$ в точке $b$ как наименьшая из верхних границ}
 	\end{center}
 	
-	\vspace{0.5cm}
+	
+	
+	
+	
+	
+	
+	\newpage 
 	\subsection{Существование инфимума (2 вопрос)}
 	
 	\begin{definitionbox}{2.1: Инфимум}
@@ -191,27 +208,51 @@
 		\end{cases}
 		\]
 	\end{remarkbox}
-	
+
 	\begin{center}
-		\begin{tikzpicture}[scale=1.2]
-			\draw[->] (-0.5,0) -- (5,0) node[right] {$\mathbb{R}$};
-			\draw[thick, blue] (1,0.1) -- (1,-0.1) node[below] {$a = \inf E$};
-			\draw[thick, blue] (4,0.1) -- (4,-0.1) node[below] {$b$};
-			\draw[very thick, red] (1.2,0) -- (3.8,0);
-			\foreach \x in {1.5,2,2.5,3,3.5} {
-				\fill[red] (\x,0) circle (1.5pt);
+		\begin{tikzpicture}[scale=1.4, >=stealth]
+			\draw[->, thick] (-1.5,0) -- (5.5,0) node[right] {$\mathbb{R}$};
+			
+			\fill[red!15] (1,0) rectangle (4.5, 0.25);
+			\draw[very thick, red] (1,0) -- (4.5,0);
+			
+			\foreach \x in {1.3, 1.8, 2.5, 3.2, 4.0} {
+				\fill[red!80!black] (\x,0) circle (1.5pt);
 			}
-			\node[red] at (2.5,0.3) {$E$};
-			\draw[<->, thick, green!50!black] (1,0.5) -- (4,0.5) node[midway, above] {нижние границы};
-			\draw[thick, green!50!black, <-] (1,0.3) -- (0.5,0.3);
+			\node[red, above] at (2.75, 0.25) {$E$};
+			
+			\coordinate (A) at (1,0);
+			\draw[ultra thick, blue] (1, 0.2) -- (1, -0.2);
+			\node[blue, below=10pt, font=\small] at (A) {$a = \inf E$};
+			
+			\draw[<-, thick, blue, dashed] (-1.2, -0.7) -- (1, -0.7);
+			\draw[thick, blue] (1, -0.6) -- (1, -0.8);
+			\node[blue, left, font=\footnotesize] at (-1.2, -0.7) {нижние границы};
+			
+			\coordinate (Eps) at (1.8,0);
+			\draw[thick, green!50!black] (1.8, 0.15) -- (1.8, -0.15);
+			\node[green!50!black, below=2pt, font=\footnotesize] at (1.8,0) {$a+\varepsilon$};
+			
+			\draw[<->, green!50!black] (1, 0.6) -- (1.8, 0.6)
+			node[midway, above, font=\footnotesize] {$\varepsilon$};
+			\draw[thin, green!50!black, dashed] (1, 0) -- (1, 0.6);
+			\draw[thin, green!50!black, dashed] (1.8, 0) -- (1.8, 0.6);
+			
+			\fill[red!70!black] (1.45, 0) circle (1.8pt);
+			\node[red!70!black, above=2pt, font=\footnotesize] at (1.45,0) {$x_0$};
+			
+			\node[red!70!black, font=\tiny] at (2.4, 0.45) {$x_0 < a+\varepsilon$};
+			
 		\end{tikzpicture}
-		\captionof{figure}{Инфимум множества $E$ — наибольшая из нижних границ}
+		\captionof{figure}{Инфимум $a$ как наибольшая нижняя граница и критерий: $\forall \varepsilon > 0\ \exists x_0 \in E:\ x_0 < a+\varepsilon$}
 	\end{center}
 	
 	
 	
 	
 	
+
+		
 	
 	% ==================== РАЗДЕЛ 2: ПРЕДЕЛЫ ПОСЛЕДОВАТЕЛЬНОСТЕЙ ====================
 	\newpage
@@ -225,22 +266,45 @@
 	\end{definitionbox}
 	
 	\begin{center}
-	\begin{tikzpicture}[scale=0.8]
-		\draw[->] (0,0) -- (10,0) node[right] {$n$};
-		\draw[->] (0,0) -- (0,4) node[above] {$x_n$};
-		\draw[thick, blue] (0,2) -- (10,2) node[right] {$a$};
-		\draw[dashed, blue] (0,2.5) -- (10,2.5);
-		\draw[dashed, blue] (0,1.5) -- (10,1.5);
-		\draw[<->, blue] (9.5,1.5) -- (9.5,2.5) node[midway, right] {$2\varepsilon$};
-		\foreach \x in {1,...,9} {
-			\pgfmathsetmacro{\y}{2 + 0.8*rand}
-			\fill[red] (\x,\y) circle (2pt);
-		}
-		\draw[thick, green!50!black, ->] (5,0.5) -- (8,1.2) node[below right] {начиная с $N$, все точки в $\varepsilon$-полосе};
-	\end{tikzpicture}
-	\captionof{figure}{Геометрический смысл предела последовательности}
+		\begin{tikzpicture}[scale=0.9, >=stealth]
+			\draw[->] (-0.5,0) -- (11.2,0) node[right] {$n$};
+			\draw[->] (0,-0.5) -- (0,4.4) node[above] {$x_n$};
+			
+			\draw[thick, blue] (0,2) -- (10,2);
+			\node[blue, right] at (10,2) {$a$};
+			
+			\fill[blue!10] (0,1.4) rectangle (10,2.6);
+			\draw[dashed, blue!50] (0,2.6) -- (10,2.6);
+			\draw[dashed, blue!50] (0,1.4) -- (10,1.4);
+			
+			\node[blue, font=\footnotesize] at (9.6,2.75) {$a+\varepsilon$};
+			\node[blue, font=\footnotesize] at (9.6,1.25) {$a-\varepsilon$};
+			
+			\draw[<->, blue] (10.6,1.4) -- (10.6,2.6)
+			node[midway, right, font=\footnotesize] {$2\varepsilon$};
+			
+			\foreach \x/\y in {0.5/0.8, 1.2/3.5, 2/1.0, 2.8/3.8, 3.5/0.5, 4.2/2.9} {
+				\fill[red!50!black] (\x,\y) circle (2pt);
+			}
+			
+			\draw[thick, dashed, green!50!black] (4.8, 0) -- (4.8, 4);
+			\node[green!50!black, above, font=\small] at (4.8,4) {$N(\varepsilon)$};
+			\fill[black] (4.8,0) circle (1.5pt);
+			
+			\foreach \x/\y in {5.5/2.3, 6.2/1.8, 7/2.15, 7.8/1.9, 8.5/2.05, 9.3/1.98} {
+				\fill[red, draw=black, thin] (\x,\y) circle (2pt);
+			}
+			
+			\draw[->, green!50!black, thick] (6.2,3.3) -- (7.6,2.3);
+			
+			\node[green!50!black, font=\footnotesize, align=center, fill=white, inner sep=2pt]
+			at (6.2,3.7)
+			{$\forall n > N:$\\ $x_n \in (a-\varepsilon, a+\varepsilon)$};
+			
+		\end{tikzpicture}
+		\captionof{figure}{Геометрический смысл предела последовательности}
 	\end{center}
-	
+		
 	\begin{theorembox}{3.2: Единственность предела}
 	Если $x_n \to a$ и $x_n \to b$ при $n \to \infty$, то $a = b$.
 	\end{theorembox}
@@ -256,16 +320,37 @@
 	Т. е. $|a-b| < \frac{|a-b|}{2}$, что невозможно при $a \neq b$. Следовательно, $a=b$. \qed
 	
 	\begin{center}
-	\begin{tikzpicture}
-		\draw[->] (-2,0) -- (4,0);
-		\draw[thick, blue] (0,0.1) -- (0,-0.1) node[below] {$a$};
-		\draw[thick, blue] (2,0.1) -- (2,-0.1) node[below] {$b$};
-		\draw[decorate, decoration={brace, mirror, amplitude=10pt}, red] (0,0.3) -- (2,0.3) node[midway, above, yshift=5pt] {$\varepsilon = \frac{|a-b|}{2}$};
-		\draw[red, dashed] (0,0.2) circle (0.5);
-		\draw[red, dashed] (2,0.2) circle (0.5);
-		\node[red] at (-0.5,1) {невозможно};
-	\end{tikzpicture}
-	\captionof{figure}{К доказательству единственности предела}
+		\begin{tikzpicture}[scale=1.2, >=stealth]
+			\draw[->, thick] (-1.5,0) -- (4.8,0) node[right] {$\mathbb{R}$};
+			
+			\draw[ultra thick, blue] (0,0.12) -- (0,-0.12);
+			\node[blue, below=4pt] at (0,0) {$a$};
+			
+			\draw[ultra thick, blue] (2.4,0.12) -- (2.4,-0.12);
+			\node[blue, below=4pt] at (2.4,0) {$b$};
+			
+			\draw[thick, red!70!black] (-0.8,0) -- (0.8,0);
+			\draw[thick, red!70!black] (1.6,0) -- (3.2,0);
+			
+			\node[red!70!black, above=2pt] at (0,0) {$U_{\varepsilon}(a)$};
+			\node[red!70!black, above=2pt] at (2.4,0) {$U_{\varepsilon}(b)$};
+			
+			\draw[<->] (0,-0.6) -- (0.8,-0.6)
+			node[midway, below, font=\tiny] {$\varepsilon$};
+			
+			\draw[<->] (2.4,-0.6) -- (1.6,-0.6)
+			node[midway, below, font=\tiny] {$\varepsilon$};
+			
+			\draw[decorate, decoration={brace, amplitude=8pt, mirror}]
+			(0,-1.1) -- (2.4,-1.1)
+			node[midway, below=10pt] {$|a-b| > 2\varepsilon$};
+			
+			\node[red!80!black, font=\small, align=center, fill=white, inner sep=2pt]
+			at (1.2,1.3)
+			{$a \ne b$\\ $\varepsilon < \frac{|a-b|}{2}$\\ окрестности не пересекаются};
+			
+		\end{tikzpicture}
+		\captionof{figure}{Иллюстрация к доказательству единственности предела}
 	\end{center}
 	
 	\begin{definitionbox}{3.2.1: Ограниченность последовательности}
@@ -296,7 +381,7 @@
 	
 	
 	
-	\vspace{1cm}
+	\newpage
 	\subsection{Свойства пределов (4-6 вопрос)}
 	
 	\begin{theorembox}{4.1: Предел константы}
@@ -304,12 +389,47 @@
 	\end{theorembox}
 	\myproof По определению $|c - c| = 0 < \varepsilon \Rightarrow c \text{ — предел } c$. \qed
 	
+	\begin{center}
+		\begin{tikzpicture}[scale=1.0, >=stealth]
+			\draw[->] (0,0) -- (5.5,0) node[right] {$n$};
+			\draw[->] (0,0) -- (0,4) node[above] {$x_n$};
+			
+			\draw[thick, blue] (0,2) -- (5,2);
+			\node[blue, right] at (5,2) {$c$};
+			
+			\foreach \x in {0.8,1.5,2.2,3,3.8,4.6} {
+				\fill[blue] (\x,2) circle (2pt);
+			}
+		\end{tikzpicture}
+		\captionof{figure}{Предел константы: $x_n = c$}
+	\end{center}
+	
+	
+	
 	\begin{theorembox}{4.2: Предел произведения константы на последовательность}
 		$\lim\limits_{n \to \infty} (c x_n) = ca$.
 	\end{theorembox}
 	\myproof
 	Если $c = 0$, то $0 \cdot x_n \to 0 \cdot a$.
 	Если $c \neq 0$, то по определению предела $|x_n - a| < \varepsilon \Rightarrow |c x_n - ca| < |c|\varepsilon \Rightarrow |c||x_n - a| < |c|\varepsilon$. Значит, $\lim\limits_{n \to \infty} c x_n = ca$. \qed
+	
+	\begin{center}
+		\begin{tikzpicture}[scale=1.0, >=stealth]
+			\draw[->] (0,0) -- (5.5,0) node[right] {$n$};
+			\draw[->] (0,0) -- (0,4.5) node[above] {$x_n,\; c x_n$};
+			
+			\draw[thick, blue, domain=0.5:5, samples=100]
+			plot (\x, {2 + 0.5*sin(deg(\x))});
+			\node[blue] at (4.6,2.7) {$x_n \to a$};
+			
+			\draw[thick, red, domain=0.5:5, samples=100]
+			plot (\x, {3 + 0.8*sin(deg(\x))});
+			\node[red] at (4.6,3.8) {$c x_n \to ca$};
+			
+		\end{tikzpicture}
+		\captionof{figure}{Предел произведения на константу}
+	\end{center}
+	
 	
 	\begin{theorembox}{4.3: Предел суммы последовательностей}
 		Пусть $x_n \to a$ и $y_n \to b$. Тогда $\lim (x_n + y_n) = a + b$.
@@ -321,12 +441,22 @@
 	В силу произвольности $\varepsilon$, получаем нужное. \qed
 	
 	\begin{center}
-		\begin{tikzpicture}
-			\draw[->] (0,0) -- (5,0) node[right] {$n$};
-			\draw[->] (0,0) -- (0,4) node[above] {$x_n, y_n$};
-			\draw[thick, blue, domain=0.5:4.5, samples=20] plot (\x, {2 + sin(\x r)}) node[right] {$x_n \to a$};
-			\draw[thick, red, domain=0.5:4.5, samples=20] plot (\x, {1 + 0.5*cos(\x r)}) node[right] {$y_n \to b$};
-			\draw[thick, green!50!black, domain=0.5:4.5, samples=20] plot (\x, {3 + sin(\x r) + 0.5*cos(\x r)}) node[right] {$x_n + y_n \to a+b$};
+		\begin{tikzpicture}[scale=1.0, >=stealth]
+			\draw[->] (0,0) -- (5.5,0) node[right] {$n$};
+			\draw[->] (0,0) -- (0,4.2) node[above] {$x_n, y_n$};
+			
+			\draw[thick, blue, domain=0.5:5, samples=100]
+			plot (\x, {2 + 0.6*sin(deg(\x))});
+			\node[blue] at (4.6,2.8) {$x_n \to a$};
+			
+			\draw[thick, red, domain=0.5:5, samples=100]
+			plot (\x, {1.2 + 0.4*cos(deg(\x))});
+			\node[red] at (4.6,1.7) {$y_n \to b$};
+			
+			\draw[thick, green!50!black, domain=0.5:5, samples=100]
+			plot (\x, {3.2 + 0.6*sin(deg(\x)) + 0.4*cos(deg(\x))});
+			\node[green!50!black] at (4.6,3.6) {$x_n + y_n \to a+b$};
+			
 		\end{tikzpicture}
 		\captionof{figure}{Предел суммы последовательностей}
 	\end{center}
@@ -343,6 +473,29 @@
 	Тогда при $|b_n - b| < \delta_1$ и $|a_n - a| < \delta_2$ имеем:
 	\[ |a_n b_n - ab| \le (|a|+1)\delta_1 + |b|\delta_2 \le \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon \text{.} \] \qed
 	
+	
+	\begin{center}
+		\begin{tikzpicture}[scale=1.0, >=stealth]
+			\draw[->] (0,0) -- (5.5,0) node[right] {$n$};
+			\draw[->] (0,0) -- (0,4.5) node[above] {$a_n,\; b_n,\; a_nb_n$};
+			
+			\draw[thick, blue, domain=0.5:5, samples=100]
+			plot (\x, {2 + 0.4*sin(deg(\x))});
+			\node[blue] at (4.6,2.7) {$a_n \to a$};
+			
+			\draw[thick, red, domain=0.5:5, samples=100]
+			plot (\x, {1.5 + 0.3*cos(deg(\x))});
+			\node[red] at (4.6,1.9) {$b_n \to b$};
+			
+			\draw[thick, green!50!black, domain=0.5:5, samples=100]
+			plot (\x, {3 + 0.5*sin(deg(\x))});
+			\node[green!50!black] at (4.6,3.7) {$a_nb_n \to ab$};
+			
+		\end{tikzpicture}
+		\captionof{figure}{Предел произведения последовательностей}
+	\end{center}
+	
+	\newpage
 	\begin{theorembox}{6: Предел частного последовательностей}
 		Пусть $x_n \to a$, $x_n \neq 0$ и $a \neq 0$. Тогда $\lim\limits_{n \to \infty} \frac{1}{x_n} = \frac{1}{a}$.
 	\end{theorembox}
@@ -357,9 +510,31 @@
 	Далее $\lim \frac{y_n}{x_n} = \lim y_n \cdot \lim \frac{1}{x_n}$ по ранее доказанному. \qed
 	
 	
+	\begin{center}
+		\begin{tikzpicture}[scale=1.0, >=stealth]
+			\draw[->] (0,0) -- (5.5,0) node[right] {$n$};
+			\draw[->] (0,0) -- (0,4.5) node[above] {$x_n,\; 1/x_n$};
+			
+			\draw[thick, blue, domain=0.5:5, samples=100]
+			plot (\x, {2 + 0.5*sin(deg(\x))});
+			\node[blue] at (4.6,2.7) {$x_n \to a$};
+			
+			\draw[thick, red, domain=0.5:5, samples=100]
+			plot (\x, {1 + 0.2*sin(deg(\x))});
+			\node[red] at (4.6,1.3) {$\frac{1}{x_n} \to \frac{1}{a}$};
+			
+		\end{tikzpicture}
+		\captionof{figure}{Предел частного последовательности}
+	\end{center}
 	
 	
 	
+	
+	
+	
+	
+	
+	\newpage
 	\subsection{Пределы и неравенства (7 вопрос)}
 	
 	\begin{theorembox}{7.1: Предельный переход в неравенствах}
@@ -387,7 +562,7 @@
 	что противоречит $x_n \le y_n$. Следовательно, $a \le b$. \qed
 	
 	\begin{remarkbox}{7.2}
-		Из $x_n < y_n$ для всех $n$ не следует $\lim x_n < \lim y_n$. Возможны равные пределы.
+		Из $x_n < y_n$ для всех $n$ не следует $\lim x_n < \lim y_n$. Возможны равные пределы.\\
 		
 		\textit{Пример:} $x_n = -\frac{1}{n}$, $y_n = \frac{1}{n}$, тогда $x_n < y_n$ для всех $n$, но $\lim x_n = 0 = \lim y_n$.
 	\end{remarkbox}
@@ -410,6 +585,20 @@
 			\draw[decorate, decoration={brace, amplitude=5pt}, red] (4,2.25) -- (4,2.75);
 		\end{tikzpicture}
 		\captionof{figure}{$x_n < y_n$, но пределы равны}
+	\end{center}
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\draw[->] (0,0) -- (6,0) node[right] {$n$};
+			\draw[->] (0,0) -- (0,3) node[above] {$x_n, y_n$};
+			\foreach \n/\xn/\yn in {1/-1/1,2/-0.5/0.5,3/-0.33/0.33,4/-0.25/0.25,5/-0.2/0.2} {
+				\fill[blue] (\n,\xn+1.5) circle (2pt);
+				\fill[red] (\n,\yn+1.5) circle (2pt);
+				\draw[blue] (\n,\xn+1.5) -- (\n,0);
+				\draw[red] (\n,\yn+1.5) -- (\n,0);
+			}
+			\draw[dashed] (0,1.5) -- (6,1.5) node[right] {0};
+		\end{tikzpicture}
 	\end{center}
 	
 	\begin{theorembox}{7.4: Теорема о сжатой последовательности (принцип двух милиционеров)}
@@ -459,6 +648,9 @@
 	
 	
 	
+	
+	
+	
 	\newpage
 	\subsection{Предел монотонных последовательностей (8-9 вопрос)}
 	
@@ -491,6 +683,7 @@
 		\end{tikzpicture}
 		\captionof{figure}{Монотонно возрастающая ограниченная последовательность}
 	\end{center}
+	
 	
 	
 	
@@ -530,6 +723,9 @@
 	\begin{remarkbox}{8-9.1}
 		Если возрастающая последовательность не ограничена сверху, то её предел равен $+\infty$. Если убывающая последовательность не ограничена снизу, то её предел равен $-\infty$.
 	\end{remarkbox}
+	
+	
+	
 	
 	
 	
@@ -605,19 +801,19 @@
 	
 	\begin{center}
 		\begin{tikzpicture}
-			\draw[->] (0,0) -- (5,0) node[right] {$n$};
+			\draw[->] (0,0) -- (6,0) node[right] {$n$};
 			\draw[->] (0,0) -- (0,4) node[above] {$a_n$};
-			\draw[dashed, red] (0,2) -- (5,2);
-			\draw[dashed, red] (0,2.5) -- (5,2.5);
-			\draw[dashed, red] (0,1.5) -- (5,1.5);
-			\node[red] at (4.5,2.75) {$\varepsilon$};
-			\node[red] at (4.5,1.25) {$\varepsilon$};
-			\draw[thick, green!50!black, decorate, decoration={brace, amplitude=5pt}] (3.5,1.5) -- (3.5,2.5) node[midway, right] {$< 2\varepsilon$};
-			\foreach \x in {3.6,3.8,4,4.2,4.4} {
+			\draw[dashed, red] (0,2) -- (6,2);
+			\draw[dashed, red] (0,2.5) -- (6,2.5);
+			\draw[dashed, red] (0,1.5) -- (6,1.5);
+			\node[red] at (5.7,2.6) {$\varepsilon$};
+			\node[red] at (5.7,1.4) {$\varepsilon$};
+			\draw[thick, green!50!black, decorate, decoration={brace, amplitude=5pt}] (5,1.5) -- (5,2.5) node[midway, right] {$< 2\varepsilon$};
+			\foreach \x in {4.5,4.7,4.9,5.1,5.3,5.5} {
 				\fill[blue] (\x,{2 + 0.2*rand}) circle (1.5pt);
 			}
 		\end{tikzpicture}
-		\captionof{figure}{Фундаментальная последовательность: члены сближаются}
+		\captionof{figure}{Фундаментальная последовательность: члены сближаются и лежат в пределах $\varepsilon$}
 	\end{center}
 	
 	\vspace{0.5cm}
@@ -637,6 +833,10 @@
 	Оценим разность элементов последовательности через неравенство треугольника:
 	\[ |a_n - a_m| = |(a_n - L) + (L - a_m)| \le |a_n - L| + |L - a_m| < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon. \]
 	Следовательно, последовательность фундаментальна. \qed
+	
+	
+	
+	
 	
 	
 	
@@ -693,18 +893,22 @@
 	\begin{center}
 		\begin{tikzpicture}
 			\begin{axis}[
-				width=0.8\textwidth,
+				width=0.85\textwidth,
 				height=6cm,
 				xlabel={$n$},
 				ylabel={$a_n$},
+				xmin=1, xmax=10,
+				ymin=0, ymax=10,
 				domain=1:10,
 				samples=100,
-				legend pos=north west
+				legend pos=north west,
+				grid=both,
+				grid style={dashed, gray!30}
 				]
 				\addplot[blue, thick] {1/x};
-				\addlegendentry{Бесконечно малая: $1/n$};
+				\addlegendentry{Бесконечно малая: $1/n$}
 				\addplot[red, thick] {x};
-				\addlegendentry{Бесконечно большая: $n$};
+				\addlegendentry{Бесконечно большая: $n$}
 			\end{axis}
 		\end{tikzpicture}
 		\captionof{figure}{Бесконечно малая и бесконечно большая последовательности}
@@ -764,26 +968,55 @@
 	\[ \frac{x_{n+1}}{x_n} = \frac{\left(1 + \frac{1}{n+1}\right)^{n+1}}{\left(1 + \frac{1}{n}\right)^n} = \left(1 + \frac{1}{n+1}\right) \cdot \left( \frac{1 + \frac{1}{n+1}}{1 + \frac{1}{n}} \right)^n = \left(1 + \frac{1}{n+1}\right) \left( 1 - \frac{1}{(n+1)^2} \right)^n > 1 \]
 	(Здесь используется неравенство Бернулли). Таким образом, $x_n$ монотонно возрастает и ограничена сверху числом $e$. \qed
 	
+
+	
 	\begin{center}
 		\begin{tikzpicture}
 			\begin{axis}[
-				width=0.8\textwidth,
-				height=6cm,
+				width=0.9\textwidth,
+				height=7cm,
 				xlabel={$n$},
-				ylabel={значение},
-				domain=1:10,
-				samples=100,
-				legend pos=south east
+				ylabel={Значение},
+				xmin=0.5, xmax=10.5,
+				ymin=2.2, ymax=4.2,
+				xtick={1,2,3,4,5,6,7,8,9,10},
+				grid=major,
+				grid style={dashed, gray!30},
+				legend pos=north east,
+				legend cell align={left},
+				title={Сходимость к числу Эйлера $e$}
 				]
-				\addplot[blue, thick] {(1+1/x)^x};
-				\addlegendentry{$x_n = (1+\frac{1}{n})^n$};
-				\addplot[red, thick] {(1+1/x)^(x+1)};
-				\addlegendentry{$y_n = (1+\frac{1}{n})^{n+1}$};
-				\addplot[dashed, green!50!black, thick] {2.71828};
-				\addlegendentry{$e \approx 2.71828$};
+				
+				\addplot[
+				blue, 
+				only marks, 
+				mark=*, 
+				samples at={1,2,...,10}
+				] {(1+1/x)^x};
+				\addlegendentry{$x_n = (1+\frac{1}{n})^n \uparrow e$}
+				
+				\addplot[
+				red, 
+				only marks, 
+				mark=square*, 
+				samples at={1,2,...,10}
+				] {(1+1/x)^(x+1)};
+				\addlegendentry{$y_n = (1+\frac{1}{n})^{n+1} \downarrow e$}
+				
+				\addplot[
+				dashed, 
+				green!50!black, 
+				thick, 
+				domain=0.5:10.5
+				] {2.71828};
+				\addlegendentry{$e \approx 2.71828$}
+				
+				\node[blue, font=\small] at (axis cs: 5, 2.4) {возрастает};
+				\node[red, font=\small] at (axis cs: 5, 3.4) {убывает};
+				
 			\end{axis}
 		\end{tikzpicture}
-		\captionof{figure}{Последовательности $x_n$ и $y_n$, сходящиеся к $e$}
+		\captionof{figure}{Монотонные последовательности $x_n$ и $y_n$, ограничивающие число $e$}
 	\end{center}
 	
 	\begin{importantbox}{Итог}
@@ -792,6 +1025,8 @@
 		По теореме Кантора (о вложенных отрезках) или по теореме о монотонной последовательности:
 		\[ \lim_{n \to \infty} x_n = e, \quad \lim_{n \to \infty} y_n = e \]
 	\end{importantbox}
+	
+	
 	
 	
 	
@@ -806,18 +1041,31 @@
 		$\varepsilon$-окрестностью точки $a$ называется интервал $W_a = (a - \varepsilon, a + \varepsilon)$, где $\varepsilon > 0$. Это множество точек, находящихся от точки $a$ на расстоянии меньше $\varepsilon$.
 	\end{definitionbox}
 	
+	
 	\begin{center}
-		\begin{tikzpicture}
-			\draw[->] (-2,0) -- (4,0) node[right] {$\mathbb{R}$};
-			\fill[blue] (1,0) circle (2pt) node[above] {$a$};
-			\draw[thick, red, decorate, decoration={brace, amplitude=5pt}] (1,0.2) -- (2,0.2) node[midway, above] {$\varepsilon$};
-			\draw[thick, red, decorate, decoration={brace, amplitude=5pt}] (0,0.2) -- (1,0.2) node[midway, above] {$\varepsilon$};
-			\draw[thick, blue, dashed] (0,0.1) -- (0,-0.1) node[below] {$a-\varepsilon$};
-			\draw[thick, blue, dashed] (2,0.1) -- (2,-0.1) node[below] {$a+\varepsilon$};
-			\draw[thick, red, <->] (0,-0.3) -- (2,-0.3) node[midway, below] {$\varepsilon$-окрестность};
+		\begin{tikzpicture}[scale=1.5, >=stealth]
+			\draw[->, thick] (-1,0) -- (3,0) node[right] {$\mathbb{R}$};
+			
+			\fill[blue] (1,0) circle (2pt) node[below=3pt] {$a$};
+			
+			\draw[ultra thick, blue] (0,0) -- (2,0);
+			\node[blue, font=\bfseries] at (0,0) {(};
+			\node[blue, font=\bfseries] at (2,0) {)};
+			
+			\draw[thick, blue!50, dashed] (0,0) -- (0,-0.4) node[below, black, font=\small] {$a-\varepsilon$};
+			\draw[thick, blue!50, dashed] (2,0) -- (2,-0.4) node[below, black, font=\small] {$a+\varepsilon$};
+			
+			\draw[<->, red, thick] (0,0.3) -- (1,0.3) node[midway, above, font=\small] {$\varepsilon$};
+			\draw[<->, red, thick] (1,0.3) -- (2,0.3) node[midway, above, font=\small] {$\varepsilon$};
+			\draw[thin, gray] (1,0) -- (1,0.3);
+			
+			\draw[decorate, decoration={brace, amplitude=6pt, mirror}, brown!60!black, thick] (0,-0.7) -- (2,-0.7) 
+			node[midway, below=8pt, font=\small] {$W_\varepsilon(a)$};
 		\end{tikzpicture}
-		\captionof{figure}{Окрестность точки $a$}
+		\captionof{figure}{Геометрическое представление $\varepsilon$-окрестности точки $a$}
 	\end{center}
+	
+
 	
 	\begin{notebook}{16.2: Образное представление}
 		Представь точку $a$ на прямой. Окрестность — это «защитный кокон» вокруг неё радиусом $\varepsilon$. Чем меньше $\varepsilon$, тем теснее этот кокон прижат к точке.
@@ -855,20 +1103,31 @@
 		Последовательность $a_n = (-1)^n$: $(-1, 1, -1, 1 \dots)$.
 		Подпоследовательность четных шагов стремится к $1$, а нечетных — к $-1$. Так как они «тянут» в разные стороны, общего предела у всей последовательности нет.
 	\end{examplebox}
-	
+		
 	\begin{center}
-		\begin{tikzpicture}
-			\draw[->] (0,0) -- (5,0) node[right] {$n$};
-			\draw[->] (0,-1.5) -- (0,1.5) node[above] {$a_n$};
-			\foreach \x in {1,2,3,4} {
-				\pgfmathsetmacro{\y}{(-1)^\x}
-				\fill[blue] (\x,\y) circle (2pt);
+		\begin{tikzpicture}[scale=1.2, >=stealth]
+			\draw[->] (-0.5,0) -- (6.5,0) node[right] {$n$};
+			\draw[->] (0,-1.5) -- (0,1.8) node[above] {$a_n$};
+			
+			\draw[dashed, red!70!black, thick] (0,1) -- (6,1) node[right] {$1$};
+			\draw[dashed, blue!70!black, thick] (0,-1) -- (6,-1) node[right] {$-1$};
+			
+			\foreach \n in {1,2,3,4,5,6} {
+				\pgfmathsetmacro{\y}{(-1)^\n}
+				\ifodd\n
+				\fill[blue!70!black] (\n,\y) circle (2.5pt);
+				\node[below, blue!70!black, font=\tiny] at (\n,-1.1) {$a_{\n}$};
+				\else
+				\fill[red!70!black] (\n,\y) circle (2.5pt);
+				\node[above, red!70!black, font=\tiny] at (\n,1.1) {$a_{\n}$};
+				\fi
 			}
-			\draw[dashed, red] (0,1) -- (5,1) node[right] {$1$};
-			\draw[dashed, red] (0,-1) -- (5,-1) node[right] {$-1$};
-			\node at (2.5, -2) {$a_n = (-1)^n$ не имеет предела};
+			
+			\node[red!70!black, font=\footnotesize, align=left] at (3.5, 1.5) {подпоследовательность $a_{2k} \to 1$};
+			\node[blue!70!black, font=\footnotesize, align=left] at (3.5, -1.5) {подпоследовательность $a_{2k-1} \to -1$};
+			
 		\end{tikzpicture}
-		\captionof{figure}{Расходящаяся последовательность}
+		\captionof{figure}{Последовательность $a_n = (-1)^n$: точки «разбегаются» к двум разным пределам, т.е $a_n = (-1)^n$ не имеет предела}
 	\end{center}
 	
 	
@@ -907,18 +1166,41 @@
 	Сходящаяся подпоследовательность выделена. \qed
 	
 	\begin{center}
-		\begin{tikzpicture}[scale=1.2]
-			\draw[->] (-0.5,0) -- (5,0) node[right] {$\mathbb{R}$};
-			\draw[thick, blue] (1,0.5) -- (4,0.5) node[midway, above] {$[a_1, b_1]$};
-			\draw[thick, red] (1.5,0.3) -- (4,0.3) node[midway, above] {$[a_2, b_2]$};
-			\draw[thick, green!50!black] (2,0.1) -- (4,0.1) node[midway, above] {$[a_3, b_3]$};
-			\draw[thick, orange] (2.5,-0.1) -- (4,-0.1) node[midway, below] {$[a_4, b_4]$};
-			\fill[purple] (3.5,0) circle (2pt) node[above] {$d$};
-			\foreach \x in {1.2,1.8,2.3,2.7,3.2,3.8} {
-				\fill[blue] (\x,0) circle (1pt);
+		\begin{tikzpicture}[scale=1.5, >=stealth]
+			\draw[->, thick] (-0.5,0) -- (5.5,0) node[right] {$\mathbb{R}$};
+			
+			\draw[ultra thick, blue!40] (1, 1.2) -- (5, 1.2);
+			\node[left, blue, font=\footnotesize] at (1, 1.2) {$[a_1, b_1]$};
+			\draw[blue] (1, 1.3) -- (1, 1.1) (5, 1.3) -- (5, 1.1);
+			
+			\draw[ultra thick, red!50] (3, 0.9) -- (5, 0.9);
+			\node[left, red!80!black, font=\footnotesize] at (3, 0.9) {$[a_2, b_2]$};
+			\draw[red!80!black] (3, 1.0) -- (3, 0.8) (5, 1.0) -- (5, 0.8);
+			
+			\draw[ultra thick, green!60!black] (3, 0.6) -- (4, 0.6);
+			\node[left, green!60!black, font=\footnotesize] at (3, 0.6) {$[a_3, b_3]$};
+			\draw[green!60!black] (3, 0.7) -- (3, 0.5) (4, 0.7) -- (4, 0.5);
+			
+			\draw[ultra thick, orange] (3.5, 0.3) -- (4, 0.3);
+			\node[left, orange!80!black, font=\footnotesize] at (3.5, 0.3) {$[a_4, b_4]$};
+			
+			\draw[dashed, gray] (3.75, 1.3) -- (3.75, 0);
+			\fill[purple] (3.75, 0) circle (2pt) node[below=2pt] {$d$};
+			
+			\foreach \x in {0.8, 1.5, 2.2, 2.8, 4.8} {
+				\fill[gray!60] (\x, 0) circle (1.2pt);
 			}
+			
+			\fill[blue] (1.2, 0) circle (1.8pt) node[above, font=\tiny] {$x_{n_1}$};
+			\fill[red!80!black] (4.5, 0) circle (1.8pt) node[above, font=\tiny] {$x_{n_2}$};
+			\fill[green!60!black] (3.2, 0) circle (1.8pt) node[above, font=\tiny] {$x_{n_3}$};
+			\fill[orange!80!black] (3.9, 0) circle (1.8pt) node[above, font=\tiny] {$x_{n_4}$};
+			
+			\draw[->, purple, thick] (4.2, -0.4) to [bend left] (3.85, -0.1);
+			\node[purple, right, font=\tiny] at (4.2, -0.5) {$x_{n_k} \to d$};
+			
 		\end{tikzpicture}
-		\captionof{figure}{Метод деления пополам в теореме Больцано-Вейерштрасса}
+		\captionof{figure}{Алгоритм выделения сходящейся подпоследовательности методом деления отрезка пополам}
 	\end{center}
 	
 	\begin{notebook}{17.1: Суть доказательства}
@@ -942,18 +1224,38 @@
 		\[ \forall W(d) \;\; \exists x \in E \colon x \in W(d), x \neq d. \]
 	\end{definitionbox}
 	
+
 	\begin{center}
-		\begin{tikzpicture}
-			\draw[->] (-0.5,0) -- (5,0) node[right] {$\mathbb{R}$};
-			\fill[purple] (2.5,0) circle (2pt) node[above] {$d$ (точка сгущения)};
-			\foreach \x in {1.8,2,2.2,2.4,2.6,2.8,3,3.2} {
-				\fill[red] (\x,0) circle (1pt);
+		\begin{tikzpicture}[scale=1.5, >=stealth]
+	
+			\draw[->, thick] (-0.5,0) -- (5.5,0) node[right] {$\mathbb{R}$};
+			
+			\coordinate (D) at (2.5,0);
+			\fill[purple] (D) circle (2.5pt);
+			\node[purple, above=5pt, font=\bfseries] at (D) {$d$};
+			
+			\draw[blue, thick] (1,0.1) -- (1,-0.1) node[below, font=\tiny] {$d-\varepsilon$};
+			\draw[blue, thick] (4,0.1) -- (4,-0.1) node[below, font=\tiny] {$d+\varepsilon$};
+			\draw[blue, dashed, thin] (1,0) rectangle (4,0.4);
+			\node[blue, above, font=\tiny] at (2.5,0.4) {$W(d)$};
+			
+			\foreach \i in {1, 2, 3, 4, 5, 8, 12, 20} {
+				\pgfmathsetmacro{\pos}{2.5 + 1.5/\i}
+				\fill[red!80!black] (\pos, 0) circle (1.2pt);
 			}
-			\draw[dashed, blue] (1.5,0.2) -- (3.5,0.2);
-			\draw[dashed, blue] (1.5,-0.2) -- (3.5,-0.2);
-			\node[blue] at (2.5,0.5) {любая окрестность содержит точки $E$};
+			
+			\foreach \i in {1.5, 2.5, 4, 7, 15} {
+				\pgfmathsetmacro{\pos}{2.5 - 1.5/\i}
+				\fill[red!80!black] (\pos, 0) circle (1.2pt);
+			}
+			
+			\node[red!80!black, font=\footnotesize] at (4.2, 0.2) {$x \in E$};
+			\draw[->, bend right, red!80!black, thin] (4.0, 0.15) to (3.3, 0.05);
+			
+			\draw[<-] (2.55, -0.2) -- (3, -0.5) node[right, font=\tiny] {$\exists x \in W(d) \colon x \neq d$};
+			
 		\end{tikzpicture}
-		\captionof{figure}{Точка сгущения множества}
+		\captionof{figure}{Точка сгущения $d$: в любой окрестности есть точки множества $E$, отличные от $d$}
 	\end{center}
 	
 	\begin{theorembox}{18.2: Последовательность к точке сгущения}
@@ -1004,31 +1306,55 @@
 		\forall \varepsilon > 0 \; \exists \delta > 0 \; \forall x \in E: \; \big( 0 < |x - a| < \delta \big) \Rightarrow \big( |f(x) - A| < \varepsilon \big).
 		\]
 	\end{definitionbox}
-	
+		
 	\begin{center}
-		\begin{tikzpicture}
-			\begin{axis}[
-				width=0.8\textwidth,
-				height=6cm,
-				xlabel={$x$},
-				ylabel={$f(x)$},
-				domain=0:4,
-				samples=100,
-				legend pos=north west
-				]
-				\addplot[blue, thick] {x^2/4 + 1};
-				\addlegendentry{$f(x)$};
-				\addplot[dashed, red] coordinates {(2,2) (2,0)} node[pos=0.5, left] {$a$};
-				\addplot[dashed, red] coordinates {(0,2) (2,2)} node[pos=0.5, below] {$A$};
-				\addplot[green!50!black, dashed] coordinates {(1.5,1.5) (1.5,2.5)};
-				\addplot[green!50!black, dashed] coordinates {(2.5,1.5) (2.5,2.5)};
-				\addplot[green!50!black, dashed] coordinates {(1.5,2.5) (2.5,2.5)};
-				\addplot[green!50!black, dashed] coordinates {(1.5,1.5) (2.5,1.5)};
-				\node[green!50!black] at (2,3) {$\delta$-окрестность по $x$};
-				\node[green!50!black] at (4,2.2) {$\varepsilon$-окрестность по $y$};
-			\end{axis}
+		\begin{tikzpicture}[scale=1.8, >=stealth]
+			\def\xa{2.2}   
+			\def\ya{2.0}   
+			\def\deltaVal{0.7}
+			\def\epsilonVal{0.6}
+			
+			\fill[magenta!10, opacity=0.6] (\xa-\deltaVal, \ya-\epsilonVal) rectangle (\xa+\deltaVal, \ya+\epsilonVal);
+			\node[magenta!60!black, font=\tiny, align=center] at (\xa+0.4, \ya-0.4) {зона\\схождения};
+			
+			\draw[->, thick, gray!30] (-0.3,0) -- (4.2,0) node[right, black] {$x$};
+			\draw[->, thick, gray!30] (0,-0.3) -- (0,3.8) node[above, black] {$y$};
+			\node[below left, black] at (0,0) {$0$};
+			
+			\fill[pattern=north west lines, pattern color=magenta!60] (-0.15, \ya-\epsilonVal) rectangle (0, \ya+\epsilonVal);
+			\draw[ultra thick, magenta] (0, \ya-\epsilonVal) -- (0, \ya+\epsilonVal);
+			
+			\fill[pattern=north east lines, pattern color=magenta!60] (\xa-\deltaVal, -0.15) rectangle (\xa+\deltaVal, 0);
+			\draw[ultra thick, magenta] (\xa-\deltaVal, 0) -- (\xa+\deltaVal, 0);
+			
+			\draw[thick, blue, domain=0.4:3.8, samples=100] plot (\x, {0.18*(\x-1.8)^3 + 2.0});
+			\node[blue, right] at (3.1, 3.4) {$y = f(x)$};
+			
+			\draw[dashed, magenta, thin] (0, \ya+\epsilonVal) -- (\xa+\deltaVal, \ya+\epsilonVal);
+			\draw[dashed, magenta, thin] (0, \ya) -- (\xa, \ya);
+			\draw[dashed, magenta, thin] (0, \ya-\epsilonVal) -- (\xa-\deltaVal, \ya-\epsilonVal);
+			
+			\draw[dashed, magenta, thin] (\xa+\deltaVal, \ya+\epsilonVal) -- (\xa+\deltaVal, 0);
+			\draw[dashed, magenta, thin] (\xa, \ya) -- (\xa, 0);
+			\draw[dashed, magenta, thin] (\xa-\deltaVal, \ya-\epsilonVal) -- (\xa-\deltaVal, 0);
+			
+			\node[left, magenta, font=\small] at (0, \ya+\epsilonVal) {$A+\varepsilon$};
+			\node[left, magenta, font=\small, xshift=-2pt] at (0, \ya) {$A$};
+			\node[left, magenta, font=\small] at (0, \ya-\epsilonVal) {$A-\varepsilon$};
+			
+			\node[below, magenta, font=\small, xshift=-3pt] at (\xa-\deltaVal, 0) {$a-\delta$};
+			\node[below, magenta, font=\small, xshift=2pt] at (\xa, 0) {$a$};
+			\node[below, magenta, font=\small, xshift=3pt] at (\xa+\deltaVal, 0) {$a+\delta$};
+			
+			\draw[<-] (-0.2, \ya+0.3) -- (-0.8, \ya+0.3) node[left, magenta, font=\tiny, align=right] {$\varepsilon$-окрестность\\точки $A$};
+			
+			\draw[<-] (\xa-0.3, -0.2) -- (\xa-0.3, -0.6) node[below, magenta, font=\tiny, align=center] {проколотая $\delta$-окрестность\\точки $a$};
+			
+			\filldraw[fill=white, draw=blue, thick] (\xa,\ya) circle (2pt); 
+			\draw[magenta, thick, fill=white] (\xa,0) circle (1.5pt); 
+			
 		\end{tikzpicture}
-		\captionof{figure}{$\varepsilon$-$\delta$ определение предела функции}
+		\captionof{figure}{Геометрическая интерпретация предела функции по Коши ($\varepsilon$-$\delta$)}
 	\end{center}
 	
 	\begin{remarkbox}{19.4: Пояснение}
@@ -1041,6 +1367,8 @@
 	\begin{notebook}{19.5: Связь определений}
 		Определение через окрестности более общее (оно подходит и для бесконечных пределов), а определение через $\varepsilon$, $\delta$ — это его конкретная реализация для конечных чисел с использованием модуля как меры расстояния.
 	\end{notebook}
+	
+	
 	
 	
 	
@@ -1077,41 +1405,63 @@
 	Получили: $\forall \varepsilon > 0 \;\; \exists N \colon \forall n > N \implies |f(x_n) - a| < \varepsilon$.
 	Это и означает, что $f(x_n) \xrightarrow[n \to \infty]{} a$. \qed
 	
-	\vspace{0.5cm}
+	\vspace{1cm}
 	\myproof[Достаточность (Гейне $\implies$ Коши)] (от противного)
 	Предположим, что предел по Коши не равен $a$. Тогда:
 	\[ \exists \varepsilon_0 > 0 \colon \forall \delta > 0 \;\; \exists x_\delta \in E, \;\; 0 < |x_\delta - d| < \delta, \text{ но } |f(x_\delta) - a| \ge \varepsilon_0 \]
 	Возьмем последовательность $\delta_n = \frac{1}{n}$. Тогда для каждого $n$ найдется $x_n$ с $0 < |x_n - d| < \frac{1}{n}$ и $|f(x_n) - a| \ge \varepsilon_0$.
 	Ясно, что $x_n \to d$, но $f(x_n)$ не стремится к $a$ (так как всегда отстоит от $a$ не менее чем на $\varepsilon_0$). Противоречие с условием Гейне. \qed
+		
 	
 	\begin{center}
-		\begin{tikzpicture}
-			\begin{axis}[
-				width=0.8\textwidth,
-				height=6cm,
-				xlabel={$x$},
-				ylabel={$f(x)$},
-				domain=0:4,
-				samples=100,
-				legend pos=north west
-				]
-				\addplot[blue, thick] {x^2/4 + 1};
-				\addlegendentry{$f(x)$};
-				\addplot[red, only marks, mark=*] coordinates {(1,1.25) (1.5,1.56) (2,2) (2.5,2.56) (3,3.25)};
-				\addlegendentry{$f(x_n)$};
-				\addplot[green!50!black, only marks, mark=*] coordinates {(1,1.25) (2.5,2.56)};
-				\addlegendentry{разные последовательности};
-				\addplot[dashed, red] coordinates {(0,2) (4,2)};
-				\node at (axis cs:3,2.2) {$A$};
-			\end{axis}
+		\begin{tikzpicture}[scale=1.5, >=stealth]
+			\draw[->] (-0.3,0) -- (4.5,0) node[right] {$x$};
+			\draw[->] (0,-0.3) -- (0,3.5) node[above] {$y$};
+			
+			\def\xd{2.5} 
+			\def\ya{1.8} 
+			
+			\draw[thick, blue, domain=0.5:4.2, samples=100] plot (\x, {0.15*(\x-\xd)^3 + \ya});
+			\node[blue, right] at (4.2, 2.5) {$f(x)$};
+			
+			\draw[dashed, gray] (0,\ya) -- (\xd,\ya) -- (\xd,0);
+			\node[left, black] at (0,\ya) {$A$};
+			\node[below, black] at (\xd,0) {$d$};
+			\filldraw[fill=white, draw=blue, thick] (\xd,\ya) circle (1.5pt);
+			
+			\foreach \i in {1, 2, 3, 5} {
+				\pgfmathsetmacro{\xn}{\xd + 1.5/\i}
+				\pgfmathsetmacro{\fn}{0.15*(\xn-\xd)^3 + \ya}
+				\fill[red] (\xn, 0) circle (1pt);
+				\draw[red!20, very thin] (\xn, 0) -- (\xn, \fn);
+				\fill[red] (\xn, \fn) circle (1.5pt);
+			}
+			\node[red, right, font=\tiny] at (\xd+1.5, 0.2) {$x_n \to d$};
+			
+			\foreach \i in {1.2, 2.2, 4} {
+				\pgfmathsetmacro{\xn}{\xd - 1.2/\i}
+				\pgfmathsetmacro{\fn}{0.15*(\xn-\xd)^3 + \ya}
+				\fill[green!50!black] (\xn, 0) circle (1pt);
+				\draw[green!20, very thin] (\xn, 0) -- (\xn, \fn);
+				\fill[green!50!black] (\xn, \fn) circle (1.5pt);
+			}
+			\node[green!50!black, left, font=\tiny] at (\xd-1.2, 0.2) {$x'_n \to d$};
+			
+			\draw[->, magenta, thick] (0.2, \ya+0.8) -- (0.2, \ya+0.2);
+			\draw[->, magenta, thick] (0.2, \ya-0.8) -- (0.2, \ya-0.2);
+			\node[magenta, left, font=\tiny, align=right] at (0, \ya+0.5) {$f(x_n) \to A$};
+			
 		\end{tikzpicture}
-		\captionof{figure}{Теорема Гейне: все последовательности $x_n \to d$ дают $f(x_n) \to A$}
+		\captionof{figure}{Теорема Гейне: любая последовательность $x_n$, сходящаяся к $d$, порождает последовательность значений $f(x_n)$, сходящуюся к $A$}
 	\end{center}
 	
 	\vspace{0.5cm}
 	\begin{notebook}{20.1: Зачем это нужно?}
 		Это свойство превращает предел функции в «массовый» предел последовательностей. Если мы хотим доказать, что предела \textbf{не существует}, нам достаточно найти две последовательности, которые бегут к одной точке $d$, но значения функции на них разбегаются в разные стороны.
 	\end{notebook}
+	
+	
+	
 	
 	
 	
@@ -1137,8 +1487,7 @@
 	\end{enumerate}
 	Следовательно, наше предположение ложно и предел единствен. \qed
 	
-	
-	
+		
 	
 	\vspace{1cm}
 	\subsection{Предел произведения и частного функций (22 вопрос)}
@@ -1185,6 +1534,7 @@
 	\myproof
 	Используем результат для произведения и обратной функции:
 	\[ \lim_{x \to d} \frac{g(x)}{f(x)} = \lim_{x \to d} \left( g(x) \cdot \frac{1}{f(x)} \right) = \lim_{x \to d} g(x) \cdot \lim_{x \to d} \frac{1}{f(x)} = B \cdot \frac{1}{A} = \frac{B}{A}. \] \qed
+	
 	
 	\vspace{0.5cm}
 	\begin{importantbox}{Важное условие}
@@ -1239,28 +1589,48 @@
 		Следовательно, $|g(x) - A| < \varepsilon$, что и означает $\lim\limits_{x \to d} g(x) = A$. \qed
 	\end{enumerate}
 	
+
 	\begin{center}
-		\begin{tikzpicture}
-			\begin{axis}[
-				width=0.8\textwidth,
-				height=6cm,
-				xlabel={$x$},
-				ylabel={$f(x), g(x), h(x)$},
-				domain=0:4,
-				samples=100,
-				legend pos=north west
-				]
-				\addplot[blue, thick] {1 + 0.5*sin(deg(x))};
-				\addlegendentry{$f(x)$};
-				\addplot[red, thick] {2 + 0.3*sin(deg(x))};
-				\addlegendentry{$g(x)$};
-				\addplot[green!50!black, thick] {3 - 0.5*sin(deg(x))};
-				\addlegendentry{$h(x)$};
-				\addplot[dashed, black] {2};
-				\node at (axis cs:3,2.2) {$A$};
-			\end{axis}
+		\begin{tikzpicture}[scale=1.5, >=stealth]
+			\draw[->] (-0.5,0) -- (4.5,0) node[right] {$x$};
+			\draw[->] (0,-0.1) -- (0,3.5) node[above] {$y$};
+			
+			\def\xd{2.5} 
+			\def\ya{2.0}
+			
+			\fill[yellow!10] (\xd-0.8, 0) rectangle (\xd+0.8, 3.2);
+			\node[orange!80!black, font=\tiny] at (\xd, 3.3) {$\dot{\omega}(d)$};
+			
+			\begin{scope}
+				\clip (0, 0) rectangle (4.5, 3.5);
+				
+				\draw[thick, green!60!black, domain=0.5:4.2, samples=100] 
+				plot (\x, {0.2*(\x-\xd)^2 + \ya});
+				\node[green!60!black, right] at (4.2, 2.6) {$h(x)$};
+				
+				\draw[thick, blue, domain=0.5:4.2, samples=100] 
+				plot (\x, {-0.2*(\x-\xd)^2 + \ya});
+				\node[blue, right] at (4.2, 1.4) {$f(x)$};
+				
+				\draw[thick, red, domain=0.5:\xd-0.05, samples=200, smooth] 
+				plot (\x, { 0.15*(\x-\xd)^2 * sin(deg(4/(\x-\xd))) + \ya });
+				
+				\draw[thick, red, domain=\xd+0.05:4.2, samples=200, smooth] 
+				plot (\x, { 0.15*(\x-\xd)^2 * sin(deg(4/(\x-\xd))) + \ya });
+				
+				\node[red, above] at (3.8, 2.3) {$g(x)$};
+			\end{scope}
+			
+			\draw[dashed, gray!60] (0,\ya) node[left, black, font=\small] {$A$} -- (\xd,\ya);
+			\draw[dashed, gray!60] (\xd,0) node[below, black, font=\small] {$d$} -- (\xd,\ya);
+			
+			\filldraw[fill=white, draw=black, thick] (\xd,\ya) circle (1.5pt);
+			
+			\draw[->, gray, font=\tiny] (1.8, 2.8) -- (2.2, 2.3) node[midway, left] {$\to A$};
+			\draw[->, gray, font=\tiny] (1.8, 1.2) -- (2.2, 1.7) node[midway, left] {$\to A$};
+			
 		\end{tikzpicture}
-		\captionof{figure}{Теорема о зажатой функции}
+		\captionof{figure}{Теорема о «зажатой» функции: $f(x) \le g(x) \le h(x)$}
 	\end{center}
 	
 	\begin{notebook}{23.4: Почему «милиционеры»?}
@@ -1284,24 +1654,73 @@
 		\end{itemize}
 	\end{definitionbox}
 	
+	
 	\begin{center}
-		\begin{tikzpicture}
-			\begin{axis}[
-				width=0.8\textwidth,
-				height=6cm,
-				xlabel={$x$},
-				ylabel={$f(x)$},
-				domain=0:4,
-				samples=100,
-				legend pos=north west
-				]
-				\addplot[blue, thick] {x^2/4 + 1};
-				\addlegendentry{Возрастающая};
-				\addplot[red, thick] {4 - x^2/4};
-				\addlegendentry{Убывающая};
-			\end{axis}
+		\begin{tikzpicture}[scale=1.5, >=stealth]
+			\draw[->] (-1.3,0) -- (4.8,0) node[right] {$x$};
+			\draw[->] (0,-1.0) -- (0,3.8) node[above] {$y$};
+			
+			\def\ya{2.8} 
+			\def\xd{4.0} 
+			
+			\draw[dashed, red, thick] (0,\ya) -- (4.5,\ya) node[above right, black, font=\footnotesize] {$M$};
+			\fill[red!5, opacity=0.5] (0, \ya) rectangle (4.5, 3.5);
+			
+			\draw[ultra thick, blue, domain=0:3.8, samples=100] 
+			plot (\x, {\ya - 2.3*exp(-0.8*\x)});
+			\node[blue, right] at (0.2, 0.8) {$f(x)$};
+			
+			\def\xone{0.8}
+			\def\xtwo{2.2}
+			\pgfmathsetmacro{\yone}{\ya - 2.3*exp(-0.8*\xone)}
+			\pgfmathsetmacro{\ytwo}{\ya - 2.3*exp(-0.8*\xtwo)}
+			
+			\fill[black] (\xone, \yone) circle (1.5pt);
+			\fill[black] (\xtwo, \ytwo) circle (1.5pt);
+			
+			\draw[dotted, gray] (\xone, 0) node[below=3pt, black] {\tiny $x_1$} -- (\xone, \yone) -- (0, \yone) node[left=5pt, black] {\tiny $f(x_1)$};
+			\draw[dotted, gray] (\xtwo, 0) node[below=3pt, black] {\tiny $x_2$} -- (\xtwo, \ytwo) -- (0, \ytwo) node[left=5pt, black] {\tiny $f(x_2)$};
+			
+			\draw[->, thick] (1.0, -0.6) -- (2.0, -0.6) node[midway, below] {\tiny $x_1 < x_2$};
+			
+			\draw[->, thick] (-1.1, 1.2) -- (-1.1, 1.8) node[midway, left, rotate=90, yshift=2pt] {\tiny $f(x_1) \le f(x_2)$};
+			
+			\node[blue, font=\footnotesize, align=center, fill=white, inner sep=1pt] at (3.2, 3.3) {при $x \to \infty$ \\ $f(x) \to M$};
 		\end{tikzpicture}
-		\captionof{figure}{Монотонные функции}
+		\captionof{figure}{Монотонно возрастающая функция, ограниченная сверху}
+	\end{center}
+	
+	\begin{center}
+		\begin{tikzpicture}[scale=1.5, >=stealth]
+			\draw[->] (-1.3,0) -- (4.8,0) node[right] {$x$};
+			\draw[->] (0,-1.0) -- (0,3.8) node[above] {$y$};
+			
+			\def\ymin{0.6} 
+			
+			\draw[dashed, red, thick] (0,\ymin) -- (4.5,\ymin) node[below right, black, font=\footnotesize] {$m$};
+			\fill[red!5, opacity=0.5] (0, 0) rectangle (4.5, \ymin);
+			
+			\draw[ultra thick, orange!80!black, domain=0:4.0, samples=100] 
+			plot (\x, {\ymin + 2.5*exp(-0.7*\x)});
+			\node[orange!80!black, right] at (0.2, 2.8) {$f(x)$};
+			
+			\def\xone{0.7}
+			\def\xtwo{2.3}
+			\pgfmathsetmacro{\yone}{\ymin + 2.5*exp(-0.7*\xone)}
+			\pgfmathsetmacro{\ytwo}{\ymin + 2.5*exp(-0.7*\xtwo)}
+			
+			\fill[black] (\xone, \yone) circle (1.5pt);
+			\fill[black] (\xtwo, \ytwo) circle (1.5pt);
+			
+			\draw[dotted, gray] (\xone, 0) node[below=3pt, black] {\tiny $x_1$} -- (\xone, \yone) -- (0, \yone) node[left=5pt, black] {\tiny $f(x_1)$};
+			\draw[dotted, gray] (\xtwo, 0) node[below=3pt, black] {\tiny $x_2$} -- (\xtwo, \ytwo) -- (0, \ytwo) node[left=5pt, black] {\tiny $f(x_2)$};
+			
+			\draw[->, thick] (1.0, -0.6) -- (2.2, -0.6) node[midway, below] {\tiny $x_1 < x_2$};
+			\draw[->, thick] (-1.1, 2.2) -- (-1.1, 1.6) node[midway, left, rotate=90, yshift=2pt] {\tiny $f(x_1) \ge f(x_2)$};
+			
+			\node[orange!80!black, font=\footnotesize, align=center, fill=white, inner sep=1pt] at (3.2, 2.5) {при $x \to \infty$ \\ $f(x) \to m$};
+		\end{tikzpicture}
+		\captionof{figure}{Монотонно убывающая функция, ограниченная снизу}
 	\end{center}
 	
 	\begin{theorembox}{24.2: Предел монотонной функции}
@@ -1357,6 +1776,13 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
 	\newpage
 	\subsection{Критерий Коши: достаточность (26 вопрос)}
 	
@@ -1376,31 +1802,57 @@
 	\end{enumerate}
 	Следовательно, по определению Гейне, предел функции существует. \qed
 	
+	
 	\begin{center}
-		\begin{tikzpicture}
-			\begin{axis}[
-				width=0.8\textwidth,
-				height=6cm,
-				xlabel={$x$},
-				ylabel={$f(x)$},
-				domain=0:4,
-				samples=100,
-				legend pos=north west
-				]
-				\addplot[blue, thick] {1 + 0.5*sin(deg(x))};
-				\addlegendentry{$f(x)$};
-				\addplot[red, only marks, mark=*] coordinates {(1,1.42) (1.2,1.46) (1.4,1.49) (1.6,1.51) (1.8,1.53) (2,1.54)};
-				\addlegendentry{$x_n$};
-				\addplot[green!50!black, only marks, mark=*] coordinates {(2.2,1.53) (2.4,1.51) (2.6,1.49) (2.8,1.46) (3,1.42)};
-				\addlegendentry{$y_n$};
-			\end{axis}
+		\begin{tikzpicture}[scale=1.5, >=stealth]
+			\draw[->] (-0.8,0) -- (4.8,0) node[right] {$x$};
+			\draw[->] (0,-0.8) -- (0,3.8) node[above] {$y$};
+			
+			\def\xd{2.5} 
+			\def\ya{2.0} 
+			\def\eps{0.4} 
+			\def\deltaVal{0.7} 
+			
+			\fill[blue!10] (0, \ya-\eps) rectangle (4.5, \ya+\eps);
+			\draw[dashed, blue!50] (0, \ya+\eps) -- (4.5, \ya+\eps);
+			\draw[dashed, blue!50] (0, \ya-\eps) -- (4.5, \ya-\eps);
+			\draw[<->, blue] (-0.2, \ya-\eps) -- (-0.2, \ya+\eps) node[midway, left, font=\tiny] {$\varepsilon$};
+			
+			\fill[orange!10, opacity=0.5] (\xd-\deltaVal, 0) rectangle (\xd+\deltaVal, 3.5);
+			\draw[thick, orange] (\xd-\deltaVal, 0.1) -- (\xd+\deltaVal, 0.1) node[midway, above, font=\tiny] {$\dot{\omega}(d)$};
+			
+			\draw[thick, blue, domain=0.5:4.2, samples=100] 
+			plot (\x, {0.25*(\x-\xd)^3 + \ya});
+			
+			\def\xone{\xd-0.5}
+			\def\xtwo{\xd+0.4}
+			\pgfmathsetmacro{\yone}{0.25*(\xone-\xd)^3 + \ya}
+			\pgfmathsetmacro{\ytwo}{0.25*(\xtwo-\xd)^3 + \ya}
+			
+			\draw[dotted, gray] (\xone, 0) node[below=3pt, black] {\tiny $x_1$} -- (\xone, \yone) -- (0, \yone);
+			\fill[black] (\xone, \yone) circle (1.2pt);
+			
+			\draw[dotted, gray] (\xtwo, 0) node[below=3pt, black] {\tiny $x_2$} -- (\xtwo, \ytwo) -- (0, \ytwo);
+			\fill[black] (\xtwo, \ytwo) circle (1.2pt);
+			
+			\draw[<->, red, thick] (0.4, \yone+0.05) -- (0.4, \ytwo-0.05) node[midway, right, font=\tiny] {$< \varepsilon$};
+			
+			\draw[dashed, gray!60] (\xd, 0) node[below=2pt, black] {$d$} -- (\xd, \ya);
+			\filldraw[fill=white, draw=black] (\xd, \ya) circle (1.5pt);
+			
+			\node[align=left, font=\tiny, draw, fill=white] at (3.3, 0.8) 
+			{Для $\forall x_1, x_2 \in \dot{\omega}(d)$ \\ 
+				$|f(x_1) - f(x_2)| < \varepsilon$};
 		\end{tikzpicture}
-		\captionof{figure}{Критерий Коши: значения функции сближаются}
+		\captionof{figure}{Критерий Коши: фундаментальность функции в окрестности $d$}
 	\end{center}
 	
 	\begin{notebook}{26.1: Ценность критерия}
 		Критерий Коши позволяет нам работать внутри «мира функции». Нам не нужно угадывать число $a$, чтобы проверить, является ли оно пределом. Достаточно убедиться, что значения функции вблизи точки $d$ становятся \textbf{бесконечно близкими} друг к другу.
 	\end{notebook}
+	
+	
+	
 	
 	
 	
@@ -1435,29 +1887,38 @@
 	\end{definitionbox}
 	
 	\begin{center}
-		\begin{tikzpicture}
-			\begin{axis}[
-				width=0.8\textwidth,
-				height=6cm,
-				xlabel={$x$},
-				ylabel={$f(x), g(x)$},
-				domain=0:1,
-				samples=100,
-				legend pos=north west
-				]
-				\addplot[blue, thick] {x};
-				\addlegendentry{$g(x) = x$};
-				\addplot[red, thick] {x^2};
-				\addlegendentry{$f(x) = x^2$ (более высокий порядок)};
-				\addplot[green!50!black, thick] {sqrt(x)};
-				\addlegendentry{$h(x) = \sqrt{x}$ (более низкий порядок)};
-			\end{axis}
+		\begin{tikzpicture}[scale=1.8, >=stealth]
+			\draw[->] (-0.2,0) -- (2.2,0) node[right] {$x$};
+			\draw[->] (0,-0.2) -- (0,2.2) node[above] {$y$};
+			
+			\fill[red] (0,0) circle (1.5pt) node[below left, black] {$0$};
+			
+			\draw[thick, blue, domain=0:1.8, samples=100] 
+			plot (\x, {\x}) node[right, xshift=1pt] {$g(x) = x$};
+			
+			\draw[thick, red, domain=0:1.45, samples=100] 
+			plot (\x, {\x*\x}) node[above, yshift=1pt] {$f = o(g)$};
+			
+			\draw[thick, violet, domain=0:1.25, samples=100] 
+			plot (\x, {\x*\x*\x}) node[right, yshift=-1pt] {$x^3$};
+			
+			\draw[thick, green!50!black, domain=0:2.0, samples=100] 
+			plot (\x, {sqrt(\x)}) node[above, yshift=1pt] {$h(x) = \sqrt{x}$};
+			
+			\draw[->, gray, thin] (0.9, 0.75) to[out=-100, in=10] (0.1, 0.05);
+			\node[font=\tiny, align=left] at (1.5, 0.35) {Чем выше степень,\\ тем быстрее $\to 0$};
+			
+			\draw[dashed, gray!30] (1,0) -- (1,1);
+			\node[below, font=\tiny] at (1,0) {$1$};
 		\end{tikzpicture}
-		\captionof{figure}{Сравнение бесконечно малых}
+		\captionof{figure}{Сравнение скоростей стремления к нулю при $x \to 0$}
 	\end{center}
 	
 	\myremark
 	Сравнение возможно только в том случае, если $g(x) \neq 0$ в некоторой проколотой окрестности точки $d$.
+	
+	
+	
 	
 	
 	
@@ -1482,27 +1943,35 @@
 		\item Полагая $x = \frac{1}{n}$, при $n \to \infty$ и обобщая на непрерывный случай, получаем искомое неравенство.
 	\end{enumerate} \qed
 	
+	
 	\begin{center}
-		\begin{tikzpicture}
-			\begin{axis}[
-				width=0.8\textwidth,
-				height=6cm,
-				xlabel={$x$},
-				ylabel={$y$},
-				domain=-0.5:2,
-				samples=100,
-				legend pos=north west
-				]
-				\addplot[blue, thick] {ln(1+x)};
-				\addlegendentry{$\ln(1+x)$};
-				\addplot[red, thick] {x};
-				\addlegendentry{$x$ (верхняя граница)};
-				\addplot[green!50!black, thick] {x/(1+x)};
-				\addlegendentry{$\frac{x}{1+x}$ (нижняя граница)};
-			\end{axis}
+		\begin{tikzpicture}[scale=2, >=stealth]
+			\draw[->] (-1.2,0) -- (2.5,0) node[right] {$x$};
+			\draw[->] (0,-1.5) -- (0,2.5) node[above] {$y$};
+			
+			\draw[thick, red, domain=-0.5:2.2, samples=100] 
+			plot (\x, {\x}) node[above right] {$y=x$};
+			
+			\draw[ultra thick, blue, domain=-0.65:2.2, samples=100] 
+			plot (\x, {ln(1+\x)}) node[below right] {$\ln(1+x)$};
+			
+			\draw[thick, green!60!black, domain=-0.55:2.2, samples=100] 
+			plot (\x, {\x/(1+\x)}) node[below right] {$\frac{x}{1+x}$};
+			
+			\fill[black] (0,0) circle (1pt) node[below left] {$0$};
+			
+			\draw[dashed, gray!50] (-1,-1.5) -- (-1,2.5) node[above, black, font=\tiny] {$x=-1$};
+			
+			\node[font=\tiny, fill=white, inner sep=1pt, draw=gray!30] at (1.5, 0.3) {$\frac{x}{1+x} \le \ln(1+x) \le x$};
+			
 		\end{tikzpicture}
-		\captionof{figure}{Неравенства для логарифма}
+		\captionof{figure}{Геометрическая интерпретация неравенств для логарифма}
 	\end{center}
+	
+	
+	
+	
+	
 	
 	
 	\newpage
@@ -1523,28 +1992,33 @@
 		\item Подставляя в неравенство, имеем: $\ln(e^x) \le e^x - 1 \implies x \le e^x - 1$.
 		\item Перенося единицу: $1 + x \le e^x$.
 	\end{enumerate} \qed
+
 	
 	\begin{center}
-		\begin{tikzpicture}
-			\begin{axis}[
-				width=0.8\textwidth,
-				height=6cm,
-				xlabel={$x$},
-				ylabel={$y$},
-				domain=-2:2,
-				samples=100,
-				legend pos=north west
-				]
-				\addplot[blue, thick] {exp(x)};
-				\addlegendentry{$e^x$};
-				\addplot[red, thick] {1+x};
-				\addlegendentry{$1+x$};
-				\addplot[green!50!black, only marks, mark=*] coordinates {(0,1)};
-				\addlegendentry{равенство при $x=0$};
-			\end{axis}
+		\begin{tikzpicture}[scale=1.5, >=stealth]
+			\draw[->] (-2.5,0) -- (2.5,0) node[right] {$x$};
+			\draw[->] (0,-0.5) -- (0,4.5) node[above] {$y$};
+			
+			\draw[ultra thick, blue, domain=-2.2:1.5, samples=100] 
+			plot (\x, {exp(\x)}) node[right] {$e^x$};
+			
+			\draw[thick, red, domain=-1.5:2.2, samples=100] 
+			plot (\x, {1+\x}) node[below right] {$1+x$};
+			
+			\fill[black] (0,1) circle (1.5pt);
+			\draw[dotted, gray] (0,1) -- (-0.3,1) node[left, black, font=\tiny] {1};
+			
+			\node[font=\small, fill=white, inner sep=2pt, draw=gray!20, rounded corners] at (-1.2, 3.5) {$e^x \ge 1+x$};
+			
+			\draw[<-] (0.1,1.1) -- (0.8,1.5) node[right, font=\tiny] {Точка касания $(0,1)$};
+			
 		\end{tikzpicture}
-		\captionof{figure}{Неравенство для экспоненты}
+		\captionof{figure}{Экспонента всегда лежит не ниже своей касательной в нуле}
 	\end{center}
+	
+	
+	
+	
 	
 	
 	\newpage
@@ -1588,6 +2062,36 @@
 		\end{tikzpicture}
 		\captionof{figure}{Неравенство Бернулли для разных $\alpha$}
 	\end{center}
+	
+	
+	\begin{center}
+		\begin{tikzpicture}[scale=1.5, >=stealth]
+			\draw[->] (-1.2,0) -- (3.0,0) node[right] {$x$};
+			\draw[->] (0,-0.5) -- (0,4.5) node[above] {$y$};
+			
+			\draw[ultra thick, blue, domain=-0.6:1.2, samples=100] 
+			plot (\x, {(1+\x)^2}) node[right, xshift=1pt, yshift=1pt] {$(1+x)^2$};
+			\draw[thick, blue!50!black, dashed, domain=-0.6:1.2, samples=100] 
+			plot (\x, {1+2*\x}) node[below right, xshift=1pt, yshift=-1pt] {$1+2x$};
+			
+			\draw[ultra thick, red, domain=-0.8:2.5, samples=100] 
+			plot (\x, {sqrt(1+\x)}) node[above right, xshift=1pt, yshift=-5pt] {$(1+x)^{0.5}$};
+			\draw[thick, red!50!black, dashed, domain=-0.8:2.0, samples=100] 
+			plot (\x, {1+0.5*\x}) node[below right, xshift=-20pt, yshift=13pt] {$1+0.5x$};
+			
+			\fill[black] (0,1) circle (1.5pt) node[above left] {$(0,1)$};
+			
+			\draw[dashed, gray!40] (-1,0) -- (-1,4.5) node[above, black, font=\tiny] {$x=-1$};
+			
+			\node[draw, fill=white, font=\tiny, align=left] at (4.2, 3.8) {
+				$\alpha > 1 \implies (1+x)^\alpha \ge 1+\alpha x$ \\
+				$\alpha < 1 \implies (1+x)^\alpha \le 1+\alpha x$
+			};
+		\end{tikzpicture}
+		\captionof{figure}{Геометрический смысл неравенства Бернулли}
+	\end{center}
+	
+	
 	
 	\vspace{0.5cm}
 	\begin{notebook}{30.1: Почему это важно?}
@@ -1700,28 +2204,36 @@
 			\item Частное: $\frac{f(x)}{g(x)}$ (при условии $g(x_0) \neq 0$).
 		\end{itemize}
 	\end{theorembox}
+
 	
 	\begin{center}
-		\begin{tikzpicture}
-			\begin{axis}[
-				width=0.8\textwidth,
-				height=6cm,
-				xlabel={$x$},
-				ylabel={$f(x)$},
-				domain=0:4,
-				samples=100,
-				legend pos=north west
-				]
-				\addplot[blue, thick] {x^2/4 + 1};
-				\addlegendentry{Непрерывная функция};
-				\addplot[red, only marks, mark=*] coordinates {(2,2)};
-				\addlegendentry{$f(x_0)$};
-				\addplot[green!50!black, dashed] coordinates {(2,0) (2,2) (0,2)};
-				\node at (axis cs:2,2.5) {$x_0$};
-			\end{axis}
+		\begin{tikzpicture}[scale=1.5, >=stealth]
+			\draw[->] (-0.5,0) -- (4.5,0) node[right] {$x$};
+			\draw[->] (0,-0.5) -- (0,3.5) node[above] {$y$};
+			
+			\def\xknot{2.0}
+			\pgfmathsetmacro{\yknot}{\xknot*\xknot/4 + 1}
+			
+			\draw[ultra thick, blue, domain=0.5:3.5, samples=100] 
+			plot (\x, {\x*\x/4 + 1}) node[right] {$f(x)$};
+			
+			\draw[dashed, gray] (\xknot, 0) node[below, black] {$x_0$} -- (\xknot, \yknot);
+			\draw[dashed, gray] (0, \yknot) node[left, black] {$f(x_0)$} -- (\xknot, \yknot);
+			\fill[red] (\xknot, \yknot) circle (2pt);
+			
+			\draw[->, thick, blue!60] (\xknot-0.6, 0.2) -- (\xknot-0.1, 0.2) node[midway, above, font=\tiny] {$x \to x_0$};
+			\draw[->, thick, blue!60] (\xknot+0.6, 0.2) -- (\xknot+0.1, 0.2);
+			
+			\draw[->, thick, red!60] (-0.2, \yknot-0.6) -- (-0.2, \yknot-0.1) node[midway, left, font=\tiny, rotate=90] {$f(x) \to f(x_0)$};
+			\draw[->, thick, red!60] (-0.2, \yknot+0.6) -- (-0.2, \yknot+0.1);
+			
+			\node[draw, fill=white, font=\footnotesize] at (3, 1) {$\lim\limits_{x \to x_0} f(x) = f(x_0)$};
+			
 		\end{tikzpicture}
-		\captionof{figure}{Непрерывная функция в точке $x_0$}
+		\captionof{figure}{Геометрический смысл непрерывности в точке}
 	\end{center}
+	
+	
 	
 	
 	
@@ -1749,23 +2261,79 @@
 	\begin{center}
 		\begin{tikzpicture}
 			\begin{axis}[
+				axis lines = left,
 				width=0.8\textwidth,
 				height=6cm,
 				xlabel={$x$},
 				ylabel={$f(x)$},
-				domain=0:4,
-				samples=100,
-				legend pos=north west
+				xmin=0, xmax=4.2,
+				ymin=0, ymax=2.5,
+				xtick={2}, xticklabels={$x_0$},
+				ytick={1, 2},
+				ticks=none, 
+				extra x ticks={2}, extra x tick labels={$x_0$},
 				]
+				
+				
 				\addplot[blue, thick, domain=0:2] {x};
+				
+				
 				\addplot[blue, thick, domain=2:4] {x-1};
-				\addplot[red, only marks, mark=*] coordinates {(2,2)};
-				\addlegendentry{скачок};
-				\node at (axis cs:2,2.5) {$x_0$};
+				
+				
+				\draw[dashed] (axis cs:2,0) -- (axis cs:2,2);
+				
+				
+				\addplot[blue, only marks, mark=*, mark size=2pt] coordinates {(2,2)};
+				\node[anchor=south west, text=blue] at (axis cs:2,2) {$f(x_0)$};
+				
+				
+				\addplot[blue, only marks, mark=o, mark size=2pt, thick] coordinates {(2,1)};
+				
 			\end{axis}
 		\end{tikzpicture}
-		\captionof{figure}{Разрыв первого рода (скачок)}
+		\captionof{figure}{Разрыв первого рода (скачок) в точке $x_0$}
 	\end{center}
+	
+	
+	\begin{center}
+		\begin{minipage}{0.48\textwidth}
+			\centering
+			\begin{tikzpicture}
+				\begin{axis}[
+					axis lines = middle,
+					width=\textwidth, height=5cm,
+					xmin=-2, xmax=2, ymin=0, ymax=2,
+					xtick={0}, xticklabels={$x_0$}, ytick=\empty,
+					title={Устранимый разрыв}
+					]
+					\addplot[blue, thick, domain=-2:-0.1] {1};
+					\addplot[blue, thick, domain=0.1:2] {1};
+					\addplot[blue, only marks, mark=o, mark size=2pt] coordinates {(0,1)};
+					\addplot[blue, only marks, mark=*, mark size=2pt] coordinates {(0,1.5)};
+				\end{axis}
+			\end{tikzpicture}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.48\textwidth}
+			\centering
+			\begin{tikzpicture}
+				\begin{axis}[
+					axis lines = middle,
+					width=\textwidth, height=5cm,
+					xmin=-1, xmax=1, ymin=-4, ymax=4,
+					xtick={0}, xticklabels={$x_0$}, ytick=\empty,
+					title={Разрыв II рода}
+					]
+					\addplot[red, thick, samples=50, domain=-1:-0.1] {1/x};
+					\addplot[red, thick, samples=50, domain=0.1:1] {1/x};
+					\draw[dashed] (axis cs:0,-4) -- (axis cs:0,4);
+				\end{axis}
+			\end{tikzpicture}
+		\end{minipage}
+		\captionof{figure}{Слева: устранимый разрыв ($f(x_0)$ выколота). Справа: бесконечный разрыв.}
+	\end{center}
+
 	
 	
 	
@@ -1783,6 +2351,7 @@
 	
 	
 	
+	
 	\newpage
 	\subsection{Непрерывность суперпозиции (39 вопрос)}
 	
@@ -1795,20 +2364,26 @@
 	\[ \lim_{x \to x_0} f(\varphi(x)) = f(\lim_{x \to x_0} \varphi(x)) = f(\varphi(x_0)) \]
 	Это свойство позволяет «вносить» предел под знак непрерывной функции. \qed
 	
+	
 	\begin{center}
-		\begin{tikzpicture}
-			\node[draw, circle, blue] (x0) at (0,0) {$x_0$};
-			\node[draw, circle, red] (u0) at (3,1) {$u_0$};
-			\node[draw, circle, green!50!black] (y0) at (6,0) {$y_0$};
-			\draw[->, blue] (x0) -- node[above] {$\varphi$} (u0);
-			\draw[->, red] (u0) -- node[above] {$f$} (y0);
-			\draw[->, green!50!black, thick] (x0) -- node[below] {$f \circ \varphi$} (y0);
+		\begin{tikzpicture}[node distance=2.5cm, auto, >=stealth]
+			
+			\node (X) at (0,0) [circle, draw, minimum size=1.2cm, label=below:$X$] {};
+			\node (U) at (3,0) [circle, draw, minimum size=1.2cm, label=below:$U$] {};
+			\node (Y) at (6,0) [circle, draw, minimum size=1.2cm, label=below:$Y$] {};
+			
+			\fill[blue] (0,0.2) circle (2pt) node[below] {$x_0$};
+			\fill[red] (3,0.2) circle (2pt) node[below] {$u_0$};
+			\fill[green!50!black] (6,0.2) circle (2pt) node[below] {$y_0$};
+			
+			\path[->, thick] (0.5,0.3) edge [bend left] node {$\varphi$} (2.5,0.3);
+			\path[->, thick] (3.5,0.3) edge [bend left] node {$f$} (5.5,0.3);
+			\path[->, thick, dashed, green!50!black] (0.2,0.6) edge [bend left=40] node {$f \circ \varphi$} (5.8,0.6);
+			
 		\end{tikzpicture}
-		\captionof{figure}{Суперпозиция непрерывных функций непрерывна}
+		\captionof{figure}{Схема композиции непрерывных отображений}
 	\end{center}
-	
-	
-	
+
 	
 	
 	
@@ -1832,20 +2407,36 @@
 	\begin{center}
 		\begin{tikzpicture}
 			\begin{axis}[
+				axis lines = middle,
 				width=0.8\textwidth,
 				height=6cm,
 				xlabel={$x$},
-				ylabel={$\ln x$},
-				domain=0.1:4,
+				ylabel={$y$},
+				xmin=-0.5, xmax=5.5,
+				ymin=-2.5, ymax=2.5,
+				xtick={1, 2.718},
+				xticklabels={1, $e$},
+				ytick={1},
+				yticklabels={1},
+				domain=0.08:5,
 				samples=100,
-				legend pos=north west
+				restrict y to domain=-3:3,
+				enlarge x limits=false
 				]
-				\addplot[blue, thick] {ln(x)};
-				\addlegendentry{$\ln x$};
+				
+				\addplot[blue, ultra thick] {ln(x)};
+				
+				\draw[dashed, gray] (axis cs:2.718, 0) -- (axis cs:2.718, 1) -- (axis cs:0, 1);
+				
+				\fill[red] (axis cs:1, 0) circle (2pt) node[below right] {$(1,0)$};
+				
+				\node[blue, anchor=west] at (axis cs:3, 1.5) {$y = \ln x$};
 			\end{axis}
 		\end{tikzpicture}
-		\captionof{figure}{Непрерывность логарифмической функции}
+		\captionof{figure}{График функции $y = \ln x$, непрерывной на $(0, +\infty)$}
 	\end{center}
+	
+	
 	
 	
 	
@@ -1858,23 +2449,37 @@
 	\[ \lim_{\Delta x \to 0} \Delta y = \lim_{\Delta x \to 0} e^x \cdot \Delta x = e^x \cdot 0 = 0 \]
 	Функция $e^x$ непрерывна на всей числовой прямой $\mathbb{R}$. \qed
 	
+	
 	\begin{center}
 		\begin{tikzpicture}
 			\begin{axis}[
+				axis lines = middle,
 				width=0.8\textwidth,
 				height=6cm,
 				xlabel={$x$},
-				ylabel={$e^x$},
-				domain=-2:2,
+				ylabel={$y$},
+				xmin=-3.5, xmax=2.5,
+				ymin=-0.5, ymax=8,
+				xtick={0, 1},
+				ytick={1, 2.718},
+				yticklabels={1, $e$},
+				domain=-3.5:2.1,
 				samples=100,
-				legend pos=north west
+				enlarge x limits=false
 				]
-				\addplot[blue, thick] {exp(x)};
-				\addlegendentry{$e^x$};
+				
+				\addplot[red, ultra thick] {exp(x)};
+				
+				\draw[dashed, gray] (axis cs:1, 0) -- (axis cs:1, 2.718) -- (axis cs:0, 2.718);
+				
+				\fill[blue] (axis cs:0, 1) circle (2pt) node[above left] {$(0,1)$};
+				
+				\node[red, anchor=west] at (axis cs:1.2, 5) {$y = e^x$};
 			\end{axis}
 		\end{tikzpicture}
-		\captionof{figure}{Непрерывность экспоненты}
+		\captionof{figure}{График экспоненциальной функции $y = e^x$}
 	\end{center}
+	
 	
 	
 	
@@ -1887,27 +2492,50 @@
 	\[ x^r = e^{r \ln x} \]
 	Поскольку $\ln x$ непрерывна (вопр. 40), а $e^x$ непрерывна (вопр. 41), то по теореме о \textbf{непрерывности суперпозиции} (вопр. 39) функция $x^r$ также является непрерывной. \qed
 	
+	
+	\vspace{1cm}
 	\begin{center}
 		\begin{tikzpicture}
 			\begin{axis}[
-				width=0.8\textwidth,
-				height=6cm,
+				axis lines = middle,
+				width=0.7\textwidth, 
+				height=7cm,
 				xlabel={$x$},
-				ylabel={$x^r$},
-				domain=0.1:2,
+				ylabel={$y$},
+				xmin=-0.2, xmax=2.5,
+				ymin=-0.2, ymax=3,
+				xtick={1},
+				ytick={1},
+				domain=0:2,
 				samples=100,
-				legend pos=north west
+				no markers,
+				legend style={
+					at={(-0.15, 1)},
+					anchor=north east, 
+					nodes={scale=0.8, transform shape},
+					cells={anchor=west}
+				}
 				]
-				\addplot[blue, thick] {x^2};
-				\addlegendentry{$x^2$};
+				
+				\addplot[blue, ultra thick] {x^2};
+				\addlegendentry{$r > 1$ (напр. $x^2$)}
+				
+				\addplot[green!60!black, thick] {x};
+				\addlegendentry{$r = 1$ ($x$)}
+				
 				\addplot[red, thick] {x^0.5};
-				\addlegendentry{$x^{0.5}$};
-				\addplot[green!50!black, thick] {x};
-				\addlegendentry{$x$};
+				\addlegendentry{$0 < r < 1$ (напр. $\sqrt{x}$)}
+				
+				\addplot[orange, thick, domain=0.4:2] {x^(-1)};
+				\addlegendentry{$r < 0$ (напр. $x^{-1}$)}
+				
+				\fill[black] (axis cs:1, 1) circle (1.5pt) node[below right] {$(1,1)$};
 			\end{axis}
 		\end{tikzpicture}
-		\captionof{figure}{Непрерывность степенных функций}
+		\captionof{figure}{Семейство степенных функций $y = x^r$ при различных $r$}
 	\end{center}
+	
+	
 	
 	
 	\tsubsection{Непрерывность синуса (43 вопрос)}{Непрерывность $\sin x$ (43 вопрос)}
@@ -1918,29 +2546,43 @@
 	Используя неравенства $|\sin \alpha| \le |\alpha|$ и $|\cos \beta| \le 1$:
 	\[ |\Delta y| \le 2 \cdot \frac{|\Delta x|}{2} \cdot 1 = |\Delta x| \]
 	Поскольку $|\Delta y| \le |\Delta x|$, то при $\Delta x \to 0$ приращение $\Delta y \to 0$. Функция \textbf{непрерывна} на $\mathbb{R}$. \qed
-	
+		
 	\begin{center}
 		\begin{tikzpicture}
 			\begin{axis}[
-				width=0.8\textwidth,
+				axis lines = middle,
+				width=0.7\textwidth,
 				height=6cm,
 				xlabel={$x$},
-				ylabel={$\sin x$},
+				ylabel={$y$},
+				xmin=-7, xmax=7,
+				ymin=-1.5, ymax=1.5,
+				xtick={-6.28, -3.14, 0, 3.14, 6.28},
+				xticklabels={$-2\pi$, $-\pi$, $0$, $\pi$, $2\pi$},
+				ytick={-1, 1},
 				domain=-2*pi:2*pi,
 				samples=100,
-				legend pos=north west
+				legend style={
+					at={(-0.15, 1)}, 
+					anchor=north east,
+					nodes={scale=0.8, transform shape}
+				}
 				]
-				\addplot[blue, thick] {sin(deg(x))};
+				\addplot[blue, ultra thick] {sin(deg(x))};
 				\addlegendentry{$\sin x$};
+				
+				\draw[dashed, gray] (axis cs:-7, 1) -- (axis cs:7, 1);
+				\draw[dashed, gray] (axis cs:-7, -1) -- (axis cs:7, -1);
 			\end{axis}
 		\end{tikzpicture}
-		\captionof{figure}{Непрерывность синуса}
+		\captionof{figure}{Непрерывность тригонометрической функции $\sin x$}
 	\end{center}
 	
 	
 	
 	
-	\vspace{1cm}
+	
+	\newpage
 	\tsubsection{Непрерывность тригонометрических функций (44 вопрос)}{Непрерывность $\cos x$, $\text{tg } x$, $\text{ctg } x$ (44 вопрос)}
 	
 	\myproof
@@ -1949,25 +2591,81 @@
 		\item \textbf{$\text{tg } x$ и $\text{ctg } x$}: Представляются как частное $\frac{\sin x}{\cos x}$ и $\frac{\cos x}{\sin x}$. По теореме о непрерывности частного, они непрерывны во всех точках, где \textbf{знаменатель не равен нулю}.
 	\end{itemize} \qed
 	
+	
 	\begin{center}
 		\begin{tikzpicture}
 			\begin{axis}[
-				width=0.8\textwidth,
-				height=6cm,
+				axis lines = middle,
+				width=0.7\textwidth,
+				height=7cm,
 				xlabel={$x$},
-				ylabel={$\cos x$, $\tan x$},
-				domain=-pi:pi,
-				samples=100,
-				legend pos=north west,
-				restrict y to domain=-3:3
+				ylabel={$y$},
+				xmin=-3.5, xmax=3.5,
+				ymin=-3, ymax=3,
+				xtick={-3.14, -1.57, 0, 1.57, 3.14},
+				xticklabels={$-\pi$, $-\frac{\pi}{2}$, $0$, $\frac{\pi}{2}$, $\pi$},
+				ytick={-1, 1},
+				samples=200,
+				restrict y to domain=-4:4,
+				legend style={
+					at={(-0.15, 1)}, 
+					anchor=north east,
+					nodes={scale=0.8, transform shape}
+				}
 				]
-				\addplot[blue, thick] {cos(deg(x))};
+				
+				\addplot[blue, ultra thick, domain=-pi:pi] {cos(deg(x))};
 				\addlegendentry{$\cos x$};
-				\addplot[red, thick] {tan(deg(x))};
-				\addlegendentry{$\tan x$};
+				
+				\addplot[red, thick, domain=-1.4:1.4] {tan(deg(x))};
+				\addplot[red, thick, domain=-pi:-1.74] {tan(deg(x))};
+				\addplot[red, thick, domain=1.74:pi] {tan(deg(x))};
+				\addlegendentry{$\text{tg } x$};
+				
+				\draw[dashed, gray] (axis cs:1.57, -3) -- (axis cs:1.57, 3);
+				\draw[dashed, gray] (axis cs:-1.57, -3) -- (axis cs:-1.57, 3);
+				
 			\end{axis}
 		\end{tikzpicture}
-		\captionof{figure}{Непрерывность косинуса и тангенса}
+		\captionof{figure}{Графики непрерывного $\cos x$ и разрывного $\text{tg } x$}
+	\end{center}
+	
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				axis lines = middle,
+				width=0.7\textwidth,
+				height=7cm,
+				xlabel={$x$},
+				ylabel={$y$},
+				xmin=-4.5, xmax=4.5,
+				ymin=-4, ymax=4,
+				xtick={-3.14, -1.57, 0, 1.57, 3.14},
+				xticklabels={$-\pi$, $-\frac{\pi}{2}$, $0$, $\frac{\pi}{2}$, $\pi$},
+				ytick={-1, 1},
+				samples=200,
+				restrict y to domain=-5:5,
+				legend style={
+					at={(-0.15, 1)}, 
+					anchor=north east,
+					nodes={scale=0.8, transform shape}
+				}
+				]
+				
+				\addplot[orange, ultra thick, domain=-3.05:-0.1] {1/tan(deg(x))};
+				\addplot[orange, ultra thick, domain=0.1:3.05] {1/tan(deg(x))};
+				\addlegendentry{$\text{ctg } x$};
+				
+				\draw[dashed, gray] (axis cs:3.14, -4) -- (axis cs:3.14, 4);
+				\draw[dashed, gray] (axis cs:-3.14, -4) -- (axis cs:-3.14, 4);
+				
+				\fill[black] (axis cs:1.57, 0) circle (1.5pt);
+				\fill[black] (axis cs:-1.57, 0) circle (1.5pt);
+				
+			\end{axis}
+		\end{tikzpicture}
+		\captionof{figure}{График $\text{ctg } x$ с вертикальными асимптотами в точках $n\pi$}
 	\end{center}
 	
 	
@@ -1990,52 +2688,69 @@
 		То есть существуют такие точки $x_1, x_2 \in [a, b]$, что $f(x_1) = \inf f(x)$ и $f(x_2) = \sup f(x)$.
 	\end{theorembox}
 	
+	
 	\begin{center}
 		\begin{tikzpicture}
 			\begin{axis}[
+				axis lines = middle,
 				width=0.8\textwidth,
 				height=6cm,
-				xlabel={$x$},
-				ylabel={$f(x)$},
-				domain=0:4,
-				samples=100,
-				legend pos=north west
+				xlabel={$x$}, ylabel={$y$},
+				xmin=-0.5, xmax=5, ymin=0, ymax=4,
+				xtick={0.8, 4.2}, xticklabels={$a$, $b$},
+				ytick={1.2, 3.2}, yticklabels={$m$, $M$},
+				legend style={at={(-0.1, 1)}, anchor=north east, nodes={scale=0.8}}
 				]
-				\addplot[blue, thick] {2 + sin(deg(x)) + 0.5*sin(2*deg(x))};
-				\addlegendentry{$f(x)$};
-				\addplot[red, only marks, mark=*] coordinates {(0.8,1.2) (3.2,3.2)};
-				\addlegendentry{min и max};
-				\addplot[dashed, red] coordinates {(0,1.2) (4,1.2)};
-				\addplot[dashed, red] coordinates {(0,3.2) (4,3.2)};
+				
+				\addplot[blue, ultra thick, domain=0.8:4.2, samples=100] 
+				{2.2 + 1.2*cos(deg(x*1.5 - 1.5))}; 
+				\addlegendentry{$f(x)$ на $[a, b]$}
+				
+				\addplot[red, only marks, mark=*] coordinates {(1, 3.4)}; 
+				\draw[dashed, red] (axis cs:1, 0) -- (axis cs:1, 3.4) -- (axis cs:0, 3.4);
+				
+				\addplot[red, only marks, mark=*] coordinates {(3.1, 1.0)};
+				\draw[dashed, red] (axis cs:3.1, 0) -- (axis cs:3.1, 1.0) -- (axis cs:0, 1.0);
+				
+				\node[below, red] at (axis cs:1, 0) {$x_2$};
+				\node[below, red] at (axis cs:3.1, 0) {$x_1$};
+				
 			\end{axis}
 		\end{tikzpicture}
-		\captionof{figure}{Теорема Вейерштрасса: достижение минимума и максимума}
+		\captionof{figure}{Теорема Вейерштрасса: достижение $m$ и $M$ в точках $x_1$ и $x_2$}
 	\end{center}
 	
 	\begin{theorembox}{45.2: Больцано-Коши о промежуточном значении}
 		Если функция $f(x)$ непрерывна на $[a, b]$ и на концах отрезка принимает значения разных знаков ($f(a) \cdot f(b) < 0$), то существует хотя бы одна точка $c \in (a, b)$, в которой $\mathbf{f(c) = 0}$.
 	\end{theorembox}
 	
+	
 	\begin{center}
 		\begin{tikzpicture}
 			\begin{axis}[
-				width=0.8\textwidth,
+				axis lines = middle,
+				width=0.7\textwidth,
 				height=6cm,
 				xlabel={$x$},
-				ylabel={$f(x)$},
-				domain=0:4,
-				samples=100,
-				legend pos=north west
+				ylabel={$y$},
+				xmin=-0.5, xmax=4.5,
+				ymin=-2, ymax=2.5,
+				xtick={0.5, 3.5},
+				xticklabels={$a$, $b$},
+				ytick=\empty,
+				legend style={at={(-0.15,1)}, anchor=north east, nodes={scale=0.8}}
 				]
-				\addplot[blue, thick] {x-2};
-				\addlegendentry{$f(x)$};
-				\addplot[red, only marks, mark=*] coordinates {(0,-2) (4,2) (2,0)};
-				\addlegendentry{$f(a)<0$, $f(b)>0$};
-				\addplot[dashed, red] coordinates {(2,0) (2,0)};
-				\node at (axis cs:2,0.5) {$c$};
+				\addplot[blue, ultra thick, domain=0.5:3.5, samples=100] {0.5*(x-2)^3 + 0.2*(x-2) - 0.1};
+				\addlegendentry{$f(x)$}
+				
+				\fill[red] (axis cs:0.5, -1.05) circle (2pt) node[left] {$f(a)<0$};
+				\fill[red] (axis cs:3.5, 1.88) circle (2pt) node[right] {$f(b)>0$};
+				
+				\fill[black] (axis cs:2.15, 0) circle (2pt) node[below right] {$c$};
+				\draw[dashed, gray] (axis cs:2.15, 0.5) -- (axis cs:2.15, -0.5);
 			\end{axis}
 		\end{tikzpicture}
-		\captionof{figure}{Теорема Больцано-Коши: существование корня}
+		\captionof{figure}{Теорема Больцано-Коши: наличие корня $f(c)=0$}
 	\end{center}
 	
 	\begin{notebook}{45.3: Геометрическая суть}
@@ -2058,7 +2773,9 @@
 	
 	
 	
-	\vspace{1cm}
+	
+	
+	\newpage
 	\subsection{Теорема об обращении непрерывной функции в ноль (46 вопрос)}
 	
 	\begin{theorembox}{46.1: Теорема Больцано-Коши (первая)}
@@ -2069,28 +2786,32 @@
 	\begin{center}
 		\begin{tikzpicture}
 			\begin{axis}[
-				width=0.8\textwidth,
+				width=0.7\textwidth,
 				height=6cm,
 				axis lines=middle,
 				xlabel={$x$},
 				ylabel={$y$},
-				xmin=-0.5, xmax=4.5,
-				ymin=-2.5, ymax=2.5,
+				xmin=-0.5, xmax=5,
+				ymin=-2, ymax=2,
 				xtick={1, 2.5, 4},
 				xticklabels={$a$, $c$, $b$},
-				ytick={0},
-				samples=100
+				ytick=\empty,
+				legend style={at={(-0.15, 1)}, anchor=north east, nodes={scale=0.8}}
 				]
-				\addplot[blue, thick, domain=1:4] {0.5*(x-2.5)^3 - 0.5*(x-2.5) };
-				\addplot[red, only marks, mark=*] coordinates {(1,-1.2) (4,1.875) (2.5,0)};
-				\node[below left] at (axis cs:1,-1.2) {$f(a)<0$};
-				\node[above right] at (axis cs:4,1.875) {$f(b)>0$};
-				\node[above right] at (axis cs:2.5,0) {$f(c)=0$};
-				\draw[dashed] (axis cs:1,0) -- (axis cs:1,-1.2);
-				\draw[dashed] (axis cs:4,0) -- (axis cs:4,1.875);
+				\addplot[blue, ultra thick, domain=1:4, samples=100] {0.3*(x-2.5)^3 + 0.5*(x-2.5)};
+				\addlegendentry{$f(x)$}
+				
+				\addplot[red, only marks, mark=*] coordinates {(1, -1.76) (4, 1.76) (2.5, 0)};
+				
+				\draw[dashed, red] (axis cs:1, 0) -- (axis cs:1, -1.76);
+				\draw[dashed, red] (axis cs:4, 0) -- (axis cs:4, 1.76);
+				
+				\node[below left, red] at (axis cs:1, -1) {$f(a)<0$};
+				\node[above right, red] at (axis cs:4, 1) {$f(b)>0$};
+				\node[below right, black] at (axis cs:2.5, 0) {$f(c)=0$};
 			\end{axis}
 		\end{tikzpicture}
-		\captionof{figure}{Геометрическая иллюстрация метода деления отрезка пополам}
+		\captionof{figure}{Геометрическая иллюстрация существования корня $c \in (a,b)$}
 	\end{center}
 	
 	\myproof
@@ -2134,7 +2855,9 @@
 	
 	
 	
-
+	
+	
+	\newpage
 	\subsection{Теорема о промежуточном значении (47 вопрос)}
 	
 	\begin{theorembox}{47.1: Вторая теорема Больцано-Коши}
@@ -2142,31 +2865,42 @@
 		Тогда для любого числа $p$, лежащего между $f(a)$ и $f(b)$, найдется хотя бы одна точка $c \in (a, b)$ такая, что $f(c) = p$.
 	\end{theorembox}
 	
+	
 	\begin{center}
 		\begin{tikzpicture}
 			\begin{axis}[
-				width=0.8\textwidth,
-				height=6cm,
+				width=0.7\textwidth,
+				height=6.5cm,
 				axis lines=middle,
 				xlabel={$x$},
 				ylabel={$y$},
-				xmin=0, xmax=5,
-				ymin=0, ymax=4,
-				xtick={1, 2.8, 4},
+				xmin=-0.5, xmax=5,
+				ymin=-0.5, ymax=4.5,
+				xtick={1, 2.75, 4},
 				xticklabels={$a$, $c$, $b$},
-				ytick={1.2, 2.2, 3.2},
+				ytick={1, 2.2, 3.5},
 				yticklabels={$f(a)$, $p$, $f(b)$},
-				samples=100
+				legend style={at={(-0.15, 1)}, anchor=north east, nodes={scale=0.8}}
 				]
-				\addplot[blue, thick, domain=1:4] {1.2 + 0.5*(x-1) + 0.2*(x-1)^2};
-				\addplot[dashed, gray] coordinates {(0,2.2) (2.8,2.2)};
-				\addplot[dashed, gray] coordinates {(2.8,0) (2.8,2.2)};
-				\addplot[red, only marks, mark=*] coordinates {(1,1.2) (4,3.2) (2.8,2.2)};
-				\node[right] at (axis cs:0,2.3) {$p$};
+				\addplot[blue, ultra thick, domain=1:4, samples=100] {1 + 0.4*(x-1) + 0.15*(x-1)^2};
+				\addlegendentry{$f(x)$}
+				
+				\draw[dashed, red, thick] (axis cs:0, 2.2) -- (axis cs:4.2, 2.2) 
+				node[right, font=\small] {$y=p$};
+				
+				\addplot[red, only marks, mark=*] coordinates {(1, 1) (4, 3.5) (2.75, 2.2)};
+				
+				\draw[dashed, gray] (axis cs:2.75, 0) -- (axis cs:2.75, 2.2);
+				\draw[dashed, gray] (axis cs:1, 0) -- (axis cs:1, 1) -- (axis cs:0, 1);
+				\draw[dashed, gray] (axis cs:4, 0) -- (axis cs:4, 3.5) -- (axis cs:0, 3.5);
+				
+				\draw[dashed, gray] (axis cs:2.75, 0) -- (axis cs:2.75, 2.2);
+				\node[above, red] at (axis cs:2.75, 2.2) {$f(c)=p$};
 			\end{axis}
 		\end{tikzpicture}
 		\captionof{figure}{Прохождение функции через любое промежуточное значение $p$}
 	\end{center}
+
 	
 	\myproof
 	Предположим для определенности, что $f(a) < p < f(b)$. 
@@ -2199,8 +2933,9 @@
 	
 	
 	
+	
 
-	\vspace{1cm}
+	\newpage
 	\subsection{Существование обратной непрерывной функции (48 вопрос)}
 	
 	\begin{theorembox}{48.1: Теорема о существовании и непрерывности обратной функции}
@@ -2212,32 +2947,40 @@
 			\item Удовлетворяет условиям: $f(g(y)) = y$ и $g(f(x)) = x$.
 		\end{enumerate}
 	\end{theorembox}
-	
+		
 	\begin{center}
 		\begin{tikzpicture}
 			\begin{axis}[
 				width=0.7\textwidth,
-				height=6cm,
+				height=7cm,
 				axis lines=middle,
-				xlabel={$x, y$},
-				ylabel={$y, x$},
-				xmin=0, xmax=4,
-				ymin=0, ymax=4,
-				xtick={1, 3},
+				xlabel={$x$},
+				ylabel={$y$},
+				xmin=-0.2, xmax=4.5,
+				ymin=-0.2, ymax=4.5,
+				xtick={1, 3.5},
 				xticklabels={$a$, $b$},
-				ytick={1, 3},
+				ytick={1, 3.5},
 				yticklabels={$p$, $q$},
-				legend pos=north west
+				legend style={at={(-0.15, 1)}, anchor=north east, nodes={scale=0.8}},
+				axis equal image
 				]
-				\addplot[blue, thick, domain=1:3] {x^1.5 - 1 + 1}; 
+				\addplot[gray, thin, dashed, domain=0:4] {x} node[pos=0.9, below right] {$y=x$};
+				
+				\addplot[blue, ultra thick, domain=1:3.5, samples=100] {1 + sqrt(x-1)*1.58}; 
 				\addlegendentry{$f(x)$};
-				\addplot[red, thick, dashed, domain=1:3.2] {(x+0)^0.66 + 0.3}; 
+				
+				\addplot[red, ultra thick, dashed, domain=1:3.5, samples=100] {((x-1)/1.58)^2 + 1}; 
 				\addlegendentry{$f^{-1}(y)$};
-				\addplot[gray, thin, domain=0:3.5] {x};
-				\node[below right] at (axis cs:3,3) {$y=x$};
+				
+				\draw[dashed, gray] (axis cs:1, 0) -- (axis cs:1, 1) -- (axis cs:0, 1);
+				\draw[dashed, gray] (axis cs:3.5, 0) -- (axis cs:3.5, 3.5) -- (axis cs:0, 3.5);
+				
+				\fill[black] (axis cs:1, 1) circle (1.5pt);
+				\fill[black] (axis cs:3.5, 3.5) circle (1.5pt);
 			\end{axis}
 		\end{tikzpicture}
-		\captionof{figure}{Симметрия графиков прямой и обратной функций относительно $y=x$}
+		\captionof{figure}{Симметрия $f(x)$ и $f^{-1}(y)$ относительно прямой $y=x$}
 	\end{center}
 	
 	\vspace{0.5cm}
@@ -2276,7 +3019,9 @@
 	
 	
 	
-	\vspace{1cm}
+	
+	
+	\newpage
 	\subsection{Непрерывность $\arcsin x, \arccos x, \arctg x, \arcctg x$ (49 вопрос)}
 	
 	\begin{theorembox}{{49.1: Непрерывность на отрезке ($\arcsin, \arccos$)}}
@@ -2287,25 +3032,31 @@
 		\end{itemize}
 	\end{theorembox}
 	
+	
 	\begin{center}
 		\begin{tikzpicture}
 			\begin{axis}[
-				width=0.8\textwidth,
-				height=5cm,
-				axis lines=middle,
+				axis lines = middle,
+				width=0.7\textwidth,
+				height=7cm,
+				xlabel={$x$}, ylabel={$y$},
 				xmin=-1.5, xmax=1.5,
-				ymin=-2, ymax=4,
+				ymin=-2, ymax=3.5,
 				xtick={-1, 1},
 				ytick={-1.57, 1.57, 3.14},
 				yticklabels={$-\frac{\pi}{2}$, $\frac{\pi}{2}$, $\pi$},
-				legend pos=outer north east
+				legend style={at={(-0.15, 1)}, anchor=north east, nodes={scale=0.8}}
 				]
-				\addplot[blue, thick, domain=-1:1, samples=100] {asin(x)*pi/180};
+				\addplot[blue, ultra thick, domain=-1:1, samples=100] {asin(x)*pi/180};
 				\addlegendentry{$\arcsin x$}
-				\addplot[red, thick, domain=-1:1, samples=100] {acos(x)*pi/180};
+				\addplot[red, ultra thick, domain=-1:1, samples=100] {acos(x)*pi/180};
 				\addlegendentry{$\arccos x$}
+				
+				\draw[dashed, gray] (axis cs:-1, -2) -- (axis cs:-1, 3.5);
+				\draw[dashed, gray] (axis cs:1, -2) -- (axis cs:1, 3.5);
 			\end{axis}
 		\end{tikzpicture}
+		\captionof{figure}{Графики $\arcsin x$ и $\arccos x$}
 	\end{center}
 	
 	\begin{theorembox}{49.2: Непрерывность на всей прямой ($\arctg x$)}
@@ -2327,10 +3078,41 @@
 	4. Таким образом, $\arctg x$ непрерывен в любой точке $y \in \mathbb{R}$. Аналогично доказывается непрерывность $\arcctg x$ на $\mathbb{R}$.
 	\textbf{Ч.Т.Д.}
 	
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				axis lines = middle,
+				width=0.7\textwidth,
+				height=6cm,
+				xlabel={$x$}, ylabel={$y$},
+				xmin=-5, xmax=5,
+				ymin=-2, ymax=3.5,
+				ytick={-1.57, 1.57, 3.14},
+				yticklabels={$-\frac{\pi}{2}$, $\frac{\pi}{2}$, $\pi$},
+				legend style={at={(-0.15, 1)}, anchor=north east, nodes={scale=0.8}}
+				]
+				\addplot[orange, ultra thick, domain=-5:5, samples=100] {atan(x)*pi/180};
+				\addlegendentry{$\arctg x$}
+				\addplot[purple, ultra thick, domain=-5:5, samples=100] {acos(x/sqrt(1+x^2))*pi/180};
+				\addlegendentry{$\arcctg x$}
+				
+				\draw[dashed, gray] (axis cs:-5, 1.57) -- (axis cs:5, 1.57);
+				\draw[dashed, gray] (axis cs:-5, -1.57) -- (axis cs:5, -1.57);
+				\draw[dashed, gray] (axis cs:-5, 3.14) -- (axis cs:5, 3.14);
+			\end{axis}
+		\end{tikzpicture}
+		\captionof{figure}{Графики $\arctg x$ и $\arcctg x$ с горизонтальными асимптотами}
+	\end{center}
+	
 	\vspace{0.5cm}
 	\begin{importantbox}{Вывод}
 		Все основные элементарные функции (степенные, показательные, логарифмические, тригонометрические и их обратные) непрерывны во всей своей области определения.
 	\end{importantbox}
+	
+	
+	
+	
 	
 	
 	
@@ -2402,29 +3184,44 @@
 		Если этот предел существует и конечен, функция называется \textbf{дифференцируемой} в точке $x_0$.
 	\end{definitionbox}
 	
+
 	\begin{center}
 		\begin{tikzpicture}
 			\begin{axis}[
-				width=0.7\textwidth,
-				height=5cm,
-				axis lines=middle,
-				xmin=-0.5, xmax=4,
-				ymin=-0.5, ymax=3,
-				xtick={1, 2.5},
-				xticklabels={$x_0$, $x_0+h$},
-				ytick={0.5, 2.2},
-				yticklabels={$f(x_0)$, $f(x_0+h)$},
+				axis lines = middle,
+				width=0.8\textwidth,
+				height=7cm,
+				xmin=-0.2, xmax=4.5,
+				ymin=-0.2, ymax=4,
+				xtick={1, 3},
+				xticklabels={$x_0$, $x_0+\Delta x$},
+				ytick={0.7, 3.1},
+				yticklabels={$f(x_0)$, $f(x_0+\Delta x)$},
+				xlabel={$x$}, ylabel={$y$},
+				legend style={at={(-0.15, 1)}, anchor=north east, nodes={scale=0.8}}
 				]
-				\addplot[blue, thick, domain=0.5:3] {0.3*x^2 + 0.2};
-				\addplot[red, thick] coordinates {(1,0.5) (2.5,2.075)}; % Секущая
-				\node[above left] at (axis cs:1,0.5) {$M_0$};
-				\node[above left] at (axis cs:2.5,2.075) {$M$};
-				\draw[dashed, gray] (axis cs:1,0) -- (axis cs:1,0.5);
-				\draw[dashed, gray] (axis cs:2.5,0) -- (axis cs:2.5,2.075);
+				\addplot[blue, ultra thick, domain=0.5:4, samples=100] {0.3*x^2 + 0.4};
+				\addlegendentry{$f(x)$}
+				
+				\addplot[red, thick, domain=0.5:4] {1.2*x - 0.5}; 
+				\addlegendentry{Секущая ($M_0 M$)}
+				
+				\addplot[green!60!black, thick, dashed, domain=0.5:4] {0.6*x + 0.1};
+				\addlegendentry{Касательная}
+				
+				\fill[black] (axis cs:1, 0.7) circle (2pt) node[above left] {$M_0$};
+				\fill[black] (axis cs:3, 3.1) circle (2pt) node[above left] {$M$};
+				
+				\draw[dashed, gray] (axis cs:1, 0) -- (axis cs:1, 0.7) -- (axis cs:0, 0.7);
+				\draw[dashed, gray] (axis cs:3, 0) -- (axis cs:3, 3.1) -- (axis cs:0, 3.1);
+				
+				\draw[<->, thick, orange] (axis cs:1, 0.3) -- node[below] {$\Delta x$} (axis cs:3, 0.3);
+				\draw[<->, thick, orange] (axis cs:3.3, 0.7) -- node[right] {$\Delta y$} (axis cs:3.3, 3.1);
 			\end{axis}
 		\end{tikzpicture}
-		\captionof{figure}{Геометрический смысл: предел наклона секущей}
+		\captionof{figure}{Геометрический смысл: $f'(x_0) = \text{tg}\,\alpha$ (угловой коэффициент касательной) - предел наклона секущей}
 	\end{center}
+	
 	
 	\begin{definitionbox}{51.2: Односторонние производные}
 		Для точек на границах области определения или в точках «излома» вводятся понятия односторонних производных:
@@ -2463,7 +3260,7 @@
 	
 	
 	
-	\vspace{1cm}
+	\newpage
 	\subsection{Дифференцируемость функции; связь дифференцируемости и существования производной (52 вопрос)}
 	
 	\begin{definitionbox}{52.1: Дифференцируемость функции в точке}
@@ -2503,7 +3300,7 @@
 	
 	
 	
-	\vspace{1cm}
+	\newpage
 	\subsection{Линейность производной и производная произведения (53 вопрос)}
 	
 	\begin{theorembox}{53.1: Основные правила}
@@ -2569,6 +3366,7 @@
 	
 
 	
+	\newpage
 	\subsection{Первая теорема Вейерштрасса (56 вопрос)}
 	
 	\begin{theorembox}{56.1: Первая теорема Вейерштрасса (об ограниченности)}
@@ -2595,6 +3393,31 @@
 	5. При достаточно больших $k$ мы получаем противоречие: число $|f(x_{n_k})|$ должно быть одновременно меньше константы $C$ и больше сколь угодно большого числа $k$ ($k < 1 + |f(x_*)|$).
 	
 	Следовательно, наше предположение было ложным, и функция $f(x)$ ограничена на $[a, b]$. \textbf{Ч.Т.Д.}
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				axis lines = middle,
+				width=0.7\textwidth,
+				height=6cm,
+				xlabel={$x$}, ylabel={$y$},
+				xmin=-0.5, xmax=4.5, ymin=-0.5, ymax=4,
+				xtick={0.8, 3.8}, xticklabels={$a$, $b$},
+				ytick={0.5, 3.5}, yticklabels={$-M$, $M$},
+				legend style={at={(-0.15,1)}, anchor=north east, nodes={scale=0.8}}
+				]
+				\addplot[blue, ultra thick, domain=0.8:3.8, samples=100] {2 + 0.8*sin(deg(x*2)) + 0.2*x};
+				\addlegendentry{$f(x) \in C[a,b]$}
+				
+				\draw[dashed, red, thick] (axis cs:0, 3.5) -- (axis cs:4.2, 3.5) node[right] {$y=M$};
+				\draw[dashed, red, thick] (axis cs:0, 0.5) -- (axis cs:4.2, 0.5) node[right] {$y=-M$};
+				
+				\draw[gray, thin] (axis cs:0.8, 0) -- (axis cs:0.8, 3.5);
+				\draw[gray, thin] (axis cs:3.8, 0) -- (axis cs:3.8, 3.5);
+			\end{axis}
+		\end{tikzpicture}
+		\captionof{figure}{Иллюстрация ограниченности функции на отрезке}
+	\end{center}
 	
 	
 	
@@ -2628,6 +3451,40 @@
 	Следовательно, наше предположение ложно, и существует точка $x^* \in [a, b]$ такая, что $f(x^*) = A$. \textbf{Ч.Т.Д.}
 	
 	
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				axis lines = middle,
+				width=0.7\textwidth,
+				height=6cm,
+				xlabel={$x$}, ylabel={$y$},
+				xmin=-0.5, xmax=4.5, ymin=0, ymax=4,
+				xtick={0.5, 4}, xticklabels={$a$, $b$},
+				ytick={0.8, 3.2}, yticklabels={$m$, $M$},
+				legend style={at={(-0.15,1)}, anchor=north east, nodes={scale=0.8}}
+				]
+				\addplot[blue, ultra thick, domain=0.5:4, samples=100] {2 + sin(deg(x*2.5-2)) + 0.1*x};
+				\addlegendentry{$f(x)$}
+				
+				\addplot[red, only marks, mark=*] coordinates {(1.4, 3.3)};
+				\draw[dashed, red] (axis cs:1.4, 0) -- (axis cs:1.4, 3.3) -- (axis cs:0, 3.3);
+				\node[below, red] at (axis cs:1.4, 0) {$x^*$};
+				
+				\addplot[red, only marks, mark=*] coordinates {(2.7, 0.7)};
+				\draw[dashed, red] (axis cs:2.7, 0) -- (axis cs:2.7, 0.7) -- (axis cs:0, 0.7);
+				\node[below, red] at (axis cs:2.7, 0) {$x_*$};
+				
+				\node[left] at (axis cs:0, 3.3) {$\sup f$};
+				\node[left] at (axis cs:0, 0.7) {$\inf f$};
+			\end{axis}
+		\end{tikzpicture}
+		\captionof{figure}{Достижение функцией своих точных граней $m$ и $M$}
+	\end{center}
+	
+
+	
+	
+	
 	
 	
 	\newpage
@@ -2651,6 +3508,31 @@
 	3. Так как производная в точке $x_0$ существует, левый и правый пределы должны совпадать. Единственное число, удовлетворяющее условиям $f'(x_0) \leq 0$ и $f'(x_0) \geq 0$ --- это $0$. Значит, $f'(x_0) = 0$. \textbf{Ч.Т.Д.}
 	
 	
+	
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				axis lines = middle,
+				width=0.7\textwidth, height=6cm,
+				xlabel={$x$}, ylabel={$y$},
+				xmin=0, xmax=4, ymin=0, ymax=3.5,
+				xtick={2}, xticklabels={$x_0$},
+				ytick={3}, yticklabels={$f(x_0)$},
+				legend style={at={(-0.15,1)}, anchor=north east, nodes={scale=0.8}}
+				]
+				\addplot[blue, ultra thick, domain=0.5:3.5, samples=100] {-0.5*(x-2)^2 + 3};
+				\addlegendentry{$f(x)$}
+				
+				\addplot[red, thick, domain=1:3] {3};
+				\addlegendentry{$f'(x_0)=0$}
+				
+				\draw[dashed, gray] (axis cs:2,0) -- (axis cs:2,3);
+				\fill[black] (axis cs:2,3) circle (2pt);
+			\end{axis}
+		\end{tikzpicture}
+		\captionof{figure}{Теорема Ферма: горизонтальная касательная в точке экстремума}
+	\end{center}
 	
 	
 	
@@ -2677,9 +3559,35 @@
 	4. По теореме Ферма, так как в точке $c$ локальный экстремум и функция в ней дифференцируема, то $f'(c) = 0$. \textbf{Ч.Т.Д.}
 	
 	
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				axis lines = middle,
+				width=0.7\textwidth, height=6cm,
+				xmin=0, xmax=5, ymin=0, ymax=4,
+				xtick={1, 2.5, 4}, xticklabels={$a$, $c$, $b$},
+				ytick={1.5}, yticklabels={$f(a)=f(b)$},
+				legend style={at={(-0.15,1)}, anchor=north east, nodes={scale=0.8}}
+				]
+				\addplot[blue, ultra thick, domain=1:4, samples=100] {-1.2*(x-2.5)^2 + 3.3};
+				\addlegendentry{$f(x)$}
+				
+				\draw[dashed, gray] (axis cs:1,1.5) -- (axis cs:4,1.5);
+				
+				\addplot[red, thick, domain=1.5:3.5] {3.3};
+				\addlegendentry{$f'(c)=0$};
+				
+				\fill[red] (axis cs:2.5, 3.3) circle (2pt);
+				\draw[dashed, red] (axis cs:2.5,0) -- (axis cs:2.5,3.3);
+			\end{axis}
+		\end{tikzpicture}
+		\captionof{figure}{Теорема Ролля: существование точки с нулевой производной}
+	\end{center}
 	
 	
 	
+	
+	\newpage
 	\subsection{Теорема Лагранжа (60 вопрос)}
 	
 	\begin{theorembox}{60.1: Теорема Лагранжа (о конечном приращении)}
@@ -2696,11 +3604,37 @@
 	4. Найдем производную: $\varphi'(x) = f'(x)(b - a) - (f(b) - f(a))$.
 	5. Подставляя $c$: $f'(c)(b - a) - (f(b) - f(a)) = 0$, откуда и следует формула Лагранжа. \textbf{Ч.Т.Д.}
 	
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				axis lines = middle,
+				width=0.7\textwidth, height=6cm,
+				xmin=0, xmax=5, ymin=0, ymax=4,
+				xtick={1, 2.3, 4}, xticklabels={$a$, $c$, $b$},
+				ytick=\empty,
+				legend style={at={(-0.15,1)}, anchor=north east, nodes={scale=0.8}}
+				]
+				\addplot[blue, ultra thick, domain=1:4, samples=100] {0.2*(x-1)^2 + 0.5*x + 0.5};
+				\addlegendentry{$f(x)$}
+				
+				\addplot[orange, thick] coordinates {(1, 1.2) (4, 4.3)};
+				\addlegendentry{Хорда $AB$}
+				
+				\addplot[red, thick, domain=1:4] {1.02*x - 0.5};
+				\addlegendentry{Касательная $|| AB$}
+				
+				\fill[black] (axis cs:1, 1.2) node[above left] {$A$};
+				\fill[black] (axis cs:4, 4.3) node[above left] {$B$};
+				\fill[red] (axis cs:2.3, 1.84) circle (2pt);
+				\draw[dashed, gray] (axis cs:2.3,0) -- (axis cs:2.3,1.84);
+			\end{axis}
+		\end{tikzpicture}
+		\captionof{figure}{Геометрический смысл теоремы Лагранжа}
+	\end{center}
 	
 	
 	
-	
-	\vspace{1cm}
+	\newpage
 	\subsection{Теорема Коши (61 вопрос)}
 	
 	\begin{theorembox}{61.1: Теорема Коши (об отношении приращений)}
@@ -2865,4 +3799,3 @@
 	\end{notebook}
 	
 \end{document}
-
